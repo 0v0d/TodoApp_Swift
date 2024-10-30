@@ -9,10 +9,14 @@ import Foundation
 import SwiftData
 
 @Model
-final class Item {
+final class Todo {
+    var title: String
+    var comment: String
     var timestamp: Date
     
-    init(timestamp: Date) {
+    init(title: String, comment: String, timestamp: Date) {
+        self.title = title
+        self.comment = comment
         self.timestamp = timestamp
     }
 }

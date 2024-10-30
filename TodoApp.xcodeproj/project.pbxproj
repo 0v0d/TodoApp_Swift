@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXFileReference section */
-		D032ECD92CCA84F000461F6C /* GmoriApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GmoriApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D032ECD92CCA84F000461F6C /* TodoApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TodoApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		D032ECDB2CCA84F000461F6C /* GmoriApp */ = {
+		D032ECDB2CCA84F000461F6C /* TodoApp */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = GmoriApp;
+			path = TodoApp;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -32,7 +32,7 @@
 		D032ECD02CCA84F000461F6C = {
 			isa = PBXGroup;
 			children = (
-				D032ECDB2CCA84F000461F6C /* GmoriApp */,
+				D032ECDB2CCA84F000461F6C /* TodoApp */,
 				D032ECDA2CCA84F000461F6C /* Products */,
 			);
 			sourceTree = "<group>";
@@ -40,7 +40,7 @@
 		D032ECDA2CCA84F000461F6C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D032ECD92CCA84F000461F6C /* GmoriApp.app */,
+				D032ECD92CCA84F000461F6C /* TodoApp.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -48,9 +48,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		D032ECD82CCA84F000461F6C /* GmoriApp */ = {
+		D032ECD82CCA84F000461F6C /* TodoApp */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D032ECE92CCA84F100461F6C /* Build configuration list for PBXNativeTarget "GmoriApp" */;
+			buildConfigurationList = D032ECE92CCA84F100461F6C /* Build configuration list for PBXNativeTarget "TodoApp" */;
 			buildPhases = (
 				D032ECD52CCA84F000461F6C /* Sources */,
 				D032ECD62CCA84F000461F6C /* Frameworks */,
@@ -61,13 +61,13 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				D032ECDB2CCA84F000461F6C /* GmoriApp */,
+				D032ECDB2CCA84F000461F6C /* TodoApp */,
 			);
-			name = GmoriApp;
+			name = TodoApp;
 			packageProductDependencies = (
 			);
 			productName = GmoriApp;
-			productReference = D032ECD92CCA84F000461F6C /* GmoriApp.app */;
+			productReference = D032ECD92CCA84F000461F6C /* TodoApp.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -85,7 +85,7 @@
 					};
 				};
 			};
-			buildConfigurationList = D032ECD42CCA84F000461F6C /* Build configuration list for PBXProject "GmoriApp" */;
+			buildConfigurationList = D032ECD42CCA84F000461F6C /* Build configuration list for PBXProject "TodoApp" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -99,7 +99,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				D032ECD82CCA84F000461F6C /* GmoriApp */,
+				D032ECD82CCA84F000461F6C /* TodoApp */,
 			);
 		};
 /* End PBXProject section */
@@ -251,7 +251,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"GmoriApp/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"TodoApp/Preview Content\"";
 				DEVELOPMENT_TEAM = N82VTDJ846;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -280,7 +280,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"GmoriApp/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"TodoApp/Preview Content\"";
 				DEVELOPMENT_TEAM = N82VTDJ846;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -305,7 +305,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		D032ECD42CCA84F000461F6C /* Build configuration list for PBXProject "GmoriApp" */ = {
+		D032ECD42CCA84F000461F6C /* Build configuration list for PBXProject "TodoApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D032ECE72CCA84F100461F6C /* Debug */,
@@ -314,7 +314,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D032ECE92CCA84F100461F6C /* Build configuration list for PBXNativeTarget "GmoriApp" */ = {
+		D032ECE92CCA84F100461F6C /* Build configuration list for PBXNativeTarget "TodoApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D032ECEA2CCA84F100461F6C /* Debug */,
