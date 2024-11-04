@@ -10,49 +10,83 @@ struct TaskFormView: View {
     @Environment(\.dismiss) private var dismiss
     @Binding var title: String
     @Binding var comment: String
+    @Binding var dueDate: Date
     var topBarTitle: String
     @State private var isShowError = false
     var action: (() -> Void)
     
     var body: some View {
         NavigationStack{
-            VStack(spacing: 20) {
-                InputField(
-                    title: "タイトル",
-                    placeholder: "タイトルを入力",
-                    text: $title,
-                    isRequired: true,
-                    showError: $isShowError,
-                    errorMessage: "タイトルを入力してください"
-                )
-                
-                InputField(
-                    title: "コメント",
-                    placeholder: "コメントを入力",
-                    text: $comment,
-                    isRequired: false,
-                    lineLimitRange: 3...6
-                )
-                .padding(.top, 10)
-                
-                Spacer()
-            }
-            .padding()
-            .navigationTitle(topBarTitle)
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .cancellationAction) {
-                    Button("キャンセル") {
-                        dismiss()
+            ScrollView {
+                VStack(spacing: 20) {
+                    InputField(
+                        title: "タイトル",
+                        placeholder: "タイトルを入力",
+                        text: $title,
+                        isRequired: true,
+                        showError: $isShowError,
+                        errorMessage: "タイトルを入力してください"
+                    ).padding(.top, 10)
+                    
+                    InputField(
+                        title: "コメント",
+                        placeholder: "コメントを入力",
+                        text: $comment,
+                        isRequired: false,
+                        lineLimitRange: 3...6
+                    )
+                    .padding(.top, 10)
+                    
+                    VStack(alignment: .leading, spacing: 12) {
+                        Text("期日")
+                            .font(.headline)
+                            .foregroundColor(.secondary)
+                        
+                        // 日付選択
+                        DatePicker(
+                            "日付を選択",
+                            selection: $dueDate,
+                            displayedComponents: [.date]
+                        )
+                        .datePickerStyle(.graphical)
+                        .padding()
+                        .background(Color(.secondarySystemBackground))
+                        .cornerRadius(15)
+                        
+                        Text("時間")
+                            .font(.headline)
+                            .foregroundColor(.secondary)
+                        // 時間選択（ドラムロール式）
+                        DatePicker(
+                            "時間を選択",
+                            selection: $dueDate,
+                            displayedComponents: [.hourAndMinute]
+                        )
+                        .datePickerStyle(.wheel)
+                        .padding()
+                        .background(Color(.secondarySystemBackground))
+                        .cornerRadius(15)
                     }
-                    .foregroundColor(.blue)
+                                    
+                    Spacer()
                 }
-                ToolbarItem(placement: .primaryAction) {
-                    Button("保存") {
-                        handleSaveAction()
+                .padding()
+                .navigationTitle(topBarTitle)
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .cancellationAction) {
+                        Button("キャンセル") {
+                            dismiss()
+                        }
+                        .foregroundColor(.blue)
                     }
-                    .disabled(!isValidInput)
-                    .foregroundColor(isValidInput ? .blue : .gray)
+                    ToolbarItem(placement: .primaryAction) {
+                        Button("保存") {
+                            handleSaveAction()
+                        }
+                        .disabled(!isValidInput)
+                        .foregroundColor(isValidInput ? .blue : .gray)
+                    }
                 }
             }
         }
@@ -116,7 +150,14 @@ struct InputField: View {
 #Preview {
     @Previewable @State var title = ""
     @Previewable @State var comment = ""
+    @Previewable @State var dueDate = Date()
     let action = {}
     let topBarTitle = "新規タスク"
-    TaskFormView(title: $title, comment: $comment, topBarTitle: topBarTitle, action: action)
+    TaskFormView(
+        title: $title,
+        comment: $comment,
+        dueDate: $dueDate,
+        topBarTitle: topBarTitle,
+        action: action
+    )
 }

@@ -13,10 +13,12 @@ final class Todo {
     var title: String
     var comment: String
     var timestamp: Date
-    
-    init(title: String, comment: String, timestamp: Date) {
+    var dueDate: Date
+
+    init(title: String, comment: String, timestamp: Date, dueDate: Date) {
         self.title = title
         self.comment = comment
         self.timestamp = timestamp
+        self.dueDate = dueDate
     }
 }
