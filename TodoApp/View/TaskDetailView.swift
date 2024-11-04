@@ -61,6 +61,14 @@ struct TaskInfoSection: View {
         Section(header: Text("タスク詳細")) {
             InfoRow(title: "タイトル", content: task.title)
             InfoRow(title: "コメント", content: task.comment)
+            InfoRow(
+                title: "期日",
+                content: task.dueDate.formatted(
+                    .dateTime
+                    .year().month().day()
+                    .hour().minute()
+                )
+            )
         }
     }
 }
@@ -91,6 +99,11 @@ struct InfoRow: View {
 }
 
 #Preview {
-    let testData = Todo( title: "test", comment: "テスト", timestamp: Date())
-    TaskDetailView(task: testData)
+    let testData = Todo(
+        title: "test",
+        comment: "テスト",
+        timestamp: Date(),
+        dueDate: Date().addingTimeInterval(24 * 60 * 60)  // 明日の日付をテスト用に設定
+    )
+    return TaskDetailView(task: testData)
 }

@@ -13,18 +13,21 @@ struct EditTaskView: View {
     
     @State private var editedTitle: String
     @State private var editedComment: String
+    @State private var editedDueDate: Date
     @State private var isUpdating = false
 
     init(task: Todo) {
         self.task = task
         _editedTitle = State(initialValue: task.title)
         _editedComment = State(initialValue: task.comment)
+        _editedDueDate = State(initialValue: task.dueDate)
     }
     
     var body: some View {
         TaskFormView(
             title: $editedTitle,
             comment: $editedComment,
+            dueDate: $editedDueDate,
             topBarTitle: "タスクの編集",
             action: saveTask
         )
@@ -41,6 +44,7 @@ struct EditTaskView: View {
             let updatedTask = task
             updatedTask.title = editedTitle
             updatedTask.comment = editedComment
+            updatedTask.dueDate = editedDueDate
             await viewModel.updateTask(updatedTask)
             isUpdating = false
         }
@@ -48,6 +52,6 @@ struct EditTaskView: View {
 }
 
 #Preview {
-    let testData = Todo(title: "タスクの編集", comment: "コメント",timestamp: Date())
+    let testData = Todo(title: "タスクの編集", comment: "コメント",timestamp: Date(), dueDate: Date())
     EditTaskView(task: testData)
 }
