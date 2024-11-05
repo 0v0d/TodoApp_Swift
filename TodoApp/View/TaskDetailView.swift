@@ -36,7 +36,6 @@ struct TaskDetailView: View {
     var body: some View {
         Form {
             TaskInfoSection(task: task)
-            TimestampSection(timestamp: task.timestamp)
         }
         .navigationBarTitle(task.title)
         .navigationBarTitleDisplayMode(.inline)
@@ -63,22 +62,12 @@ struct TaskInfoSection: View {
             InfoRow(title: "コメント", content: task.comment)
             InfoRow(
                 title: "期日",
-                content: task.dueDate.formatted(
-                    .dateTime
-                    .year().month().day()
-                    .hour().minute()
-                )
+                content: task.dueDate.formattedDateTime()
             )
-        }
-    }
-}
-
-struct TimestampSection: View {
-    let timestamp: Date
-    
-    var body: some View {
-        Section(header: Text("作成日時")) {
-            Text(timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))
+            InfoRow(
+                title: "作成日時",
+                content: task.timestamp.formattedDateTime()
+            )
         }
     }
 }
