@@ -1,6 +1,6 @@
 //
 //  FromView.swift
-//  GmoriApp
+//  TodoApp
 //
 //  Created by 0v0 on 2024/10/24.
 //
