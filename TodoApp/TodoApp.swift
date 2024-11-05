@@ -8,31 +8,17 @@
 import SwiftUI
 
 @main
-struct TodoApp: App {
-    private let repository: TaskRepositoryIMPL?
-    private let viewModel: TaskViewModel?
-
+struct TodoApp: App {    
+    let viewModel: TaskViewModel
+    
     init() {
-        do {
-            self.repository = try TaskRepositoryIMPL()
-            self.viewModel = TaskViewModel(repository: repository!)
-        } catch {
-            print("Failed to initialize TaskRepositoryIMPL: \(error.localizedDescription)")
-            self.repository = nil
-            self.viewModel = nil
-        }
+        viewModel = DIContainer.shared.makeTaskViewModel()
     }
     
     var body: some Scene {
         WindowGroup {
-            if let viewModel = viewModel {
-                HomeView()
-                    .environmentObject(viewModel)
-            } else {
-                Text("アプリの初期化に失敗しました")
-                    .foregroundColor(.red)
-                    .font(.title)
-            }
+             HomeView()
+                .environmentObject(viewModel)
         }
     }
 }
