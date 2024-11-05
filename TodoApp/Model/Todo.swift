@@ -1,10 +1,9 @@
 //
-//  Item.swift
-//  GmoriApp
+//  Todo.swift
+//  TodoApp
 //
 //  Created by 0v0 on 2024/10/24.
 //
-
 import Foundation
 import SwiftData
 
@@ -14,8 +13,9 @@ final class Todo {
     var comment: String
     var timestamp: Date
     var dueDate: Date
+    var status: Status
 
-    init(title: String, comment: String, timestamp: Date, dueDate: Date) {
+    init(title: String, comment: String, timestamp: Date, dueDate: Date, status: Status) {
         self.title = title
         self.comment = comment
         self.timestamp = timestamp
