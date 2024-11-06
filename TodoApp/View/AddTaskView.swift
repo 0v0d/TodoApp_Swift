@@ -11,6 +11,7 @@ struct AddTaskView: View {
     @State private var title: String = ""
     @State private var comment: String = ""
     @State private var dueDate: Date = Date()
+    @State private var selectedValue = 0
     @State private var isUpdating = false
     
     var body: some View {
@@ -18,6 +19,7 @@ struct AddTaskView: View {
             title: $title,
             comment: $comment,
             dueDate: $dueDate,
+            selectedValue: $selectedValue,
             topBarTitle: "新規タスク",
             action: addItem)
         .overlay {
@@ -30,7 +32,11 @@ struct AddTaskView: View {
     private func addItem() {
         Task{
             isUpdating = true
-            let task = Todo(title: title, comment: comment, timestamp: Date(), dueDate: dueDate)
+            let task = Todo(title: title, 
+            comment: comment,
+             timestamp: Date(), 
+             dueDate: dueDate, 
+             status: Status(rawValue: selectedValue) ?? .notStarted)
             await viewModel.addTask(task)
             isUpdating = false
         }

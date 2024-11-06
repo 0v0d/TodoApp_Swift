@@ -20,5 +20,6 @@ final class Todo {
         self.comment = comment
         self.timestamp = timestamp
         self.dueDate = dueDate
+        self.status = status
     }
 }
