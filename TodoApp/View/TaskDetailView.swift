@@ -38,7 +38,7 @@ struct TaskDetailView: View {
             TaskInfoSection(task: task)
         }
         .navigationBarTitle(task.title)
-        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarTitleDisplayMode(.large)
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
                 Button("編集") {
@@ -58,7 +58,7 @@ struct TaskInfoSection: View {
     
     var body: some View {
         Section(header: Text("タスク詳細")) {
-            InfoRow(title: "タイトル", content: task.title)
+            InfoRow(title: "ステータス", content: task.status.displayText)
             InfoRow(title: "コメント", content: task.comment)
             InfoRow(
                 title: "期日",
@@ -92,7 +92,8 @@ struct InfoRow: View {
         title: "test",
         comment: "テスト",
         timestamp: Date(),
-        dueDate: Date().addingTimeInterval(24 * 60 * 60)  // 明日の日付をテスト用に設定
+        dueDate: Date().addingTimeInterval(24 * 60 * 60),  // 明日の日付をテスト用に設定
+        status: .inProgress
     )
     return TaskDetailView(task: testData)
 }

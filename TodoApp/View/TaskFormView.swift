@@ -11,6 +11,7 @@ struct TaskFormView: View {
     @Binding var title: String
     @Binding var comment: String
     @Binding var dueDate: Date
+    @Binding var selectedValue: Int
     var topBarTitle: String
     @State private var isShowError = false
     var action: (() -> Void)
@@ -38,6 +39,17 @@ struct TaskFormView: View {
                     .padding(.top, 10)
                     
                     VStack(alignment: .leading, spacing: 12) {
+                        Text("ステータス")
+                            .font(.headline)
+                            .foregroundColor(.secondary)
+                        
+                        Picker("", selection: $selectedValue) {
+                            Text(Status.notStarted.displayText).tag(0)
+                            Text(Status.inProgress.displayText).tag(1)
+                            Text(Status.completed.displayText).tag(2)
+                        }
+                        .pickerStyle(.wheel)
+                        
                         Text("期日")
                             .font(.headline)
                             .foregroundColor(.secondary)
@@ -67,7 +79,7 @@ struct TaskFormView: View {
                         .background(Color(.secondarySystemBackground))
                         .cornerRadius(15)
                     }
-                                    
+                    
                     Spacer()
                 }
                 .padding()
@@ -151,12 +163,14 @@ struct InputField: View {
     @Previewable @State var title = ""
     @Previewable @State var comment = ""
     @Previewable @State var dueDate = Date()
+    @Previewable @State var selectedValue = 0
     let action = {}
     let topBarTitle = "新規タスク"
     TaskFormView(
         title: $title,
         comment: $comment,
         dueDate: $dueDate,
+        selectedValue: $selectedValue,
         topBarTitle: topBarTitle,
         action: action
     )
