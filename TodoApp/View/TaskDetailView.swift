@@ -93,7 +93,8 @@ struct InfoRow: View {
         comment: "テスト",
         timestamp: Date(),
         dueDate: Date().addingTimeInterval(24 * 60 * 60),  // 明日の日付をテスト用に設定
-        status: .inProgress
+        status: .inProgress,
+        order: 0
     )
     return TaskDetailView(task: testData)
 }

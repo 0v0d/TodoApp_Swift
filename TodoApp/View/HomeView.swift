@@ -18,6 +18,7 @@ struct HomeView: View {
             TaskListView(
                 tasks: viewModel.tasks,
                 deleteTask: deleteTask,
+                moveTask: moveTask,
                 selectedTask: $selectedTask,
                 showingAddTask: $showingAddTask
             )
@@ -45,6 +46,12 @@ struct HomeView: View {
                 let task = viewModel.tasks[index]
                 await viewModel.deleteTask(task)
             }
+        }
+    }
+    
+    private func moveTask(from: IndexSet, to: Int) {
+        Task {
+            await viewModel.moveTask(from: from, to: to)
         }
     }
 }

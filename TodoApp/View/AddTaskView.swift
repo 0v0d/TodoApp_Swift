@@ -32,11 +32,14 @@ struct AddTaskView: View {
     private func addItem() {
         Task{
             isUpdating = true
-            let task = Todo(title: title, 
-            comment: comment,
+            let task = Todo(
+             title: title,
+             comment: comment,
              timestamp: Date(), 
              dueDate: dueDate, 
-             status: Status(rawValue: selectedValue) ?? .notStarted)
+             status: Status(rawValue: selectedValue) ?? .notStarted,
+             order: viewModel.tasks.count
+            )
             await viewModel.addTask(task)
             isUpdating = false
         }

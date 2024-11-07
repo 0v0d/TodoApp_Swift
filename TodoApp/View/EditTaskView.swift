@@ -44,18 +44,19 @@ struct EditTaskView: View {
     private func saveTask() {
         Task{
             isUpdating = true
-            let updatedTask = task
-            updatedTask.title = editedTitle
-            updatedTask.comment = editedComment
-            updatedTask.dueDate = editedDueDate
-            updatedTask.status = Status(rawValue: selectedValue) ?? .notStarted
-            await viewModel.updateTask(updatedTask)
+            task.update(
+                title: editedTitle,
+                comment: editedComment,
+                dueDate: editedDueDate,
+                status: Status(rawValue: selectedValue) ?? .notStarted
+            )
+            await viewModel.updateTask(task)
             isUpdating = false
         }
     }
 }
 
 #Preview {
-    let testData = Todo(title: "タスクの編集", comment: "コメント",timestamp: Date(), dueDate: Date(), status: .inProgress)
+    let testData = Todo(title: "タスクの編集", comment: "コメント",timestamp: Date(), dueDate: Date(), status: .inProgress, order: 1)
     EditTaskView(task: testData)
 }

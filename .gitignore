@@ -2,22 +2,21 @@
 .DS_Store
 .AppleDouble
 .LSOverride
+*.swp
 
-# Xcode
+# Xcode - プロジェクト設定
+*.xcodeproj/*
+!*.xcodeproj/project.pbxproj
+!*.xcodeproj/xcshareddata/
+*.xcworkspace/*
+!*.xcworkspace/contents.xcworkspacedata
+!*.xcworkspace/xcshareddata/
+
+# Xcode - ユーザー設定
 xcuserdata/
 *.xcuserstate
 *.xcscmblueprint
 *.xccheckout
-*.hmap
-*.ipa
-*.dSYM.zip
-*.dSYM
-timeline.xctimeline
-playground.xcworkspace
-
-# ビルド生成物
-build/
-DerivedData/
 *.moved-aside
 *.pbxuser
 !default.pbxuser
@@ -28,6 +27,18 @@ DerivedData/
 *.perspectivev3
 !default.perspectivev3
 
+# ビルド生成物
+build/
+DerivedData/
+*.hmap
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+# プレイグラウンド
+timeline.xctimeline
+playground.xcworkspace
+
 # 依存関係管理
 Pods/
 Carthage/Build/
@@ -37,3 +48,4 @@ Dependencies/
 
 # その他
 iOSInjectionProject/
+!.gitkeep
