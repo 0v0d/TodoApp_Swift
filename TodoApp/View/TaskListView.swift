@@ -10,6 +10,7 @@ import SwiftData
 struct TaskListView: View {
     let tasks: [Todo]
     let deleteTask: (IndexSet) -> ()
+    let moveTask: (IndexSet, Int) -> ()
     @Binding var selectedTask: Todo?
     @Binding var showingAddTask: Bool
     
@@ -21,6 +22,7 @@ struct TaskListView: View {
                 }
             }
             .onDelete(perform: deleteTask)
+            .onMove(perform: moveTask)
         }
         .navigationTitle("タスクリスト")
         .overlay {
@@ -41,6 +43,9 @@ struct TaskListView: View {
                         .foregroundColor(.blue)
                 }
             }
+            ToolbarItem(placement: .navigationBarLeading) {
+                EditButton()
+            }
         }
     }
 }
@@ -52,7 +57,7 @@ struct TaskRow: View {
         HStack {
             Image(systemName: "document.fill")
                 .fontWeight(.bold)
-                .foregroundColor(.blue)
+                
             Text(task.title)
                 .font(.headline)
                 .lineLimit(1)

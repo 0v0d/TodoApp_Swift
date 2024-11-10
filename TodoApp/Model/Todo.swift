@@ -14,11 +14,33 @@ final class Todo {
     var timestamp: Date
     var dueDate: Date
     var status: Status
+    var order: Int
 
-    init(title: String, comment: String, timestamp: Date, dueDate: Date, status: Status) {
+    init(
+        title: String,
+        comment: String,
+        timestamp: Date,
+        dueDate: Date,
+        status: Status,
+        order: Int
+    ) {
         self.title = title
         self.comment = comment
         self.timestamp = timestamp
+        self.dueDate = dueDate
+        self.status = status
+        self.order = order
+    }
+
+    // タスクを更新するメソッド
+    func update(
+        title: String,
+        comment: String,
+        dueDate: Date,
+        status: Status
+    ) {
+        self.title = title
+        self.comment = comment
         self.dueDate = dueDate
         self.status = status
     }

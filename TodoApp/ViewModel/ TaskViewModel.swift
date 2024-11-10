@@ -43,7 +43,18 @@ final class TaskViewModel: ObservableObject {
             handle(error: error)
         }
     }
-    
+
+  @MainActor
+func moveTask(from source: IndexSet, to destination: Int) async {
+    do {
+        // IndexSetから最初の要素を取得
+        guard let sourceIndex = source.first else { return }
+        try await repository.updateOrder(from: sourceIndex, to: destination)
+        await loadTasks()
+    } catch {
+        print("Error moving task: \(error)")
+    }
+} 
     
     @MainActor
     func deleteTask(_ task: Todo) async {
