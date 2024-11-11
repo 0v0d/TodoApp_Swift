@@ -7,7 +7,7 @@
 import SwiftUI
 
 @main
-struct TodoApp: App {    
+struct TodoApp: App {
     let viewModel: TaskViewModel
     
     init() {
@@ -21,4 +21,3 @@ struct TodoApp: App {
         }
     }
 }
-
