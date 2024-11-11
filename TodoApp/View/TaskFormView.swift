@@ -13,73 +13,18 @@ struct TaskFormView: View {
     @Binding var dueDate: Date
     @Binding var selectedValue: Int
     var topBarTitle: String
-    @State private var isShowError = false
     var action: (() -> Void)
     
     var body: some View {
-        NavigationStack{
+        NavigationStack {
             ScrollView {
                 VStack(spacing: 20) {
-                    InputField(
-                        title: "タイトル",
-                        placeholder: "タイトルを入力",
-                        text: $title,
-                        isRequired: true,
-                        showError: $isShowError,
-                        errorMessage: "タイトルを入力してください"
-                    ).padding(.top, 10)
-                    
-                    InputField(
-                        title: "コメント",
-                        placeholder: "コメントを入力",
-                        text: $comment,
-                        isRequired: false,
-                        lineLimitRange: 3...6
+                    TitleInputField(title: $title)
+                    CommentInputField(comment: $comment)
+                    StatusAndDatePicker(
+                        selectedValue: $selectedValue,
+                        dueDate: $dueDate
                     )
-                    .padding(.top, 10)
-                    
-                    VStack(alignment: .leading, spacing: 12) {
-                        Text("ステータス")
-                            .font(.headline)
-                            .foregroundColor(.secondary)
-                        
-                        Picker("", selection: $selectedValue) {
-                            Text(Status.notStarted.displayText).tag(0)
-                            Text(Status.inProgress.displayText).tag(1)
-                            Text(Status.completed.displayText).tag(2)
-                        }
-                        .pickerStyle(.wheel)
-                        
-                        Text("期日")
-                            .font(.headline)
-                            .foregroundColor(.secondary)
-                        
-                        // 日付選択
-                        DatePicker(
-                            "日付を選択",
-                            selection: $dueDate,
-                            displayedComponents: [.date]
-                        )
-                        .datePickerStyle(.graphical)
-                        .padding()
-                        .background(Color(.secondarySystemBackground))
-                        .cornerRadius(15)
-                        
-                        Text("時間")
-                            .font(.headline)
-                            .foregroundColor(.secondary)
-                        // 時間選択（ドラムロール式）
-                        DatePicker(
-                            "時間を選択",
-                            selection: $dueDate,
-                            displayedComponents: [.hourAndMinute]
-                        )
-                        .datePickerStyle(.wheel)
-                        .padding()
-                        .background(Color(.secondarySystemBackground))
-                        .cornerRadius(15)
-                    }
-                    
                     Spacer()
                 }
                 .padding()
@@ -106,11 +51,8 @@ struct TaskFormView: View {
     
     private func handleSaveAction() {
         if isValidInput {
-            isShowError = false
             action()
             dismiss()
-        } else {
-            isShowError = true
         }
     }
     
@@ -119,12 +61,92 @@ struct TaskFormView: View {
     }
 }
 
-struct InputField: View {
+// タイトル入力フィールド
+private struct TitleInputField: View {
+    @Binding var title: String
+    
+    var body: some View {
+        InputField(
+            title: "タイトル",
+            placeholder: "タイトルを入力",
+            text: $title,
+            isRequired: true,
+            errorMessage: "タイトルを入力してください"
+        )
+        .padding(.top, 10)
+    }
+}
+
+// コメント入力フィールド
+private struct CommentInputField: View {
+    @Binding var comment: String
+    
+    var body: some View {
+        InputField(
+            title: "コメント",
+            placeholder: "コメントを入力",
+            text: $comment,
+            isRequired: false,
+            lineLimitRange: 3...6
+        )
+        .padding(.top, 10)
+    }
+}
+
+// ステータスと日付選択
+private struct StatusAndDatePicker: View {
+    @Binding var selectedValue: Int
+    @Binding var dueDate: Date
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text("ステータス")
+                .font(.headline)
+                .foregroundColor(.secondary)
+            
+            Picker("", selection: $selectedValue) {
+                Text(Status.notStarted.displayText).tag(0)
+                Text(Status.inProgress.displayText).tag(1)
+                Text(Status.completed.displayText).tag(2)
+            }
+            .pickerStyle(.wheel)
+            
+            Text("期日")
+                .font(.headline)
+                .foregroundColor(.secondary)
+            
+            DatePicker(
+                "日付を選択",
+                selection: $dueDate,
+                displayedComponents: [.date]
+            )
+            .datePickerStyle(.graphical)
+            .padding()
+            .background(Color(.secondarySystemBackground))
+            .cornerRadius(15)
+            
+            Text("時間")
+                .font(.headline)
+                .foregroundColor(.secondary)
+            
+            DatePicker(
+                "時間を選択",
+                selection: $dueDate,
+                displayedComponents: [.hourAndMinute]
+            )
+            .datePickerStyle(.wheel)
+            .padding()
+            .background(Color(.secondarySystemBackground))
+            .cornerRadius(15)
+        }
+    }
+}
+
+private struct InputField: View {
     let title: String
     let placeholder: String
     @Binding var text: String
     var isRequired: Bool = false
-    var showError: Binding<Bool>? = nil
     var errorMessage: String? = nil
     var lineLimitRange: ClosedRange<Int>?
     
@@ -148,13 +170,6 @@ struct InputField: View {
                 .background(Color(.secondarySystemBackground))
                 .cornerRadius(15)
                 .lineLimit(lineLimitRange ?? 5...10)
-            
-            if let showError = showError, showError.wrappedValue, let errorMessage = errorMessage {
-                Text(errorMessage)
-                    .font(.footnote)
-                    .foregroundColor(.red)
-                    .padding(.leading, 5)
-            }
         }
     }
 }
