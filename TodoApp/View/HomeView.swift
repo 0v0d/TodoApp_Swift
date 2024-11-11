@@ -19,10 +19,13 @@ struct HomeView: View {
                 tasks: viewModel.tasks,
                 deleteTask: deleteTask,
                 moveTask: moveTask,
-                selectedTask: $selectedTask,
-                showingAddTask: $showingAddTask
+                selectedTask: $selectedTask
             )
+            .navigationTitle("タスクリスト")
             .navigationSplitViewColumnWidth(min: 150, ideal: 300, max: 400)
+            .navigationBarItems(trailing: EditButton())
+            .navigationBarItems(trailing: AddTaskButton(showingAddTask: $showingAddTask))
+            //EditButton()バグ回避のため、navigationBarItemsを使う
         } detail: {
             TaskDetailViewOrEmpty(selectedTask: $selectedTask, tasks: viewModel.tasks)
         }
@@ -31,6 +34,18 @@ struct HomeView: View {
         }
         .onAppear {
             loadTasks()
+        }
+    }
+    
+    private struct AddTaskButton : View {
+        @Binding var showingAddTask: Bool
+        var body: some View {
+            Button(action: { showingAddTask = true }) {
+                Image(systemName: "square.and.pencil")
+                    .accessibilityLabel("新規タスク")
+                    .fontWeight(.bold)
+                    .foregroundColor(.blue)
+            }
         }
     }
     
@@ -55,7 +70,6 @@ struct HomeView: View {
         }
     }
 }
-
 
 #Preview {
     HomeView()

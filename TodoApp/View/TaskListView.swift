@@ -8,11 +8,11 @@ import SwiftUI
 import SwiftData
 
 struct TaskListView: View {
+    @Environment(\.editMode) private var editMode
     let tasks: [Todo]
     let deleteTask: (IndexSet) -> ()
     let moveTask: (IndexSet, Int) -> ()
     @Binding var selectedTask: Todo?
-    @Binding var showingAddTask: Bool
     
     var body: some View {
         List(selection: $selectedTask) {
@@ -22,9 +22,8 @@ struct TaskListView: View {
                 }
             }
             .onDelete(perform: deleteTask)
-            .onMove(perform: moveTask)
+            .onMove(perform: editMode?.wrappedValue.isEditing == true ? moveTask : nil)
         }
-        .navigationTitle("タスクリスト")
         .overlay {
             if tasks.isEmpty {
                 EmptyStateView(
@@ -34,38 +33,26 @@ struct TaskListView: View {
                 )
             }
         }
-        .toolbar {
-            ToolbarItem(placement: .primaryAction) {
-                Button(action: { showingAddTask = true }) {
-                    Image(systemName: "square.and.pencil")
-                        .accessibilityLabel("新規タスク")
-                        .fontWeight(.bold)
-                        .foregroundColor(.blue)
-                }
-            }
-            ToolbarItem(placement: .navigationBarLeading) {
-                EditButton()
-            }
-        }
+        
     }
 }
 
-struct TaskRow: View {
+private struct TaskRow: View {
     let task: Todo
     
     var body: some View {
         HStack {
             Image(systemName: "document.fill")
                 .fontWeight(.bold)
-                
+            
             Text(task.title)
-                .font(.headline)
+                .font(.callout)
                 .lineLimit(1)
         }
     }
 }
 
-struct EmptyStateView: View {
+private struct EmptyStateView: View {
     let title: String
     let systemImageName: String
     let description: String
@@ -84,4 +71,3 @@ struct EmptyStateView: View {
         }
     }
 }
-

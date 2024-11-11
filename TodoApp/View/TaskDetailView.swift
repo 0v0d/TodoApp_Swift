@@ -19,7 +19,7 @@ struct TaskDetailViewOrEmpty: View {
     }
 }
 
-struct EmptyTaskView: View {
+private struct EmptyTaskView: View {
     var body: some View {
         ContentUnavailableView(
             "タスクを選択してください",
@@ -29,7 +29,7 @@ struct EmptyTaskView: View {
     }
 }
 
-struct TaskDetailView: View {
+private struct TaskDetailView: View {
     @Bindable var task: Todo
     @State private var showingEditTask = false
     
@@ -37,8 +37,6 @@ struct TaskDetailView: View {
         Form {
             TaskInfoSection(task: task)
         }
-        .navigationBarTitle(task.title)
-        .navigationBarTitleDisplayMode(.large)
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
                 Button("編集") {
@@ -53,11 +51,12 @@ struct TaskDetailView: View {
     }
 }
 
-struct TaskInfoSection: View {
+private struct TaskInfoSection: View {
     let task: Todo
     
     var body: some View {
-        Section(header: Text("タスク詳細")) {
+        Section {
+            InfoRow(title: "タイトル", content: task.title)
             InfoRow(title: "ステータス", content: task.status.displayText)
             InfoRow(title: "コメント", content: task.comment)
             InfoRow(
@@ -72,7 +71,7 @@ struct TaskInfoSection: View {
     }
 }
 
-struct InfoRow: View {
+private struct InfoRow: View {
     let title: String
     let content: String
     
