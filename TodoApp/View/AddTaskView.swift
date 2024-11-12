@@ -10,7 +10,7 @@ struct AddTaskView: View {
     @EnvironmentObject var viewModel: TaskViewModel
     @State private var title: String = ""
     @State private var comment: String = ""
-    @State private var dueDate: Date = Date()
+    @State private var dueDate: Date? = nil
     @State private var selectedValue = 0
     @State private var isUpdating = false
     

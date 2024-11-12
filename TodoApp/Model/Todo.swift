@@ -12,7 +12,7 @@ final class Todo {
     var title: String
     var comment: String
     var timestamp: Date
-    var dueDate: Date
+    var dueDate: Date?
     var status: Status
     var order: Int
 
@@ -20,7 +20,7 @@ final class Todo {
         title: String,
         comment: String,
         timestamp: Date,
-        dueDate: Date,
+        dueDate: Date?,
         status: Status,
         order: Int
     ) {
@@ -36,7 +36,7 @@ final class Todo {
     func update(
         title: String,
         comment: String,
-        dueDate: Date,
+        dueDate: Date?,
         status: Status
     ) {
         self.title = title

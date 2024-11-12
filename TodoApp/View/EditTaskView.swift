@@ -13,7 +13,7 @@ struct EditTaskView: View {
     
     @State private var editedTitle: String
     @State private var editedComment: String
-    @State private var editedDueDate: Date
+    @State private var editedDueDate: Date?
     @State private var selectedValue: Int
     @State private var isUpdating = false
 
