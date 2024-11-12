@@ -10,11 +10,16 @@ struct TaskFormView: View {
     @Environment(\.dismiss) private var dismiss
     @Binding var title: String
     @Binding var comment: String
-    @Binding var dueDate: Date
+    @Binding var dueDate: Date?
     @Binding var selectedValue: Int
     var topBarTitle: String
     var action: (() -> Void)
     
+    private var isError: Bool {
+        title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+        || (dueDate != nil && dueDate! < Date())
+    }
+
     var body: some View {
         NavigationStack {
             ScrollView {
@@ -41,8 +46,8 @@ struct TaskFormView: View {
                         Button("保存") {
                             handleSaveAction()
                         }
-                        .disabled(!isValidInput)
-                        .foregroundColor(isValidInput ? .blue : .gray)
+                        .disabled(isError)
+                        .foregroundColor(!isError ? .blue : .gray)
                     }
                 }
             }
@@ -50,14 +55,14 @@ struct TaskFormView: View {
     }
     
     private func handleSaveAction() {
-        if isValidInput {
+        if !isError {
+            // 期日が過去の場合はnilに設定
+            if let dueDate = dueDate, dueDate < Date() {
+                self.dueDate = nil
+            }
             action()
             dismiss()
         }
-    }
-    
-    private var isValidInput: Bool {
-        !title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
 }
 
@@ -96,7 +101,7 @@ private struct CommentInputField: View {
 // ステータスと日付選択
 private struct StatusAndDatePicker: View {
     @Binding var selectedValue: Int
-    @Binding var dueDate: Date
+    @Binding var dueDate: Date?
     
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -117,7 +122,13 @@ private struct StatusAndDatePicker: View {
             
             DatePicker(
                 "日付を選択",
-                selection: $dueDate,
+                selection: Binding(
+                    get: { dueDate ?? Date() },
+                    set: { newDate in
+                        // 期日が現在より前の場合はnilに設定
+                        dueDate = newDate >= Date() ? newDate : nil
+                    }
+                ),
                 displayedComponents: [.date]
             )
             .datePickerStyle(.graphical)
@@ -125,13 +136,25 @@ private struct StatusAndDatePicker: View {
             .background(Color(.secondarySystemBackground))
             .cornerRadius(15)
             
+            if let dueDate = dueDate, dueDate < Date() {
+                Text("期日は未来の日付を選択してください")
+                    .font(.caption)
+                    .foregroundColor(.red)
+            }
+            
             Text("時間")
                 .font(.headline)
                 .foregroundColor(.secondary)
             
             DatePicker(
                 "時間を選択",
-                selection: $dueDate,
+                selection: Binding(
+                    get: { dueDate ?? Date() },
+                    set: { newDate in
+                        // 期日が現在より前の場合はnilに設定
+                        dueDate = newDate >= Date() ? newDate : nil
+                    }
+                ),
                 displayedComponents: [.hourAndMinute]
             )
             .datePickerStyle(.wheel)
@@ -177,7 +200,7 @@ private struct InputField: View {
 #Preview {
     @Previewable @State var title = ""
     @Previewable @State var comment = ""
-    @Previewable @State var dueDate = Date()
+    @Previewable @State var dueDate: Date? = nil
     @Previewable @State var selectedValue = 0
     let action = {}
     let topBarTitle = "新規タスク"

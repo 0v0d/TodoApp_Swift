@@ -61,7 +61,7 @@ private struct TaskInfoSection: View {
             InfoRow(title: "コメント", content: task.comment)
             InfoRow(
                 title: "期日",
-                content: task.dueDate.formattedDateTime()
+                content: task.dueDate?.formattedDateTime() ?? "なし"
             )
             InfoRow(
                 title: "作成日時",
