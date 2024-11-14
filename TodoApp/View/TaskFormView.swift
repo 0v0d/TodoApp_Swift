@@ -23,36 +23,39 @@ struct TaskFormView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                VStack(spacing: 20) {
-                    TitleInputField(title: $title)
-                    CommentInputField(comment: $comment)
-                    StatusAndDatePicker(
-                        selectedValue: $selectedValue,
-                        dueDate: $dueDate
-                    )
-                    Spacer()
-                }
-                .padding()
-                .navigationTitle(LocalizedStringKey(topBarTitle))
-                .navigationBarTitleDisplayMode(.inline)
-                .toolbar {
-                    ToolbarItem(placement: .cancellationAction) {
-                        Button("Cancel") {
-                            dismiss()
-                        }
-                        .foregroundColor(.blue)
-                    }
-                    ToolbarItem(placement: .primaryAction) {
-                        Button("Save") {
-                            handleSaveAction()
-                        }
-                        .disabled(isError)
-                        .foregroundColor(!isError ? .blue : .gray)
-                    }
-                }
+                formView()
             }
         }
     }
+        private func formView() -> some View {
+            VStack(spacing: 20) {
+                TitleInputField(title: $title)
+                CommentInputField(comment: $comment)
+                StatusAndDatePicker(
+                    selectedValue: $selectedValue,
+                    dueDate: $dueDate
+                )
+                Spacer()
+            }
+            .padding()
+            .navigationTitle(LocalizedStringKey(topBarTitle))
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Cancel") {
+                        dismiss()
+                    }
+                    .foregroundColor(.blue)
+                }
+                ToolbarItem(placement: .primaryAction) {
+                    Button("Save") {
+                        handleSaveAction()
+                    }
+                    .disabled(isError)
+                    .foregroundColor(!isError ? .blue : .gray)
+                }
+            }
+        }
     
     private func handleSaveAction() {
         if !isError {
@@ -116,7 +119,7 @@ private struct StatusAndDatePicker: View {
                 .font(.headline)
                 .foregroundColor(.secondary)
             
-            if dueDate ?? Date() < Date() {
+            if dueDate ?? Date() < Calendar.current.startOfDay(for: Date()) {
                 Text("DueDateError")
                     .font(.headline)
                     .foregroundColor(.red)
@@ -140,6 +143,12 @@ private struct StatusAndDatePicker: View {
             Text("Time")
                 .font(.headline)
                 .foregroundColor(.secondary)
+            
+            if dueDate ?? Date() < Date() {
+                Text("TimeError")
+                    .font(.headline)
+                    .foregroundColor(.red)
+            }
             
             DatePicker(
                 "SelectTime",

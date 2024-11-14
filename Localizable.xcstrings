@@ -7,6 +7,17 @@
     "*" : {
       "shouldTranslate" : false
     },
+    "AddNewTaskMessage" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "新しいタスクを追加してください"
+          }
+        }
+      }
+    },
     "Cancel" : {
       "localizations" : {
         "en" : {
@@ -94,14 +105,14 @@
       "localizations" : {
         "en" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Please select a due date later than today"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "期日は現在より後の日付を選択してください"
+            "value" : "現在より後の日付を選択してください"
           }
         }
       }
@@ -220,6 +231,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "なし"
+          }
+        }
+      }
+    },
+    "NoTasks" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No Tasks"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "タスクがありません"
           }
         }
       }
@@ -365,6 +393,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "時間"
+          }
+        }
+      }
+    },
+    "TimeError" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Select a date that is after the current time"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "現在より後の時刻を選択してください"
           }
         }
       }
