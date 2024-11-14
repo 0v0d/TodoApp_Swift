@@ -73,9 +73,8 @@ func moveTask(from source: IndexSet, to destination: Int) async {
             handle(error: error)
         }
     }
-
     
     private func handle(error: Error) {
-        errorMessage = (error as? TaskRepositoryError)?.errorDescription ?? "予期しないエラーが発生しました。"
+        errorMessage = error.localizedDescription
     }
 }

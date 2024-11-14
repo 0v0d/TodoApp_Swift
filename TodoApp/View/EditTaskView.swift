@@ -31,12 +31,12 @@ struct EditTaskView: View {
             comment: $editedComment,
             dueDate: $editedDueDate,
             selectedValue: $selectedValue,
-            topBarTitle: "タスクの編集",
+            topBarTitle: "EditTask",
             action: saveTask
         )
         .overlay {
             if isUpdating {
-                ProgressView("Updating...")
+                ProgressView("Updating")
             }
         }
     }
@@ -57,6 +57,6 @@ struct EditTaskView: View {
 }
 
 #Preview {
-    let testData = Todo(title: "タスクの編集", comment: "コメント",timestamp: Date(), dueDate: Date(), status: .inProgress, order: 1)
+    let testData = Todo(title: "NewTask", comment: "Comment",timestamp: Date(), dueDate: Date(), status: .inProgress, order: 1)
     EditTaskView(task: testData)
 }

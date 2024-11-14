@@ -20,11 +20,11 @@ struct AddTaskView: View {
             comment: $comment,
             dueDate: $dueDate,
             selectedValue: $selectedValue,
-            topBarTitle: "新規タスク",
+            topBarTitle: "NewTask",
             action: addItem)
         .overlay {
             if isUpdating {
-                ProgressView("Updating...")
+                ProgressView("Updating")
             }
         }
     }
