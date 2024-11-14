@@ -21,7 +21,7 @@ struct HomeView: View {
                 moveTask: moveTask,
                 selectedTask: $selectedTask
             )
-            .navigationTitle("タスクリスト")
+            .navigationTitle("TaskList")
             .navigationSplitViewColumnWidth(min: 150, ideal: 300, max: 400)
             .navigationBarItems(trailing: EditButton())
             .navigationBarItems(trailing: AddTaskButton(showingAddTask: $showingAddTask))
@@ -42,7 +42,7 @@ struct HomeView: View {
         var body: some View {
             Button(action: { showingAddTask = true }) {
                 Image(systemName: "square.and.pencil")
-                    .accessibilityLabel("新規タスク")
+                    .accessibilityLabel("NewTask")
                     .fontWeight(.bold)
                     .foregroundColor(.blue)
             }

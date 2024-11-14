@@ -25,7 +25,8 @@ final class TaskRepositoryIMPL: TaskRepository {
         do {
             modelContainer = try ModelContainer(for: schema, configurations: [modelConfiguration])
         } catch {
-            throw TaskRepositoryError.initializationError(error)
+            print("データベースの初期化に失敗しました: \(error.localizedDescription)")
+            throw error
         }
     }
 
@@ -85,29 +86,5 @@ final class TaskRepositoryIMPL: TaskRepository {
         }
         
         try modelContainer.mainContext.save()
-    }
-}
-
-
- enum TaskRepositoryError: LocalizedError {
-    case initializationError(Error)
-    case fetchError(Error)
-    case addError(Error)
-    case updateError(Error)
-    case deleteError(Error)
-    
-    var errorDescription: String? {
-        switch self {
-        case .initializationError(let error):
-            return "データベースの初期化に失敗しました: \(error.localizedDescription)"
-        case .fetchError(let error):
-            return "タスクの取得に失敗しました: \(error.localizedDescription)"
-        case .addError(let error):
-            return "タスクの追加に失敗しました: \(error.localizedDescription)"
-        case .updateError(let error):
-            return "タスクの更新に失敗しました: \(error.localizedDescription)"
-        case .deleteError(let error):
-            return "タスクの削除に失敗しました: \(error.localizedDescription)"
-        }
     }
 }

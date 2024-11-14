@@ -17,9 +17,9 @@ struct TaskFormView: View {
     
     private var isError: Bool {
         title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
-        || (dueDate != nil && dueDate! < Date())
+        || dueDate != nil && dueDate ?? Date() < Date()
     }
-
+    
     var body: some View {
         NavigationStack {
             ScrollView {
@@ -33,17 +33,17 @@ struct TaskFormView: View {
                     Spacer()
                 }
                 .padding()
-                .navigationTitle(topBarTitle)
+                .navigationTitle(LocalizedStringKey(topBarTitle))
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar {
                     ToolbarItem(placement: .cancellationAction) {
-                        Button("キャンセル") {
+                        Button("Cancel") {
                             dismiss()
                         }
                         .foregroundColor(.blue)
                     }
                     ToolbarItem(placement: .primaryAction) {
-                        Button("保存") {
+                        Button("Save") {
                             handleSaveAction()
                         }
                         .disabled(isError)
@@ -56,10 +56,6 @@ struct TaskFormView: View {
     
     private func handleSaveAction() {
         if !isError {
-            // 期日が過去の場合はnilに設定
-            if let dueDate = dueDate, dueDate < Date() {
-                self.dueDate = nil
-            }
             action()
             dismiss()
         }
@@ -72,11 +68,10 @@ private struct TitleInputField: View {
     
     var body: some View {
         InputField(
-            title: "タイトル",
-            placeholder: "タイトルを入力",
+            title: "Title",
+            placeholder: "EnterTitle",
             text: $title,
-            isRequired: true,
-            errorMessage: "タイトルを入力してください"
+            isRequired: true
         )
         .padding(.top, 10)
     }
@@ -88,8 +83,8 @@ private struct CommentInputField: View {
     
     var body: some View {
         InputField(
-            title: "コメント",
-            placeholder: "コメントを入力",
+            title: "Comment",
+            placeholder: "EnterComment",
             text: $comment,
             isRequired: false,
             lineLimitRange: 3...6
@@ -105,28 +100,34 @@ private struct StatusAndDatePicker: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("ステータス")
+            Text("Status")
                 .font(.headline)
                 .foregroundColor(.secondary)
             
             Picker("", selection: $selectedValue) {
-                Text(Status.notStarted.displayText).tag(0)
-                Text(Status.inProgress.displayText).tag(1)
-                Text(Status.completed.displayText).tag(2)
+                ForEach(Status.allCases, id: \.self) { status in
+                    Text(LocalizedStringKey(status.displayText))
+                        .tag(status.rawValue)
+                }
             }
             .pickerStyle(.wheel)
             
-            Text("期日")
+            Text("DueDate")
                 .font(.headline)
                 .foregroundColor(.secondary)
             
+            if dueDate ?? Date() < Date() {
+                Text("DueDateError")
+                    .font(.headline)
+                    .foregroundColor(.red)
+            }
+            
             DatePicker(
-                "日付を選択",
+                "SelectDate",
                 selection: Binding(
                     get: { dueDate ?? Date() },
                     set: { newDate in
-                        // 期日が現在より前の場合はnilに設定
-                        dueDate = newDate >= Date() ? newDate : nil
+                        dueDate = newDate
                     }
                 ),
                 displayedComponents: [.date]
@@ -136,24 +137,15 @@ private struct StatusAndDatePicker: View {
             .background(Color(.secondarySystemBackground))
             .cornerRadius(15)
             
-            if let dueDate = dueDate, dueDate < Date() {
-                Text("期日は未来の日付を選択してください")
-                    .font(.caption)
-                    .foregroundColor(.red)
-            }
-            
-            Text("時間")
+            Text("Time")
                 .font(.headline)
                 .foregroundColor(.secondary)
             
             DatePicker(
-                "時間を選択",
+                "SelectTime",
                 selection: Binding(
                     get: { dueDate ?? Date() },
-                    set: { newDate in
-                        // 期日が現在より前の場合はnilに設定
-                        dueDate = newDate >= Date() ? newDate : nil
-                    }
+                    set: { newDate in dueDate = newDate }
                 ),
                 displayedComponents: [.hourAndMinute]
             )
@@ -170,13 +162,12 @@ private struct InputField: View {
     let placeholder: String
     @Binding var text: String
     var isRequired: Bool = false
-    var errorMessage: String? = nil
     var lineLimitRange: ClosedRange<Int>?
     
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack(spacing: 0) {
-                Text(title)
+                Text(LocalizedStringKey(title))
                     .font(.headline)
                     .foregroundColor(.secondary)
                 
@@ -187,12 +178,16 @@ private struct InputField: View {
                 }
             }
             
-            TextField(placeholder, text: $text, axis: lineLimitRange == nil ? .horizontal : .vertical)
-                .padding()
-                .accessibilityLabel(title)
-                .background(Color(.secondarySystemBackground))
-                .cornerRadius(15)
-                .lineLimit(lineLimitRange ?? 5...10)
+            TextField(
+                LocalizedStringKey(placeholder),
+                text: $text,
+                axis: lineLimitRange == nil ? .horizontal : .vertical
+            )
+            .padding()
+            .accessibilityLabel(title)
+            .background(Color(.secondarySystemBackground))
+            .cornerRadius(15)
+            .lineLimit(lineLimitRange ?? 5...10)
         }
     }
 }
@@ -203,7 +198,7 @@ private struct InputField: View {
     @Previewable @State var dueDate: Date? = nil
     @Previewable @State var selectedValue = 0
     let action = {}
-    let topBarTitle = "新規タスク"
+    let topBarTitle = "NewTask"
     TaskFormView(
         title: $title,
         comment: $comment,

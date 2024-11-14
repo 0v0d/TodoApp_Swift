@@ -27,9 +27,9 @@ struct TaskListView: View {
         .overlay {
             if tasks.isEmpty {
                 EmptyStateView(
-                    title: "タスクがありません",
+                    title: "NoTasks",
                     systemImageName: "note.text",
-                    description: "新しいタスクを追加してください"
+                    description: "AddNewTaskMessage"//新しいタスクを追加してください
                 )
             }
         }
