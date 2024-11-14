@@ -29,7 +29,7 @@ struct TaskListView: View {
                 EmptyStateView(
                     title: "NoTasks",
                     systemImageName: "note.text",
-                    description: "AddNewTaskMessage"//新しいタスクを追加してください
+                    description: "AddNewTaskMessage"
                 )
             }
         }
@@ -62,10 +62,10 @@ private struct EmptyStateView: View {
             Image(systemName: systemImageName)
                 .font(.largeTitle)
                 .foregroundColor(.gray)
-            Text(title)
+            Text(LocalizedStringKey(title))
                 .font(.title)
                 .padding(.top, 5)
-            Text(description)
+            Text(LocalizedStringKey(description))
                 .font(.subheadline)
                 .foregroundColor(.secondary)
         }
