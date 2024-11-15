@@ -8,18 +8,12 @@ import SwiftUI
 
 struct AddTaskView: View {
     @EnvironmentObject var viewModel: TaskViewModel
-    @State private var title: String = ""
-    @State private var comment: String = ""
-    @State private var dueDate: Date? = nil
-    @State private var selectedValue = 0
+    @State private var formData = TaskFormData()
     @State private var isUpdating = false
     
     var body: some View {
         TaskFormView(
-            title: $title,
-            comment: $comment,
-            dueDate: $dueDate,
-            selectedValue: $selectedValue,
+            formData: $formData,
             topBarTitle: "NewTask",
             action: addItem)
         .overlay {
@@ -33,11 +27,12 @@ struct AddTaskView: View {
         Task{
             isUpdating = true
             let task = Todo(
-             title: title,
-             comment: comment,
-             timestamp: Date(), 
-             dueDate: dueDate, 
-             status: Status(rawValue: selectedValue) ?? .notStarted,
+             title: formData.title,
+             comment: formData.comment,
+             url: formData.url,
+             timestamp: Date(),
+             dueDate: formData.dueDate, 
+             status: TaskStatus(rawValue: formData.selectedValue) ?? .notStarted,
              order: viewModel.tasks.count
             )
             await viewModel.addTask(task)

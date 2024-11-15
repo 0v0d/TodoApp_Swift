@@ -11,21 +11,24 @@ import SwiftData
 final class Todo {
     var title: String
     var comment: String
+    var url: String
     var timestamp: Date
     var dueDate: Date?
-    var status: Status
+    var status: TaskStatus
     var order: Int
-
+    
     init(
         title: String,
         comment: String,
+        url: String,
         timestamp: Date,
         dueDate: Date?,
-        status: Status,
+        status: TaskStatus,
         order: Int
     ) {
         self.title = title
         self.comment = comment
+        self.url = url
         self.timestamp = timestamp
         self.dueDate = dueDate
         self.status = status
@@ -36,11 +39,13 @@ final class Todo {
     func update(
         title: String,
         comment: String,
+        url: String,
         dueDate: Date?,
-        status: Status
+        status: TaskStatus
     ) {
         self.title = title
         self.comment = comment
+        self.url = url
         self.dueDate = dueDate
         self.status = status
     }

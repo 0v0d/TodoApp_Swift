@@ -6,6 +6,8 @@
 //
 import SwiftUI
 
+//TODO ファイル分けをする
+
 struct TaskDetailViewOrEmpty: View {
     @Binding var selectedTask: Todo?
     let tasks: [Todo]
@@ -14,18 +16,12 @@ struct TaskDetailViewOrEmpty: View {
         if let task = selectedTask, tasks.contains(task) {
             TaskDetailView(task: task)
         } else {
-            EmptyTaskView()
+            EmptyStateView(
+                title: "SelectTask",
+                systemImageName: "sidebar.right",
+                description: "TaskSelectionMessage"
+            )
         }
-    }
-}
-
-private struct EmptyTaskView: View {
-    var body: some View {
-        ContentUnavailableView(
-            "SelectTask",
-            systemImage: "sidebar.right",
-            description: Text("TaskSelectionMessage")
-        )
     }
 }
 
@@ -59,6 +55,9 @@ private struct TaskInfoSection: View {
             InfoRow(title: "Title", content: task.title)
             StatusInfo(title: "Status", status: task.status)
             InfoRow(title: "Comment", content: task.comment)
+            if !task.url.isEmpty {
+                InfoRow(title: "URL", content: task.url)
+            }
             InfoRow(
                 title: "DueDate",
                 content: task.dueDate?.formattedDateTime() ?? String(localized: "None")
@@ -80,22 +79,40 @@ private struct InfoRow: View {
             Text(LocalizedStringKey(title))
                 .font(.caption)
                 .foregroundColor(.secondary)
-            Text(content)
-                .font(.body)
+            
+            if let url = URL(string: content),
+               UIApplication.shared.canOpenURL(url) {
+                HStack {
+                    Link(content, destination: url)
+                        .font(.body)
+                        .foregroundColor(.blue)
+                }
+            } else {
+                Text(content)
+                    .font(.body)
+                    .contextMenu {
+                        Button(action: {
+                            UIPasteboard.general.string = content
+                        }) {
+                            Text("Copy")
+                            Image(systemName: "document.on.document")
+                        }
+                    }
+            }
         }
     }
 }
 
 private struct StatusInfo: View {
     let title: String
-    let status: Status
+    let status: TaskStatus
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             Text(LocalizedStringKey(title))
                 .font(.caption)
                 .foregroundColor(.secondary)
-            Text(LocalizedStringKey(status.displayText))
+            Text(LocalizedStringKey(status.title))
                 .font(.body)
                 .padding(.horizontal, 12)
                 .padding(.vertical, 6)
@@ -110,10 +127,11 @@ private struct StatusInfo: View {
     let testData = Todo(
         title: "test",
         comment: "TestComment",
+        url: "https://example.com",
         timestamp: Date(),
         dueDate: Date().addingTimeInterval(24 * 60 * 60),  // 明日の日付をテスト用に設定
         status: .inProgress,
         order: 0
     )
-    return TaskDetailView(task: testData)
+    TaskDetailView(task: testData)
 }

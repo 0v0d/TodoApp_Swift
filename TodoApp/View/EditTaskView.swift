@@ -11,26 +11,17 @@ struct EditTaskView: View {
     
     @Bindable var task: Todo
     
-    @State private var editedTitle: String
-    @State private var editedComment: String
-    @State private var editedDueDate: Date?
-    @State private var selectedValue: Int
+    @State private var formData: TaskFormData
     @State private var isUpdating = false
 
     init(task: Todo) {
         self.task = task
-        _editedTitle = State(initialValue: task.title)
-        _editedComment = State(initialValue: task.comment)
-        _editedDueDate = State(initialValue: task.dueDate)
-        _selectedValue = State(initialValue: task.status.rawValue)
+        _formData = State(initialValue: TaskFormData(from:task))
     }
     
     var body: some View {
         TaskFormView(
-            title: $editedTitle,
-            comment: $editedComment,
-            dueDate: $editedDueDate,
-            selectedValue: $selectedValue,
+            formData: $formData,
             topBarTitle: "EditTask",
             action: saveTask
         )
@@ -45,10 +36,11 @@ struct EditTaskView: View {
         Task{
             isUpdating = true
             task.update(
-                title: editedTitle,
-                comment: editedComment,
-                dueDate: editedDueDate,
-                status: Status(rawValue: selectedValue) ?? .notStarted
+                title: formData.title,
+                comment: formData.comment,
+                url: formData.url,
+                dueDate: formData.dueDate,
+                status: TaskStatus(rawValue: formData.selectedValue) ?? .notStarted
             )
             await viewModel.updateTask(task)
             isUpdating = false
@@ -57,6 +49,14 @@ struct EditTaskView: View {
 }
 
 #Preview {
-    let testData = Todo(title: "NewTask", comment: "Comment",timestamp: Date(), dueDate: Date(), status: .inProgress, order: 1)
+    let testData = Todo(
+        title: "NewTask",
+        comment: "Comment",
+        url: "",
+        timestamp: Date(),
+        dueDate: Date(),
+        status: .inProgress,
+        order: 1
+    )
     EditTaskView(task: testData)
 }
