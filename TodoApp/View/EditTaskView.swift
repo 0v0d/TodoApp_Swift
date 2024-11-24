@@ -49,14 +49,5 @@ struct EditTaskView: View {
 }
 
 #Preview {
-    let testData = Todo(
-        title: "NewTask",
-        comment: "Comment",
-        url: "",
-        timestamp: Date(),
-        dueDate: Date(),
-        status: .inProgress,
-        order: 1
-    )
-    EditTaskView(task: testData)
+    EditTaskView(task: TestData.todo)
 }

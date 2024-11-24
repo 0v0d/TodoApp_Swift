@@ -21,7 +21,7 @@ struct TaskFormView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                formContent
+                TaskFormContent(formData: $formData)
                     .navigationTitle(LocalizedStringKey(topBarTitle))
                     .navigationBarTitleDisplayMode(.inline)
                     .toolbar {
@@ -29,22 +29,6 @@ struct TaskFormView: View {
                     }
             }
         }
-    }
-    
-    private var formContent: some View {
-        VStack(spacing: 20) {
-            TitleInputField(title: $formData.title)
-            
-            CommentInputField(comment: $formData.comment)
-            
-            URLInputField(url: $formData.url)
-            
-            TaskStatusPickerSection(selectedValue: $formData.selectedValue)
-            
-            DueDatePickerSection(dueDate: $formData.dueDate)
-            Spacer()
-        }
-        .padding()
     }
     
     private var formToolbar: some ToolbarContent {

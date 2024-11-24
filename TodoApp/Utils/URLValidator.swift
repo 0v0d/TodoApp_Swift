@@ -4,7 +4,7 @@
 //
 //  Created by 0v0 on 2024/11/14.
 //
-import UIKit
+import SwiftUI
 
 struct URLValidator {
    func isValid(_ urlString: String) -> Bool {
