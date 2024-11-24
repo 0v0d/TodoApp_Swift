@@ -60,7 +60,7 @@ extension HomeView {
 
     func moveTask(from: IndexSet, end: Int) {
         Task {
-            await viewModel.moveTask(from: from,end: end)
+            await viewModel.moveTask(from: from, end: end)
         }
     }
 }
