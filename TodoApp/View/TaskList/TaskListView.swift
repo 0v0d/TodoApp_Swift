@@ -37,17 +37,11 @@ struct TaskListView: View {
     }
 }
 
-private struct TaskRow: View {
-    let task: Todo
-    
-    var body: some View {
-        HStack {
-            Image(systemName: "document.fill")
-                .fontWeight(.bold)
-            
-            Text(task.title)
-                .font(.callout)
-                .lineLimit(1)
-        }
-    }
+#Preview {
+    TaskListView(
+        tasks: TestData.todos,
+        deleteTask: { _ in },
+        moveTask: { _, _ in },
+        selectedTask: .constant(nil)
+    )
 }

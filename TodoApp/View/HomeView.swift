@@ -23,11 +23,15 @@ struct HomeView: View {
             )
             .navigationTitle("TaskList")
             .navigationSplitViewColumnWidth(min: 150, ideal: 300, max: 400)
-            .navigationBarItems(trailing: EditButton())
-            .navigationBarItems(trailing: AddTaskButton(showingAddTask: $showingAddTask))
+            .navigationBarItems(trailing: HStack {
+                if !viewModel.tasks.isEmpty {
+                    EditButton()
+                }
+                AddTaskButton(showingAddTask: $showingAddTask)
+            })
             //EditButton()バグ回避のため、navigationBarItemsを使う
         } detail: {
-            TaskDetailViewOrEmpty(selectedTask: $selectedTask, tasks: viewModel.tasks)
+            TaskDetailView(selectedTask: $selectedTask, tasks: viewModel.tasks)
         }
         .sheet(isPresented: $showingAddTask) {
             AddTaskView()
@@ -36,26 +40,16 @@ struct HomeView: View {
             loadTasks()
         }
     }
-    
-    private struct AddTaskButton : View {
-        @Binding var showingAddTask: Bool
-        var body: some View {
-            Button(action: { showingAddTask = true }) {
-                Image(systemName: "square.and.pencil")
-                    .accessibilityLabel("NewTask")
-                    .fontWeight(.bold)
-                    .foregroundColor(.blue)
-            }
-        }
-    }
-    
-    private func loadTasks() {
+}
+
+extension HomeView {
+    func loadTasks() {
         Task {
             await viewModel.loadTasks()
         }
     }
     
-    private func deleteTask(offsets: IndexSet) {
+    func deleteTask(offsets: IndexSet) {
         Task {
             for index in offsets {
                 let task = viewModel.tasks[index]
@@ -64,13 +58,31 @@ struct HomeView: View {
         }
     }
     
-    private func moveTask(from: IndexSet, to: Int) {
+    func moveTask(from: IndexSet, to: Int) {
         Task {
             await viewModel.moveTask(from: from, to: to)
         }
     }
 }
 
-#Preview {
+
+struct AddTaskButton: View {
+    @Binding var showingAddTask: Bool
+    
+    var body: some View {
+        Button {
+            showingAddTask = true
+        } label: {
+            Image(systemName: "square.and.pencil")
+                .accessibilityLabel("NewTask")
+                .fontWeight(.bold)
+                .foregroundColor(.blue)
+        }
+    }
+}
+
+#Preview() {
+    let viewModel = DIContainer.shared.makeTaskViewModel()
     HomeView()
+        .environmentObject(viewModel)
 }
