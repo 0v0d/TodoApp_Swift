@@ -16,7 +16,7 @@ final class Todo {
     var dueDate: Date?
     var status: TaskStatus
     var order: Int
-    
+
     init(
         title: String,
         comment: String,

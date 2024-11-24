@@ -6,19 +6,19 @@
 //
 import SwiftUI
 
-struct TaskFormContent:View{
+struct TaskFormContent: View {
     @Binding var formData: TaskFormData
-    
-    var body: some View{
+
+    var body: some View {
         VStack(spacing: 20) {
             TitleInputField(title: $formData.title)
-            
+
             CommentInputField(comment: $formData.comment)
-            
+
             URLInputField(url: $formData.url)
-            
+
             TaskStatusPickerSection(selectedValue: $formData.selectedValue)
-            
+
             DueDatePickerSection(dueDate: $formData.dueDate)
             Spacer()
         }

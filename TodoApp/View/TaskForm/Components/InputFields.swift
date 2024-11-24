@@ -8,7 +8,7 @@ import SwiftUI
 
 struct TitleInputField: View {
     @Binding var title: String
-    
+
     var body: some View {
         InputField(
             title: "Title",
@@ -23,7 +23,7 @@ struct TitleInputField: View {
 
 struct CommentInputField: View {
     @Binding var comment: String
-    
+
     var body: some View {
         InputField(
             title: "Comment",
@@ -38,7 +38,7 @@ struct CommentInputField: View {
 
 struct URLInputField: View {
     @Binding var url: String
-    
+
     var body: some View {
         VStack(spacing: 4) {
             InputField(
@@ -48,7 +48,7 @@ struct URLInputField: View {
                 isRequired: false,
                 lineLimitRange: 1...3
             )
-            
+
             if !url.isEmpty && !URLValidator().isValid(url) {
                 ErrorLabel(message: "invalidURLMessage")
             }
@@ -62,21 +62,21 @@ struct InputField: View {
     @Binding var text: String
     var isRequired: Bool = false
     var lineLimitRange: ClosedRange<Int>?
-    
+
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack(spacing: 0) {
                 Text(LocalizedStringKey(title))
                     .font(.headline)
                     .foregroundColor(.secondary)
-                
+
                 if isRequired {
                     Text("*")
                         .font(.headline)
                         .foregroundColor(.red)
                 }
             }
-            
+
             TextField(
                 LocalizedStringKey(placeholder),
                 text: $text,

@@ -8,17 +8,17 @@ import SwiftUI
 
 struct EditTaskView: View {
     @EnvironmentObject var viewModel: TaskViewModel
-    
+
     @Bindable var task: Todo
-    
+
     @State private var formData: TaskFormData
     @State private var isUpdating = false
 
     init(task: Todo) {
         self.task = task
-        _formData = State(initialValue: TaskFormData(from:task))
+        _formData = State(initialValue: TaskFormData(from: task))
     }
-    
+
     var body: some View {
         TaskFormView(
             formData: $formData,
@@ -31,9 +31,9 @@ struct EditTaskView: View {
             }
         }
     }
-    
+
     private func saveTask() {
-        Task{
+        Task {
             isUpdating = true
             task.update(
                 title: formData.title,

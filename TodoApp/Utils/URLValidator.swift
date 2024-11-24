@@ -7,7 +7,7 @@
 import SwiftUI
 
 struct URLValidator {
-   func isValid(_ urlString: String) -> Bool {
+    func isValid(_ urlString: String) -> Bool {
         guard !urlString.isEmpty,
               let url = URL(string: urlString),
               UIApplication.shared.canOpenURL(url) else {

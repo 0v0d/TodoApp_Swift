@@ -6,13 +6,13 @@
 //
 import Foundation
 
- struct DateValidator {
-     func isTimeValid(_ date: Date?) -> Bool {
+struct DateValidator {
+    func isTimeValid(_ date: Date?) -> Bool {
         guard let date = date else { return true }
         return date >= Date()
     }
-    
-     func isDueDateValid(_ date: Date?) -> Bool {
+
+    func isDueDateValid(_ date: Date?) -> Bool {
         guard let date = date else { return true }
         return date >= Calendar.current.startOfDay(for: Date())
     }

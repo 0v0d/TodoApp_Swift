@@ -9,7 +9,7 @@ import SwiftUI
 struct TaskDetailViewContent: View {
     @Bindable var task: Todo
     @State private var showingEditTask = false
-    
+
     var body: some View {
         Form {
             TaskInfoSection(task: task)

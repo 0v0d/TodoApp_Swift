@@ -9,7 +9,7 @@ import SwiftUI
 struct TaskDetailView: View {
     @Binding var selectedTask: Todo?
     let tasks: [Todo]
-    
+
     var body: some View {
         if let task = selectedTask, tasks.contains(task) {
             TaskDetailViewContent(task: task)

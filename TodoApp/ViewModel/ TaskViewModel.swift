@@ -10,11 +10,11 @@ final class TaskViewModel: ObservableObject {
     private let repository: TaskRepository
     @Published var tasks: [Todo] = []
     @Published var errorMessage: String?
-    
+
     init(repository: TaskRepository) {
         self.repository = repository
     }
-    
+
     @MainActor
     func addTask(_ task: Todo) async {
         do {
@@ -24,7 +24,7 @@ final class TaskViewModel: ObservableObject {
             handle(error: error)
         }
     }
-    
+
     @MainActor
     func updateTask(_ task: Todo) async {
         do {
@@ -34,7 +34,7 @@ final class TaskViewModel: ObservableObject {
             handle(error: error)
         }
     }
-    
+
     @MainActor
     func loadTasks() async {
         do {
@@ -44,18 +44,18 @@ final class TaskViewModel: ObservableObject {
         }
     }
 
-  @MainActor
-func moveTask(from source: IndexSet, to destination: Int) async {
-    do {
-        // IndexSetから最初の要素を取得
-        guard let sourceIndex = source.first else { return }
-        try await repository.updateOrder(from: sourceIndex, to: destination)
-        await loadTasks()
-    } catch {
-        print("Error moving task: \(error)")
+    @MainActor
+    func moveTask(from source: IndexSet, end destination: Int) async {
+        do {
+            // IndexSetから最初の要素を取得
+            guard let sourceIndex = source.first else { return }
+            try await repository.updateOrder(from: sourceIndex, end: destination)
+            await loadTasks()
+        } catch {
+            print("Error moving task: \(error)")
+        }
     }
-} 
-    
+
     @MainActor
     func deleteTask(_ task: Todo) async {
         do {
@@ -73,7 +73,7 @@ func moveTask(from source: IndexSet, to destination: Int) async {
             handle(error: error)
         }
     }
-    
+
     private func handle(error: Error) {
         errorMessage = error.localizedDescription
     }

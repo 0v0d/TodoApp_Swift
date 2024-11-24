@@ -8,7 +8,7 @@ import SwiftUI
 
 struct ErrorLabel: View {
     let message: LocalizedStringKey
-    
+
     var body: some View {
         HStack {
             Text(message)

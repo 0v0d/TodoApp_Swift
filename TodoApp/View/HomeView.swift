@@ -9,10 +9,10 @@ import SwiftData
 
 struct HomeView: View {
     @EnvironmentObject var viewModel: TaskViewModel
-    @State private var selectedTask: Todo? = nil
+    @State private var selectedTask: Todo?
     @State private var showingAddTask = false
     @State private var columnVisibility = NavigationSplitViewVisibility.doubleColumn
-    
+
     var body: some View {
         NavigationSplitView(columnVisibility: $columnVisibility) {
             TaskListView(
@@ -29,7 +29,7 @@ struct HomeView: View {
                 }
                 AddTaskButton(showingAddTask: $showingAddTask)
             })
-            //EditButton()バグ回避のため、navigationBarItemsを使う
+            // EditButton()バグ回避のため、navigationBarItemsを使う
         } detail: {
             TaskDetailView(selectedTask: $selectedTask, tasks: viewModel.tasks)
         }
@@ -48,7 +48,7 @@ extension HomeView {
             await viewModel.loadTasks()
         }
     }
-    
+
     func deleteTask(offsets: IndexSet) {
         Task {
             for index in offsets {
@@ -57,18 +57,17 @@ extension HomeView {
             }
         }
     }
-    
-    func moveTask(from: IndexSet, to: Int) {
+
+    func moveTask(from: IndexSet, end: Int) {
         Task {
-            await viewModel.moveTask(from: from, to: to)
+            await viewModel.moveTask(from: from,end: end)
         }
     }
 }
 
-
 struct AddTaskButton: View {
     @Binding var showingAddTask: Bool
-    
+
     var body: some View {
         Button {
             showingAddTask = true

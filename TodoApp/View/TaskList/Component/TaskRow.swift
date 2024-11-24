@@ -8,12 +8,12 @@ import SwiftUI
 
 struct TaskRow: View {
     let task: Todo
-    
+
     var body: some View {
         HStack {
             Image(systemName: "document.fill")
                 .fontWeight(.bold)
-            
+
             Text(task.title)
                 .font(.callout)
                 .lineLimit(1)

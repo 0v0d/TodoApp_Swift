@@ -9,7 +9,7 @@ import SwiftUI
 struct DueDatePickerSection: View {
     @Binding var dueDate: Date?
     let dateValidator = DateValidator()
-    
+
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
             DueDatePickerRow(
@@ -20,7 +20,7 @@ struct DueDatePickerSection: View {
                 isDatePicker: true,
                 isError: !dateValidator.isDueDateValid(dueDate)
             )
-            
+
             DueDatePickerRow(
                 dueDate: $dueDate,
                 title: "Time",
@@ -40,18 +40,18 @@ private struct DueDatePickerRow: View {
     let pickerTitle: LocalizedStringKey
     var isDatePicker: Bool = true
     let isError: Bool
-    
+
     var body: some View {
         Text(title)
             .font(.headline)
             .foregroundColor(.secondary)
-        
+
         if isError {
             Text(errorMessage)
                 .font(.headline)
                 .foregroundColor(.red)
         }
-        
+
         DatePicker(
             pickerTitle,
             selection: Binding(
