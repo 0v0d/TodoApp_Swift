@@ -7,18 +7,24 @@ jobs:
   build:
     name: Build and Test default scheme using any available iPhone simulator
     runs-on: macos-latest
+    env:
+      XCODE_VERSION: "16.1"
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      
+
       - name: Select Xcode version
         run: |
-          XCODE_VERSION=$(xcodebuild -version | grep 'Xcode' | awk '{print $2}')
-          MAJOR_MINOR_VERSION=$(echo $XCODE_VERSION | cut -d. -f1,2)
-          echo "Found Xcode version: $XCODE_VERSION"
-          echo "Using major.minor version: $MAJOR_MINOR_VERSION"
-          sudo xcode-select -s "/Applications/Xcode_${MAJOR_MINOR_VERSION}.app"
+          echo "Setting Xcode version to $XCODE_VERSION"
+          sudo xcode-select -s "/Applications/Xcode_$XCODE_VERSION.app"
+          xcodebuild -version
+        
+      - name: Show Xcode version
+        run: xcodebuild -version
+        
+      - name: List available schemes
+        run: xcodebuild -list
         
       - name: Set Default Scheme
         run: |
