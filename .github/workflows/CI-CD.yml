@@ -5,21 +5,19 @@ on:
 
 permissions:
   checks: write
-  contents: read
+  contents: write
   pull-requests: write
 
 jobs:
   iOSWorkflow:
     uses: ./.github/workflows/ios.yml
-
-  Lint: 
+    
+  Lint:
     uses: ./.github/workflows/swift-lint.yml
-
+    
   AutoMerge:
-    needs: [iOSWorkflow,Lint]
+    needs: [iOSWorkflow, Lint]
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     if: success()
     steps:
       - name: Auto Merge
