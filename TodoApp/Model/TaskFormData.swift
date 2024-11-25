@@ -10,9 +10,9 @@ struct TaskFormData {
     var title: String = ""
     var comment: String = ""
     var url: String = ""
-    var dueDate: Date? = nil
+    var dueDate: Date?
     var selectedValue: Int = 0
-    
+
     init(from todo: Todo? = nil) {
         if let todo = todo {
             self.title = todo.title

@@ -11,13 +11,13 @@ struct TaskFormView: View {
     @Binding var formData: TaskFormData
     var topBarTitle: String
     var action: (() -> Void)
-    
+
     private var isError: Bool {
         formData.title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
-        || !DateValidator().isDueDateValid(formData.dueDate)
-        || (!formData.url.isEmpty && !URLValidator().isValid(formData.url))
+            || !DateValidator().isDueDateValid(formData.dueDate)
+            || (!formData.url.isEmpty && !URLValidator().isValid(formData.url))
     }
-    
+
     var body: some View {
         NavigationStack {
             ScrollView {
@@ -30,14 +30,14 @@ struct TaskFormView: View {
             }
         }
     }
-    
+
     private var formToolbar: some ToolbarContent {
         Group {
             ToolbarItem(placement: .cancellationAction) {
                 Button("Cancel") { dismiss() }
                     .foregroundColor(.blue)
             }
-            
+
             ToolbarItem(placement: .primaryAction) {
                 Button("Save") { handleSaveAction() }
                     .disabled(isError)
@@ -45,7 +45,7 @@ struct TaskFormView: View {
             }
         }
     }
-    
+
     private func handleSaveAction() {
         if !isError {
             action()

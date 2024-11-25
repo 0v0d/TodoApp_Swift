@@ -7,10 +7,10 @@
 
 final class DIContainer {
     static let shared = DIContainer()
-    
+
     private init() {}
-    
-    //必要な時にインスタンス化
+
+    // 必要な時にインスタンス化
     private lazy var repository: TaskRepository = {
         do {
             return try TaskRepositoryIMPL()
@@ -19,7 +19,7 @@ final class DIContainer {
             fatalError("Failed to initialize TaskRepository: \(error)")
         }
     }()
-    
+
     func makeTaskViewModel() -> TaskViewModel {
         TaskViewModel(repository: repository)
     }

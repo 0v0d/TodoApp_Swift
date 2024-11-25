@@ -10,7 +10,7 @@ struct EmptyStateView: View {
     let title: String
     let systemImageName: String
     let description: String
-    
+
     var body: some View {
         VStack {
             Image(systemName: systemImageName)

@@ -9,14 +9,12 @@ import SwiftUI
 @main
 struct TodoApp: App {
     let viewModel: TaskViewModel
-    
     init() {
         viewModel = DIContainer.shared.makeTaskViewModel()
     }
-    
     var body: some Scene {
         WindowGroup {
-             HomeView()
+            HomeView()
                 .environmentObject(viewModel)
         }
     }

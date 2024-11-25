@@ -10,10 +10,10 @@ import SwiftData
 struct TaskListView: View {
     @Environment(\.editMode) private var editMode
     let tasks: [Todo]
-    let deleteTask: (IndexSet) -> ()
-    let moveTask: (IndexSet, Int) -> ()
+    let deleteTask: (IndexSet) -> Void
+    let moveTask: (IndexSet, Int) -> Void
     @Binding var selectedTask: Todo?
-    
+
     var body: some View {
         List(selection: $selectedTask) {
             ForEach(tasks) { task in
@@ -33,7 +33,7 @@ struct TaskListView: View {
                 )
             }
         }
-        
+
     }
 }
 

@@ -16,7 +16,7 @@ struct TestData {
         status: .inProgress,
         order: 0
     )
-    
+
     // 複数のテストデータ
     static let todos: [Todo] = [
         Todo(

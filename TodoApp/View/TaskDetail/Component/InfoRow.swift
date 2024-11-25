@@ -9,13 +9,13 @@ import SwiftUI
 struct InfoRow: View {
     let title: String
     let content: String
-    
+
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             Text(LocalizedStringKey(title))
                 .font(.caption)
                 .foregroundColor(.secondary)
-            
+
             if let url = URL(string: content),
                UIApplication.shared.canOpenURL(url) {
                 HStack {
@@ -29,10 +29,10 @@ struct InfoRow: View {
                     .contextMenu {
                         Button(action: {
                             UIPasteboard.general.string = content
-                        }) {
+                        }, label: {
                             Text("Copy")
                             Image(systemName: "document.on.document")
-                        }
+                        })
                     }
             }
         }

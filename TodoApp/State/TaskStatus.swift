@@ -6,11 +6,11 @@
 //
 import SwiftUICore
 
-enum TaskStatus: Int, CaseIterable,Codable {
+enum TaskStatus: Int, CaseIterable, Codable {
     case notStarted
     case inProgress
     case completed
-    
+
     // 表示用の文字列を取得するためのプロパティ
     var title: String {
         switch self {

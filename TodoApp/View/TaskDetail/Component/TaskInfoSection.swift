@@ -8,7 +8,7 @@ import SwiftUI
 
 struct TaskInfoSection: View {
     let task: Todo
-    
+
     var body: some View {
         Section {
             InfoRow(title: "Title", content: task.title)

@@ -13,7 +13,7 @@ protocol TaskRepository {
     @MainActor func updateTask(_ task: Todo) async throws
     @MainActor func deleteTask(taskIndex: IndexSet) async throws
     @MainActor func deleteTask(_ task: Todo) async throws // 特定のタスクを削除するメソッド
-    @MainActor func updateOrder(from: Int, to: Int) async throws // タスクの順番を更新するメソッド
+    @MainActor func updateOrder(from: Int, end: Int) async throws // タスクの順番を更新するメソッド
 }
 
 final class TaskRepositoryIMPL: TaskRepository {
@@ -35,7 +35,7 @@ final class TaskRepositoryIMPL: TaskRepository {
         let descriptor = FetchDescriptor<Todo>(sortBy: [SortDescriptor(\.order)])
         return try modelContainer.mainContext.fetch(descriptor)
     }
-    
+
     @MainActor
     func addTask(_ task: Todo) async throws {
         modelContainer.mainContext.insert(task)
@@ -57,7 +57,7 @@ final class TaskRepositoryIMPL: TaskRepository {
         }
         try modelContainer.mainContext.save()
     }
-    
+
     // 特定のタスクを削除するメソッド
     @MainActor
     func deleteTask(_ task: Todo) async throws {
@@ -66,25 +66,25 @@ final class TaskRepositoryIMPL: TaskRepository {
     }
 
     @MainActor
-    func updateOrder(from: Int, to: Int) async throws {
+    func updateOrder(from: Int, end: Int) async throws {
         var allTasks = try await fetchTasks()
-        guard allTasks.indices.contains(from) && to <= allTasks.count else { return }
-        
+        guard allTasks.indices.contains(from) && end <= allTasks.count else { return }
+
         // 移動するタスクを取得
         let movedTask = allTasks[from]
-        
+
         // 移動元から削除
         allTasks.remove(at: from)
-        
+
         // 移動先に挿入（下方向への移動の場合は位置を調整）
-        let adjustedDestination = to > from ? to - 1 : to
+        let adjustedDestination = end > from ? end - 1 : end
         allTasks.insert(movedTask, at: adjustedDestination)
-        
+
         // すべてのタスクの順序を更新
         for (index, task) in allTasks.enumerated() {
             task.order = index
         }
-        
+
         try modelContainer.mainContext.save()
     }
 }
