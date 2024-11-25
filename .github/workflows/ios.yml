@@ -20,12 +20,6 @@ jobs:
           echo "Using major.minor version: $MAJOR_MINOR_VERSION"
           sudo xcode-select -s "/Applications/Xcode_${MAJOR_MINOR_VERSION}.app"
         
-      - name: Show Xcode version
-        run: xcodebuild -version
-        
-      - name: List available schemes
-        run: xcodebuild -list
-        
       - name: Set Default Scheme
         run: |
           scheme_list=$(xcodebuild -list -json | tr -d "\n")
