@@ -6,14 +6,19 @@ on:
 jobs:
   build:
     name: Build and Test default scheme using any available iPhone simulator
-    runs-on: macos-14
+    runs-on: macos-latest
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
       
       - name: Select Xcode version
-        run: sudo xcode-select -s /Applications/Xcode_16.1.app
+        run: |
+          XCODE_VERSION=$(xcodebuild -version | grep 'Xcode' | awk '{print $2}')
+          MAJOR_MINOR_VERSION=$(echo $XCODE_VERSION | cut -d. -f1,2)
+          echo "Found Xcode version: $XCODE_VERSION"
+          echo "Using major.minor version: $MAJOR_MINOR_VERSION"
+          sudo xcode-select -s "/Applications/Xcode_${MAJOR_MINOR_VERSION}.app"
         
       - name: Show Xcode version
         run: xcodebuild -version
