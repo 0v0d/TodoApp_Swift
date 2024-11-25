@@ -5,16 +5,14 @@
 *.swp
 
 # Xcode - プロジェクト設定
-!*.xcodeproj/*
 !*.xcodeproj/project.pbxproj
 !*.xcodeproj/xcshareddata/**
 
-*.xcworkspace/*
 !*.xcworkspace/contents.xcworkspacedata
 !*.xcworkspace/xcshareddata/**
 
 # Xcode - ユーザー設定
-xcuserdata/
+*.xcbkptlist
 *.xcuserstate
 *.xcscmblueprint
 *.xccheckout
