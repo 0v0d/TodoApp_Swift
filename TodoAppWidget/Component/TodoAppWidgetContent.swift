@@ -13,12 +13,7 @@ struct TodoAppWidgetContent: View {
             .font(.system(size: 16, weight: .semibold))
             .lineLimit(2)
 
-        Text(LocalizedStringKey(task.status.title))
-            .font(.system(size: 12, weight: .medium))
-            .padding(8)
-            .background(task.status.color.opacity(0.15))
-            .foregroundColor(task.status.color)
-            .clipShape(Capsule())
+        TaskStatusText(status: task.status, fontSize: .caption)
 
         if task.dueDate != nil {
             VStack(alignment: .leading) {
@@ -27,7 +22,7 @@ struct TodoAppWidgetContent: View {
                     .imageScale(.medium)
                     .padding(.top, 2)
 
-                Text(task.dueDate?.formattedDateTime() ?? String(localized: "None"))
+                Text(task.dueDate?.formattedDateTime() ?? "")
                     .font(.system(size: 12))
                     .foregroundColor(.secondary)
             }

@@ -67,6 +67,7 @@
 				Model/Todo.swift,
 				Repository/TaskRepository.swift,
 				State/TaskStatus.swift,
+				View/Component/TaskStatusText.swift,
 				"ViewModel/ TaskViewModel.swift",
 				ViewModel/WidgetTaskViewModel.swift,
 			);
