@@ -33,7 +33,6 @@ struct TaskListView: View {
                 )
             }
         }
-
     }
 }
 

@@ -12,7 +12,6 @@ extension Date {
             .dateTime
                 .year().month().day()
                 .hour().minute()
-                .locale(Locale(identifier: "ja_JP"))
                 .year(.defaultDigits)
                 .month(.defaultDigits)
                 .day(.defaultDigits)

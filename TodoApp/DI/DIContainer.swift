@@ -23,4 +23,8 @@ final class DIContainer {
     func makeTaskViewModel() -> TaskViewModel {
         TaskViewModel(repository: repository)
     }
+
+    func makeWidgetViewModel() -> WidgetTaskViewModel {
+        WidgetTaskViewModel(repository: repository)
+    }
 }
