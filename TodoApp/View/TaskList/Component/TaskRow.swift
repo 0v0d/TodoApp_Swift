@@ -17,6 +17,10 @@ struct TaskRow: View {
             Text(task.title)
                 .font(.callout)
                 .lineLimit(1)
+
+            Spacer()
+
+            TaskStatusText(status: task.status, fontSize: .body)
         }
     }
 }

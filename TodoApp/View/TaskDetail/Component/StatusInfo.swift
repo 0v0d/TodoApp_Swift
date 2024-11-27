@@ -17,13 +17,7 @@ struct StatusInfo: View {
                 .font(.caption)
                 .foregroundColor(.secondary)
 
-            Text(LocalizedStringKey(status.title))
-                .font(.body)
-                .padding(.horizontal, 12)
-                .padding(.vertical, 6)
-                .background(status.color.opacity(0.2))
-                .foregroundColor(status.color)
-                .clipShape(RoundedRectangle(cornerRadius: 8))
+            TaskStatusText(status: status, fontSize: .body)
         }
     }
 }

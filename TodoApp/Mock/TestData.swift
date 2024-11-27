@@ -36,6 +36,15 @@ struct TestData {
             dueDate: Date().addingTimeInterval(48 * 60 * 60),
             status: .notStarted,
             order: 1
+        ),
+        Todo(
+            title: "Task 3",
+            comment: "Comment 3",
+            url: "https://www.google.co.jp/",
+            timestamp: Date(),
+            dueDate: Date().addingTimeInterval(48 * 60 * 60),
+            status: .completed,
+            order: 1
         )
     ]
 }
