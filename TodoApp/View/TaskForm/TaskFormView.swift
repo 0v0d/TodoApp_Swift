@@ -39,9 +39,11 @@ struct TaskFormView: View {
             }
 
             ToolbarItem(placement: .primaryAction) {
-                Button("Save") { handleSaveAction() }
-                    .disabled(isError)
-                    .foregroundColor(!isError ? .blue : .gray)
+                Button("Save") {
+                    handleSaveAction()
+                }
+                .disabled(isError)
+                .foregroundColor(isError ? .gray : .blue)
             }
         }
     }

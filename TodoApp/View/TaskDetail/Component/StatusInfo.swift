@@ -7,13 +7,11 @@
 import SwiftUI
 
 struct StatusInfo: View {
-    let title: String
     let status: TaskStatus
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-
-            Text(LocalizedStringKey(title))
+            Text(LocalizedStringKey("Status"))
                 .font(.caption)
                 .foregroundColor(.secondary)
 

@@ -31,7 +31,7 @@ struct TodoProvider: @preconcurrency TimelineProvider {
 
     @MainActor
     func placeholder(in context: Context) -> TodoEntry {
-        TodoEntry(date: Date(), task: nil)
+        TodoEntry(date: Date(), task: TestData.todos[0])
     }
 
     @MainActor

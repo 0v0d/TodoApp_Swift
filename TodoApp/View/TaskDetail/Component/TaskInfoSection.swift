@@ -12,7 +12,7 @@ struct TaskInfoSection: View {
     var body: some View {
         Section {
             InfoRow(title: "Title", content: task.title)
-            StatusInfo(title: "Status", status: task.status)
+            StatusInfo(status: task.status)
             InfoRow(title: "Comment", content: task.comment)
             if !task.url.isEmpty {
                 InfoRow(title: "URL", content: task.url)

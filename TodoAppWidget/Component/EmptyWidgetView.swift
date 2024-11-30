@@ -8,9 +8,14 @@ import SwiftUI
 
 struct EmptyWidgetView: View {
     var body: some View {
-        Text(LocalizedStringKey("NoTasks"))
-            .font(.system(size: 14))
-            .foregroundColor(.secondary)
-            .frame(maxWidth: .infinity, alignment: .center)
+        VStack(spacing: 8) {
+            Image(systemName: "tray.fill")
+                .font(.system(size: 40))
+                .foregroundColor(.secondary)
+
+            Text(LocalizedStringKey("NoTasks"))
+                .font(.footnote)
+                .foregroundColor(.secondary)
+        }
     }
 }

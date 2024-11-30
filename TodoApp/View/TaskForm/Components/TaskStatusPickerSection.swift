@@ -10,7 +10,7 @@ struct TaskStatusPickerSection: View {
     @Binding var selectedValue: Int
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 6) {
+        VStack(alignment: .leading) {
             Text("Status")
                 .font(.headline)
                 .foregroundColor(.secondary)
