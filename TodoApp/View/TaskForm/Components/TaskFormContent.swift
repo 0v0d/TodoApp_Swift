@@ -10,7 +10,7 @@ struct TaskFormContent: View {
     @Binding var formData: TaskFormData
 
     var body: some View {
-        VStack(spacing: 20) {
+        VStack(spacing: 10) {
             TitleInputField(title: $formData.title)
 
             CommentInputField(comment: $formData.comment)
@@ -20,8 +20,6 @@ struct TaskFormContent: View {
             TaskStatusPickerSection(selectedValue: $formData.selectedValue)
 
             DueDatePickerSection(dueDate: $formData.dueDate)
-            Spacer()
-        }
-        .padding()
+        }.padding()
     }
 }
