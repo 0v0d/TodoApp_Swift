@@ -17,7 +17,7 @@ struct TaskFormContent: View {
 
             URLInputField(url: $formData.url)
 
-            TaskStatusPickerSection(selectedValue: $formData.selectedValue)
+            TaskStatusPickerSection(status: $formData.status)
 
             DueDatePickerSection(dueDate: $formData.dueDate)
         }.padding()

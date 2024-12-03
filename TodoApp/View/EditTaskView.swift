@@ -40,7 +40,7 @@ struct EditTaskView: View {
                 comment: formData.comment,
                 url: formData.url,
                 dueDate: formData.dueDate,
-                status: TaskStatus(rawValue: formData.selectedValue) ?? .notStarted
+                status: TaskStatus(rawValue: formData.status) ?? .notStarted
             )
             await viewModel.updateTask(task)
             isUpdating = false

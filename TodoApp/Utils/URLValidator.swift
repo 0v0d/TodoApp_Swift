@@ -10,7 +10,10 @@ struct URLValidator {
     func isValid(_ urlString: String) -> Bool {
         guard !urlString.isEmpty,
               let url = URL(string: urlString),
-              UIApplication.shared.canOpenURL(url) else {
+              let scheme = url.scheme,
+              // http, httpsのみ許可
+              ["http", "https"].contains(scheme),
+              url.host != nil else {
             return false
         }
         return true

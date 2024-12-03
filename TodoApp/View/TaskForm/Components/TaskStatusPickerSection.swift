@@ -7,7 +7,7 @@
 import SwiftUI
 
 struct TaskStatusPickerSection: View {
-    @Binding var selectedValue: Int
+    @Binding var status: Int
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -15,7 +15,7 @@ struct TaskStatusPickerSection: View {
                 .font(.headline)
                 .foregroundColor(.secondary)
 
-            Picker("", selection: $selectedValue) {
+            Picker("", selection: $status) {
                 ForEach(TaskStatus.allCases, id: \.self) { status in
                     Text(LocalizedStringKey(status.title))
                         .tag(status.rawValue)

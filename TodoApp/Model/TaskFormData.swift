@@ -11,7 +11,7 @@ struct TaskFormData {
     var comment: String = ""
     var url: String = ""
     var dueDate: Date?
-    var selectedValue: Int = 0
+    var status: Int = 0
 
     init(from todo: Todo? = nil) {
         if let todo = todo {
@@ -19,7 +19,7 @@ struct TaskFormData {
             self.comment = todo.comment
             self.url = todo.url
             self.dueDate = todo.dueDate
-            self.selectedValue = todo.status.rawValue
+            self.status = todo.status.rawValue
         }
     }
 }
