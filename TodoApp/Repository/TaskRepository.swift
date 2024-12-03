@@ -57,7 +57,7 @@ final class TaskRepositoryIMPL: TaskRepository {
         }
         try modelContainer.mainContext.save()
     }
-    
+
     // 特定のタスクを削除するメソッド
     @MainActor
     func deleteTask(_ task: Todo) async throws {
@@ -87,10 +87,10 @@ final class TaskRepositoryIMPL: TaskRepository {
 
         try modelContainer.mainContext.save()
     }
-    
+
     @MainActor
     func deleteAllTasks() async throws {
-        
+
         let allTasks = try await fetchTasks()
         for task in allTasks {
             modelContainer.mainContext.delete(task)

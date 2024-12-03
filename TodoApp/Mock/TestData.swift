@@ -83,7 +83,7 @@ struct TestData {
             order: 6
         )
     ]
-    
+
     static let completeTodos: [Todo] = [
         Todo(
             title: "Task 1",
@@ -102,6 +102,6 @@ struct TestData {
             dueDate: Date().addingTimeInterval(48 * 60 * 60),
             status: .completed,
             order: 1
-        ),
+        )
     ]
 }

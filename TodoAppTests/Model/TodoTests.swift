@@ -14,7 +14,7 @@ final class TodoTests: XCTestCase {
         XCTAssertEqual(todo.comment, TestData.todo.comment)
         XCTAssertEqual(todo.url, TestData.todo.url)
         XCTAssertEqual(todo.timestamp, TestData.todo.timestamp)
-        XCTAssertEqual(todo.dueDate,TestData.todo.dueDate)
+        XCTAssertEqual(todo.dueDate, TestData.todo.dueDate)
         XCTAssertEqual(todo.status, TestData.todo.status)
         XCTAssertEqual(todo.order, TestData.todo.order)
     }

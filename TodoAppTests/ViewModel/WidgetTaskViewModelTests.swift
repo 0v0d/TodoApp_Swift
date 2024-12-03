@@ -10,42 +10,42 @@ import XCTest
 final class WidgetTaskViewModelTests: XCTestCase {
     private var viewModel: WidgetTaskViewModel!
     private let repository: MockTaskRepository = MockTaskRepository()
-    
+
     override func setUp() {
         super.setUp()
         viewModel = WidgetTaskViewModel(repository: repository)
     }
-    
+
     override func tearDown() {
         viewModel = nil
         super.tearDown()
     }
-    
+
     func testFetchActiveTaskWithActiveTasks() async throws {
         repository.tasks = TestData.todos
         let activeTask = try await viewModel.fetchActiveTask()
-        
+
         XCTAssertEqual(activeTask?.title, TestData.todos[3].title)
     }
-    
+
     func testFetchActiveTaskWithAllTasksCompleted() async throws {
         repository.tasks = TestData.completeTodos
         let activeTask = try await viewModel.fetchActiveTask()
         XCTAssertNil(activeTask)
     }
-    
+
     func testFetchActiveTaskWithNoTasks() async throws {
         repository.tasks = []
         let activeTask = try await viewModel.fetchActiveTask()
         XCTAssertNil(activeTask)
     }
-    
+
     func testFetchActiveTaskWhenRepositoryThrowsError() async {
         repository.error = NSError(
             domain: "TestError",
             code: 1,
             userInfo: [NSLocalizedDescriptionKey: "Fetch Error"])
-        
+
         do {
             _ = try await viewModel.fetchActiveTask()
             XCTFail("Error")

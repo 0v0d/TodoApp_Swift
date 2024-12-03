@@ -5,13 +5,11 @@
 //  Created by 0v0 on 2024/12/03.
 //
 
-
 import Foundation
 @testable import TodoApp
 
 class MockTaskRepository: TaskRepository {
-    
-    
+
     var tasks: [Todo] = []
     var error: Error?
 
@@ -53,7 +51,7 @@ class MockTaskRepository: TaskRepository {
         guard let index = taskIndex.first else { return }
         tasks.remove(at: index)
     }
-    
+
     func deleteAllTasks() async throws {
         if let error = error {
             throw error
