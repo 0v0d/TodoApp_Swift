@@ -32,7 +32,7 @@ struct AddTaskView: View {
                 url: formData.url,
                 timestamp: Date(),
                 dueDate: formData.dueDate,
-                status: TaskStatus(rawValue: formData.selectedValue) ?? .notStarted,
+                status: TaskStatus(rawValue: formData.status) ?? .notStarted,
                 order: viewModel.tasks.count
             )
             await viewModel.addTask(task)

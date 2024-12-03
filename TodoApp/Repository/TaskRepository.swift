@@ -12,8 +12,8 @@ protocol TaskRepository {
     @MainActor func addTask(_ task: Todo) async throws
     @MainActor func updateTask(_ task: Todo) async throws
     @MainActor func deleteTask(taskIndex: IndexSet) async throws
-    @MainActor func deleteTask(_ task: Todo) async throws // 特定のタスクを削除するメソッド
     @MainActor func updateOrder(from: Int, end: Int) async throws // タスクの順番を更新するメソッド
+    @MainActor func deleteAllTasks() async throws
 }
 
 final class TaskRepositoryIMPL: TaskRepository {
@@ -85,6 +85,16 @@ final class TaskRepositoryIMPL: TaskRepository {
             task.order = index
         }
 
+        try modelContainer.mainContext.save()
+    }
+
+    @MainActor
+    func deleteAllTasks() async throws {
+
+        let allTasks = try await fetchTasks()
+        for task in allTasks {
+            modelContainer.mainContext.delete(task)
+        }
         try modelContainer.mainContext.save()
     }
 }
