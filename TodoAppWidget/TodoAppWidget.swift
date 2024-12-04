@@ -54,31 +54,31 @@ struct TodoAppWidgetEntryView: View {
 #Preview(as: .systemSmall) {
     TodoAppWidget()
 } timeline: {
-    TodoEntry(date: .now, task: TestData.todos[0])
-    TodoEntry(date: .now, task: TestData.todos[1])
+    TodoEntry(date: .now, task: TodoTestData.todos[0])
+    TodoEntry(date: .now, task: TodoTestData.todos[1])
     TodoEntry(date: .now, task: nil)
 }
 
 #Preview(as: .systemMedium) {
     TodoAppWidget()
 } timeline: {
-    TodoEntry(date: .now, task: TestData.todos[0])
-    TodoEntry(date: .now, task: TestData.todos[1])
+    TodoEntry(date: .now, task: TodoTestData.todos[0])
+    TodoEntry(date: .now, task: TodoTestData.todos[1])
     TodoEntry(date: .now, task: nil)
 }
 
 #Preview(as: .systemLarge) {
     TodoAppWidget()
 } timeline: {
-    TodoEntry(date: .now, task: TestData.todos[0])
-    TodoEntry(date: .now, task: TestData.todos[1])
+    TodoEntry(date: .now, task: TodoTestData.todos[0])
+    TodoEntry(date: .now, task: TodoTestData.todos[1])
     TodoEntry(date: .now, task: nil)
 }
 
 #Preview(as: .systemExtraLarge) {
     TodoAppWidget()
 } timeline: {
-    TodoEntry(date: .now, task: TestData.todos[0])
-    TodoEntry(date: .now, task: TestData.todos[1])
+    TodoEntry(date: .now, task: TodoTestData.todos[0])
+    TodoEntry(date: .now, task: TodoTestData.todos[1])
     TodoEntry(date: .now, task: nil)
 }

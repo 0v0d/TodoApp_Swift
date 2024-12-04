@@ -38,7 +38,7 @@ struct TaskListView: View {
 
 #Preview {
     TaskListView(
-        tasks: TestData.todos,
+        tasks: TodoTestData.todos,
         deleteTask: { _ in },
         moveTask: { _, _ in },
         selectedTask: .constant(nil)

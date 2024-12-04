@@ -24,5 +24,5 @@ struct TaskDetailView: View {
 }
 
 #Preview {
-    TaskDetailViewContent(task: TestData.todo)
+    TaskDetailViewContent(task: TodoTestData.todo)
 }

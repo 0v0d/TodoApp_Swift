@@ -9,18 +9,18 @@ import XCTest
 
 final class TodoTests: XCTestCase {
     func testTodoInitialization() {
-        let todo = TestData.todo
-        XCTAssertEqual(todo.title, TestData.todo.title)
-        XCTAssertEqual(todo.comment, TestData.todo.comment)
-        XCTAssertEqual(todo.url, TestData.todo.url)
-        XCTAssertEqual(todo.timestamp, TestData.todo.timestamp)
-        XCTAssertEqual(todo.dueDate, TestData.todo.dueDate)
-        XCTAssertEqual(todo.status, TestData.todo.status)
-        XCTAssertEqual(todo.order, TestData.todo.order)
+        let todo = TodoTestData.todo
+        XCTAssertEqual(todo.title, TodoTestData.todo.title)
+        XCTAssertEqual(todo.comment, TodoTestData.todo.comment)
+        XCTAssertEqual(todo.url, TodoTestData.todo.url)
+        XCTAssertEqual(todo.timestamp, TodoTestData.todo.timestamp)
+        XCTAssertEqual(todo.dueDate, TodoTestData.todo.dueDate)
+        XCTAssertEqual(todo.status, TodoTestData.todo.status)
+        XCTAssertEqual(todo.order, TodoTestData.todo.order)
     }
 
     func testTodoUpdate() {
-        let todo = TestData.todos[0]
+        let todo = TodoTestData.todos[0]
         let newDueDate = Date()
         todo.update(
             title: "Updated Task",
