@@ -65,21 +65,6 @@ extension HomeView {
     }
 }
 
-struct AddTaskButton: View {
-    @Binding var showingAddTask: Bool
-
-    var body: some View {
-        Button {
-            showingAddTask = true
-        } label: {
-            Image(systemName: "square.and.pencil")
-                .accessibilityLabel("NewTask")
-                .fontWeight(.bold)
-                .foregroundColor(.blue)
-        }
-    }
-}
-
 #Preview() {
     let viewModel = DIContainer.shared.makeTaskViewModel()
     HomeView()

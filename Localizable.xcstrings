@@ -161,7 +161,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "EditTask"
+            "value" : "Edit Task"
           }
         },
         "ja" : {
@@ -401,23 +401,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "ステータス"
-          }
-        }
-      }
-    },
-    "StatusNone" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "-"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "-"
           }
         }
       }

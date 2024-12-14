@@ -13,6 +13,7 @@
 		D05765992CF454AD00B45398 /* TodoAppWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = D05765892CF454AB00B45398 /* TodoAppWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D0703C3F2CE3481800C47610 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = D0703C3E2CE3481800C47610 /* Localizable.xcstrings */; };
 		D09713FB2CDBD5D30014E7FA /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = D09713FA2CDBD5C90014E7FA /* .gitignore */; };
+		D0A886DC2D00144C00D0F75F /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = D0703C3E2CE3481800C47610 /* Localizable.xcstrings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +82,13 @@
 			);
 			target = D05765882CF454AB00B45398 /* TodoAppWidgetExtension */;
 		};
+		D03BF6B32D06C0FE005E3B50 /* Exceptions for "TodoApp" folder in "TodoAppUITests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				"Extensions/Date+Extension.swift",
+			);
+			target = D0A886C12D00063800D0F75F /* TodoAppUITests */;
+		};
 		D057659D2CF454AD00B45398 /* Exceptions for "TodoAppWidget" folder in "TodoAppWidgetExtension" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -100,6 +108,7 @@
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				D032E17E2CF5CFE000B47B5C /* Exceptions for "TodoApp" folder in "TodoAppWidgetExtension" target */,
+				D03BF6B32D06C0FE005E3B50 /* Exceptions for "TodoApp" folder in "TodoAppUITests" target */,
 			);
 			path = TodoApp;
 			sourceTree = "<group>";
@@ -361,6 +370,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0A886DC2D00144C00D0F75F /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

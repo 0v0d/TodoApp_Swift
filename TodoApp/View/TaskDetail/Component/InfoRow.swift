@@ -9,21 +9,27 @@ import SwiftUI
 struct InfoRow: View {
     let title: String
     let content: String
-
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             Text(LocalizedStringKey(title))
                 .font(.caption)
                 .foregroundColor(.secondary)
-
+            
             if let url = URL(string: content),
                UIApplication.shared.canOpenURL(url) {
                 HStack {
-                    Link(content, destination: url)
+                    Text(content)
                         .font(.body)
                         .foregroundColor(.blue)
+                        .underline()
+                        .lineLimit(nil)
+                        .onTapGesture {
+                            UIApplication.shared.open(url)
+                        }
                 }
-            } else {
+            }
+            else {
                 Text(content)
                     .font(.body)
                     .contextMenu {

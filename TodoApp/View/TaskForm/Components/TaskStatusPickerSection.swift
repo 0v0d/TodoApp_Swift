@@ -15,13 +15,14 @@ struct TaskStatusPickerSection: View {
                 .font(.headline)
                 .foregroundColor(.secondary)
 
-            Picker("", selection: $status) {
+            Picker("Status", selection: $status) {
                 ForEach(TaskStatus.allCases, id: \.self) { status in
                     Text(LocalizedStringKey(status.title))
                         .tag(status.rawValue)
                 }
             }
-            .pickerStyle(.wheel)
+            .pickerStyle(.menu)
+            .frame(maxWidth: .infinity, alignment: .leading)
         }
     }
 }

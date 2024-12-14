@@ -21,7 +21,16 @@ final class TaskRepositoryIMPL: TaskRepository {
 
     init() throws {
         let schema = Schema([Todo.self])
-        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
+
+        var inMemory = false
+
+        #if DEBUG
+        if CommandLine.arguments.contains("testing") {
+            inMemory = true
+        }
+        #endif
+
+        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: inMemory)
         do {
             modelContainer = try ModelContainer(for: schema, configurations: [modelConfiguration])
         } catch {
