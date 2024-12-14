@@ -32,7 +32,7 @@ final class TaskAdditionTests: XCTestCase {
     /// 最小限の情報（タイトルのみ）でタスクが作成できることを確認する
     @MainActor
     func testCanAddTaskWithMinimalInformation() {
-        AddTaskWithTitle("Task1")
+        addTaskWithTitle("Task1")
 
         let taskList = application.collectionViews.element(boundBy: 0)
         let taskCell = taskList.cells.element(boundBy: 0)
@@ -112,7 +112,7 @@ final class TaskAdditionTests: XCTestCase {
         // 準備
         let longTitle = String(repeating: "1", count: 128)
 
-        AddTaskWithTitle(longTitle)
+        addTaskWithTitle(longTitle)
 
         // 検証
         let taskList = application.collectionViews.element(boundBy: 0)
