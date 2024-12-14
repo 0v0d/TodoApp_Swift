@@ -24,7 +24,7 @@ final class TaskViewModelTests: XCTestCase {
         super.tearDown()
     }
 
-    func testAddTask_success() async {
+    func testAddTaskSuccess() async {
         let task = TodoTestData.todo
 
         await viewModel.addTask(task)
@@ -34,7 +34,7 @@ final class TaskViewModelTests: XCTestCase {
         XCTAssertNil(viewModel.errorMessage)
     }
 
-    func testAddTask_failure() async {
+    func testAddTaskFailure() async {
         repository.error = NSError(
             domain: "TestError",
             code: 1,
@@ -48,7 +48,7 @@ final class TaskViewModelTests: XCTestCase {
         XCTAssertEqual(viewModel.errorMessage, "AddTask Error")
     }
 
-    func testLoadTasks_success() async {
+    func testLoadTasksSuccess() async {
         repository.tasks = TodoTestData.todos
 
         await viewModel.loadTasks()
@@ -58,7 +58,7 @@ final class TaskViewModelTests: XCTestCase {
         XCTAssertNil(viewModel.errorMessage)
     }
 
-    func testMoveTask_success() async {
+    func testMoveTaskSuccess() async {
         repository.tasks = TodoTestData.todos
 
         await viewModel.moveTask(from: IndexSet(integer: 0), end: 2)
@@ -68,7 +68,7 @@ final class TaskViewModelTests: XCTestCase {
         XCTAssertNil(viewModel.errorMessage)
     }
 
-    func testDeleteTask_success() async {
+    func testDeleteTaskSuccess() async {
         repository.tasks = TodoTestData.todos
 
         await viewModel.deleteTask(repository.tasks[0])
