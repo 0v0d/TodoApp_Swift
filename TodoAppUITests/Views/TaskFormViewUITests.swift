@@ -21,18 +21,17 @@ final class AddTaskViewUITests: XCTestCase {
         application = nil
         super.tearDown()
     }
-    
+
     @MainActor
     func testAddTaskView() {
         application.buttons[AccessibilityIdentifiers.addTaskButton].tap()
 
         XCTAssertTrue(application.navigationBars["New Task"].exists,
                       "Navigation bar should exist")
-        
+
         verifyTaskView()
     }
-    
-    
+
     @MainActor
     func testEditTaskView() {
         TestHelper.tapFirstTaskInList(app: application)
@@ -40,11 +39,10 @@ final class AddTaskViewUITests: XCTestCase {
 
         XCTAssertTrue(application.navigationBars["Edit Task"].exists,
                       "Navigation bar should exist")
-        
+
         verifyTaskView()
     }
 
-    
     private func verifyTaskView() {
         utils.assertButton(label: AccessibilityIdentifiers.saveButton)
         utils.assertButton(label: AccessibilityIdentifiers.cancelButton)
@@ -75,8 +73,7 @@ final class AddTaskViewUITests: XCTestCase {
 
         verifyTimePicker()
     }
-        
-    
+
     private func verifyDueDatePicker() {
         utils.assertStaticText(label: "Due Date", value: nil)
 
