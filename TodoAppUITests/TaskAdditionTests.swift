@@ -26,7 +26,7 @@ final class TaskAdditionTests: XCTestCase {
     @MainActor
     func testCanAddTaskWithMinimalInformation() {
         utils.tapAddTaskButton()
-        
+
         let title = "Task1"
         utils.enterTitle(title)
         utils.tapSaveButton()
@@ -35,7 +35,10 @@ final class TaskAdditionTests: XCTestCase {
 
         // タスクの詳細を確認
         utils.assertStaticText(identifier: Identifiers.titleLabel, value: title)
-        utils.assertStaticText(identifier: Identifiers.statusLabel, value: MockTaskStatus.notStarted.title)
+        utils.assertStaticText(
+            identifier: Identifiers.statusLabel,
+            value: MockTaskStatus.notStarted.title
+        )
         utils.assertStaticText(identifier: Identifiers.commentLabel, value: nil)
         utils.assertStaticText(identifier: Identifiers.dueDateLabel, value: "None")
         utils.assertDate(label: Identifiers.createdDateLabel)
@@ -52,22 +55,27 @@ final class TaskAdditionTests: XCTestCase {
         let title = "Task1"
         let comment = "comment"
         let url = "https://www.google.co.jp/"
-        
+
         utils.assertStaticText(
             identifier: Identifiers.titleLabel,
-            value: title)
+            value: title
+        )
         utils.assertStaticText(
             identifier: Identifiers.commentLabel,
-            value: comment)
-        utils.assertStaticText(identifier:
-                                Identifiers.urlLabel, value: url)
-        utils.assertStaticText(identifier:
-                                Identifiers.statusLabel,
-                               value: MockTaskStatus.inProgress.title)
+            value: comment
+        )
         utils.assertStaticText(
-            identifier:
-                Identifiers.dueDateLabel,
-            value: "1/2/2040, 3:31 PM")
+            identifier: Identifiers.urlLabel,
+            value: url
+        )
+        utils.assertStaticText(
+            identifier: Identifiers.statusLabel,
+            value: MockTaskStatus.inProgress.title
+        )
+        utils.assertStaticText(
+            identifier: Identifiers.dueDateLabel,
+            value: "1/2/2040, 3:31 PM"
+        )
         utils.assertDate(label: Identifiers.createdDateLabel)
     }
 
@@ -76,8 +84,9 @@ final class TaskAdditionTests: XCTestCase {
     func testCannotSaveTaskWithEmptyTitle() {
         utils.tapAddTaskButton()
         utils.enterTitle("")
+
         let saveButton = application.buttons[Identifiers.saveButton]
-        utils.verifySaveButton(saveButton:saveButton,expected: false)
+        utils.verifySaveButton(saveButton: saveButton, expected: false)
     }
 
     /// タイトルが改行の場合、タスクを保存できないことを確認する
@@ -87,7 +96,7 @@ final class TaskAdditionTests: XCTestCase {
         utils.enterTitle("\n")
 
         let saveButton = application.buttons[Identifiers.saveButton]
-        utils.verifySaveButton(saveButton:saveButton,expected: false)
+        utils.verifySaveButton(saveButton: saveButton, expected: false)
     }
 
     /// 過去の日付の期限設定した場合、タスクを保存できないことを確認する
@@ -96,12 +105,12 @@ final class TaskAdditionTests: XCTestCase {
         utils.tapAddTaskButton()
         utils.enterTitle("Task1")
 
-        utils.pickWheels(boundBy: 0, value:  "January")
-        utils.pickWheels(boundBy: 1, value:  "1")
-        utils.pickWheels(boundBy: 2, value:  "2020")
+        utils.pickWheels(boundBy: .month, value: "January")
+        utils.pickWheels(boundBy: .day, value: "1")
+        utils.pickWheels(boundBy: .year, value: "2020")
 
         let saveButton = application.buttons[Identifiers.saveButton]
-        utils.verifySaveButton(saveButton:saveButton,expected: false)
+        utils.verifySaveButton(saveButton: saveButton, expected: false)
     }
 
     /// URLが無効の場合、タスクを保存できないことを確認する
@@ -115,7 +124,7 @@ final class TaskAdditionTests: XCTestCase {
         urlField.typeText("invalid")
 
         let saveButton = application.buttons[Identifiers.saveButton]
-        utils.verifySaveButton(saveButton:saveButton,expected: false)
+        utils.verifySaveButton(saveButton: saveButton, expected: false)
     }
 
     /// 長いタイトルでタスクが作成できることを確認する

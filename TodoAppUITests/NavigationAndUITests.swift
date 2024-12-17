@@ -111,14 +111,14 @@ final class NavigationAndUITests: XCTestCase {
         // メトリクスの設定
         let navigationMetric = XCTOSSignpostMetric.navigationTransitionMetric
         measure(metrics: [navigationMetric]) {
-            
+
             let addTaskButton = application.buttons[Identifiers.addTaskButton]
             utils.assertElementExists(addTaskButton, exists: true)
             addTaskButton.tap()
 
             let titleField = application.textFields[Identifiers.titleLabel]
             utils.assertElementExists(titleField, exists: true)
-            
+
             titleField.tap()
             titleField.typeText("test")
 

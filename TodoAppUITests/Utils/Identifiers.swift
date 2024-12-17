@@ -20,7 +20,7 @@ struct Identifiers {
     static let dueDateLabel = "Due Date"
     static let timeLabel = "Time"
     static let createdDateLabel = "Created Date"
-    
+
     static let statusLabel = "Status"
 
     static let cancelButton = "Cancel"
@@ -32,9 +32,5 @@ struct Identifiers {
     static let emptyMessage = "Add a new task"
     static let deleteButton = "Delete"
     static let deleteButtonIcon = "minus.circle.fill"
-    
-    
+
 }
-
-
-

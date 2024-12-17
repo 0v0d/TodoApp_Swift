@@ -23,8 +23,8 @@ extension NavigationAndUITests {
 
         // Comments
         verifyStaticTextAndTextField(
-            staticLabel:Identifiers.commentLabel,
-            textFieldLabel:Identifiers.commentField
+            staticLabel: Identifiers.commentLabel,
+            textFieldLabel: Identifiers.commentField
         )
 
         // URL
@@ -37,7 +37,7 @@ extension NavigationAndUITests {
         let statusButton = application.buttons[utils.getTaskStatusName(MockTaskStatus.notStarted.title)]
         utils.assertElementExists(statusButton, exists: true)
 
-        XCTAssertEqual(application.pickers.count, 2,"Picker should exist")
+        XCTAssertEqual(application.pickers.count, 2, "Picker should exist")
 
         verifyDueDatePicker()
 

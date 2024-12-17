@@ -5,11 +5,11 @@
 //  Created by 0v0 on 2024/12/17.
 //
 
-enum MockTaskStatus{
+enum MockTaskStatus {
     case notStarted
     case inProgress
     case completed
-    
+
     var title: String {
         switch self {
         case .notStarted:

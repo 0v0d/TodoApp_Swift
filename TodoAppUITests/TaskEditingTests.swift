@@ -30,13 +30,14 @@ final class TaskEditingTests: XCTestCase {
     @MainActor
     func testEditTaskTitle() {
         let title = "Task1"
-  
+
         utils.assertStaticText(
             identifier: Identifiers.titleLabel,
-            value: title)
-        
+            value: title
+        )
+
         tapTaskEditButton()
-        
+
         let editTitle = "Renamed Task"
         editTaskTextField(identifier: Identifiers.titleLabel, editTitle)
 
@@ -44,25 +45,25 @@ final class TaskEditingTests: XCTestCase {
 
         utils.assertStaticText(
             identifier: Identifiers.titleLabel,
-            value: editTitle)
+            value: editTitle
+        )
     }
 
     /// コメントを編集できる
     @MainActor
     func testEditTaskComment() {
         let comment = "comment"
-      
+
         utils.assertStaticText(
             identifier: Identifiers.commentLabel,
             value: comment)
-      
-     
+
         utils.assertStaticText(identifier:
                                 Identifiers.statusLabel,
                                value: MockTaskStatus.inProgress.title)
-      
+
         tapTaskEditButton()
-        
+
         let editComment = "Edited Comment"
         editTaskTextField( identifier: Identifiers.commentField,
                            editComment
@@ -77,39 +78,44 @@ final class TaskEditingTests: XCTestCase {
     @MainActor
     func testEditTaskURL() {
         let url = "https://www.google.co.jp/"
-        
-         utils.assertStaticText(identifier:
-                                 Identifiers.urlLabel, value: url)
-        
+
+        utils.assertStaticText(identifier:
+                                Identifiers.urlLabel, value: url)
+
         tapTaskEditButton()
         let editURL = "https://github.com/"
-        editTaskTextField(identifier: Identifiers.urlLabel,editURL)
+        editTaskTextField(identifier: Identifiers.urlLabel, editURL)
 
         utils.tapTaskCell()
 
-        utils.assertStaticText(identifier: Identifiers.urlLabel, value: editURL)
+        utils.assertStaticText(
+            identifier: Identifiers.urlLabel,
+            value: editURL
+        )
     }
-    
+
     /// ステータスを変更できる
     @MainActor
     func testChangeTaskStatus() {
         utils.assertStaticText(
-            identifier:Identifiers.statusLabel,
+            identifier: Identifiers.statusLabel,
             value: MockTaskStatus.inProgress.title
-            )
+        )
         tapTaskEditButton()
-        
-        let statusButton = application.buttons[utils.getTaskStatusName(MockTaskStatus.inProgress.title)]
+
+        let statusButtonTitle = utils.getTaskStatusName(MockTaskStatus.inProgress.title)
+        let statusButton = application.buttons[statusButtonTitle]
         statusButton.tap()
+
         let completedButton = application.buttons[MockTaskStatus.completed.title]
         completedButton.tap()
-        
+
         utils.tapSaveButton()
-        
+
         utils.tapTaskCell()
 
         utils.assertStaticText(
-            identifier:Identifiers.statusLabel,
+            identifier: Identifiers.statusLabel,
             value: MockTaskStatus.completed.title
         )
     }
@@ -118,29 +124,28 @@ final class TaskEditingTests: XCTestCase {
     @MainActor
     func testChangeTaskDueDate() {
         utils.assertStaticText(
-            identifier:
-                Identifiers.dueDateLabel,
-            value: "1/2/2040, 3:31 PM")
-        
+            identifier: Identifiers.dueDateLabel,
+            value: "1/2/2040, 3:31 PM"
+        )
+
         tapTaskEditButton()
-        
-        utils.pickWheels(boundBy: 0, value:  "December")
-        utils.pickWheels(boundBy: 1, value:  "25")
-        utils.pickWheels(boundBy: 2, value:  "2045")
-        utils.pickWheels(boundBy: 3, value:  "6")
-        utils.pickWheels(boundBy: 4, value:  "56")
-        utils.pickWheels(boundBy: 5, value:  "AM")
-        
+
+        utils.pickWheels(boundBy: .month, value: "December")
+        utils.pickWheels(boundBy: .day, value: "25")
+        utils.pickWheels(boundBy: .year, value: "2045")
+        utils.pickWheels(boundBy: .hour, value: "6")
+        utils.pickWheels(boundBy: .minute, value: "56")
+        utils.pickWheels(boundBy: .period, value: "AM")
+
         utils.tapSaveButton()
-        
+
         utils.tapTaskCell()
-        
+
         utils.assertStaticText(
-            identifier:
-                Identifiers.dueDateLabel,
-            value: "12/25/2045, 6:56 AM")
+            identifier: Identifiers.dueDateLabel,
+            value: "12/25/2045, 6:56 AM"
+        )
         utils.assertDate(label: Identifiers.createdDateLabel)
-            
     }
 
     /// 空白のみのタイトルに編集しようとした場合の動作
@@ -151,16 +156,17 @@ final class TaskEditingTests: XCTestCase {
         textField.tap()
 
         textField.doubleTap()
-        
+
         textField.typeText("\u{8}")
         textField.typeText("")
-        
+
         let saveButton = application.buttons[Identifiers.saveButton]
-        utils.verifySaveButton(saveButton:saveButton,expected: false)
+        utils.verifySaveButton(saveButton: saveButton, expected: false)
     }
 }
 
 extension TaskEditingTests {
+
     private func tapTaskEditButton() {
         utils.tapTaskCell()
         utils.tapEditButton()
