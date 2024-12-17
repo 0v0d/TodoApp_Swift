@@ -31,7 +31,15 @@ struct HomeView: View {
             })
             // EditButton()バグ回避のため、navigationBarItemsを使う
         } detail: {
-            TaskDetailView(selectedTask: $selectedTask, tasks: viewModel.tasks)
+            if let task = selectedTask {
+                TaskDetailView(selectedTask: task)
+            } else {
+                EmptyStateView(
+                    title: "SelectTask",
+                    systemImageName: "sidebar.right",
+                    description: "TaskSelectionMessage"
+                )
+            }
         }
         .sheet(isPresented: $showingAddTask) {
             AddTaskView()
