@@ -14,121 +14,120 @@ final class TaskAdditionTests: XCTestCase {
         super.setUp()
         application = setupUITest()
         utils = UITestUtils(app: application)
-
-        let addTaskButton = application.buttons[AccessibilityIdentifiers.addTaskButton]
-        addTaskButton.tap()
     }
 
     override func tearDown() {
-        teardownTestEnvironment()
-        super.tearDown()
-    }
-
-    private func teardownTestEnvironment() {
         teardownUITest(application)
         application = nil
+        super.tearDown()
     }
 
     /// 最小限の情報（タイトルのみ）でタスクが作成できることを確認する
     @MainActor
     func testCanAddTaskWithMinimalInformation() {
-        addTaskWithTitle("Task1")
+        utils.tapAddTaskButton()
+        
+        let title = "Task1"
+        utils.enterTitle(title)
+        utils.tapSaveButton()
 
-        let taskList = application.collectionViews.element(boundBy: 0)
-        let taskCell = taskList.cells.element(boundBy: 0)
-        XCTAssertTrue(taskCell.exists, "タスクのセルが作成されるべきです")
-
-        taskCell.tap()
+        utils.tapTaskCell()
 
         // タスクの詳細を確認
-        utils.assertStaticText(label: "Title", value: "Task1")
-        utils.assertStaticText(label: "Status", value: "Not Started")
-        utils.assertStaticText(label: "Comments", value: nil)
-        utils.assertStaticText(label: "Due Date", value: "None")
-        utils.assertDate(label: "Created Date")
+        utils.assertStaticText(identifier: Identifiers.titleLabel, value: title)
+        utils.assertStaticText(identifier: Identifiers.statusLabel, value: MockTaskStatus.notStarted.title)
+        utils.assertStaticText(identifier: Identifiers.commentLabel, value: nil)
+        utils.assertStaticText(identifier: Identifiers.dueDateLabel, value: "None")
+        utils.assertDate(label: Identifiers.createdDateLabel)
     }
 
     /// すべての情報を使ってタスクが作成できることを確認する
     @MainActor
     func testCanAddTaskWithCompleteInformation() {
-        let titleField = application.textFields[AccessibilityIdentifiers.titleField]
-        let commentField = application.textFields[AccessibilityIdentifiers.commentField]
-        let urlField = application.textFields[AccessibilityIdentifiers.urlField]
-        let statusButton = application.buttons[AccessibilityIdentifiers.statusPicker]
-        let saveButton = application.buttons[AccessibilityIdentifiers.saveButton]
+        utils.setupTasksAllInformation()
 
-        titleField.tap()
-        titleField.typeText("Task1")
-
-        commentField.tap()
-        commentField.typeText("comment")
-
-        urlField.tap()
-        urlField.typeText("https://www.google.co.jp/")
-
-        statusButton.tap()
-        let inProgressButton = application.buttons["In Progress"]
-        inProgressButton.tap()
-
-        // 期限日を設定
-        application.pickerWheels.element(boundBy: 0).adjust(toPickerWheelValue: "January")
-        application.pickerWheels.element(boundBy: 1).adjust(toPickerWheelValue: "1")
-        application.pickerWheels.element(boundBy: 2).adjust(toPickerWheelValue: "2040")
-        application.pickerWheels.element(boundBy: 3).adjust(toPickerWheelValue: "12")
-        application.pickerWheels.element(boundBy: 4).adjust(toPickerWheelValue: "00")
-
-        saveButton.tap()
-
-        // 検証
-        let taskList = application.collectionViews.element(boundBy: 0)
-        let taskCell = taskList.cells.element(boundBy: 0)
-        taskCell.tap()
+        utils.tapTaskCell()
 
         // タスクの詳細を確認
-        utils.assertStaticText(label: "Title", value: "Task1")
-        utils.assertStaticText(label: "Comments", value: "comment")
-        utils.assertStaticText(label: "URL", value: "https://www.google.co.jp/")
-        utils.assertStaticText(label: "Status", value: "In Progress")
-        utils.assertStaticText(label: "Due Date", value: "1/1/2040, 12:00 AM")
-
-        utils.assertDate(label: "Created Date")
+        let title = "Task1"
+        let comment = "comment"
+        let url = "https://www.google.co.jp/"
+        
+        utils.assertStaticText(
+            identifier: Identifiers.titleLabel,
+            value: title)
+        utils.assertStaticText(
+            identifier: Identifiers.commentLabel,
+            value: comment)
+        utils.assertStaticText(identifier:
+                                Identifiers.urlLabel, value: url)
+        utils.assertStaticText(identifier:
+                                Identifiers.statusLabel,
+                               value: MockTaskStatus.inProgress.title)
+        utils.assertStaticText(
+            identifier:
+                Identifiers.dueDateLabel,
+            value: "1/2/2040, 3:31 PM")
+        utils.assertDate(label: Identifiers.createdDateLabel)
     }
 
     /// タイトルが空の場合、タスクを保存できないことを確認する
     @MainActor
     func testCannotSaveTaskWithEmptyTitle() {
-        let titleField = application.textFields[AccessibilityIdentifiers.titleField]
-        titleField.tap()
-        titleField.typeText("")
-
-        utils.assertButton(label: AccessibilityIdentifiers.saveButton)
-        let saveButton = application.buttons[AccessibilityIdentifiers.saveButton]
-        XCTAssertFalse(saveButton.isEnabled, "The save button should be disabled")
+        utils.tapAddTaskButton()
+        utils.enterTitle("")
+        let saveButton = application.buttons[Identifiers.saveButton]
+        utils.verifySaveButton(saveButton:saveButton,expected: false)
     }
 
-    /// 最大長のタイトルでタスクが作成できることを確認する
+    /// タイトルが改行の場合、タスクを保存できないことを確認する
+    @MainActor
+    func testCannotSaveTaskWithNewlinesTitle() {
+        utils.tapAddTaskButton()
+        utils.enterTitle("\n")
+
+        let saveButton = application.buttons[Identifiers.saveButton]
+        utils.verifySaveButton(saveButton:saveButton,expected: false)
+    }
+
+    /// 過去の日付の期限設定した場合、タスクを保存できないことを確認する
+    @MainActor
+    func testCannotSavePastDueDates() {
+        utils.tapAddTaskButton()
+        utils.enterTitle("Task1")
+
+        utils.pickWheels(boundBy: 0, value:  "January")
+        utils.pickWheels(boundBy: 1, value:  "1")
+        utils.pickWheels(boundBy: 2, value:  "2020")
+
+        let saveButton = application.buttons[Identifiers.saveButton]
+        utils.verifySaveButton(saveButton:saveButton,expected: false)
+    }
+
+    /// URLが無効の場合、タスクを保存できないことを確認する
+    @MainActor
+    func testCannotSaveInvalidURL() {
+        utils.tapAddTaskButton()
+        utils.enterTitle("Task1")
+
+        let urlField = application.textFields[Identifiers.urlLabel]
+        urlField.tap()
+        urlField.typeText("invalid")
+
+        let saveButton = application.buttons[Identifiers.saveButton]
+        utils.verifySaveButton(saveButton:saveButton,expected: false)
+    }
+
+    /// 長いタイトルでタスクが作成できることを確認する
     @MainActor
     func testCanAddTaskWithMaximumLengthTitle() {
-        // 準備
+        utils.tapAddTaskButton()
         let longTitle = String(repeating: "1", count: 128)
+        utils.enterTitle(longTitle)
+        utils.tapSaveButton()
 
-        addTaskWithTitle(longTitle)
+        utils.tapTaskCell()
 
-        // 検証
-        let taskList = application.collectionViews.element(boundBy: 0)
-        let taskCell = taskList.cells.element(boundBy: 0)
-        XCTAssertTrue(taskCell.exists, "タスクのセルが作成されるべきです")
-
-        taskCell.tap()
-        utils.assertStaticText(label: "Title", value: longTitle)
-    }
-
-    private func addTaskWithTitle(_ title: String) {
-        let titleField = application.textFields[AccessibilityIdentifiers.titleField]
-        titleField.tap()
-        titleField.typeText(title)
-
-        let saveButton = application.buttons[AccessibilityIdentifiers.saveButton]
-        saveButton.tap()
+        utils.assertStaticText(identifier: "Title", value: longTitle)
     }
 }

@@ -1,19 +1,28 @@
 //
-//  AccessibilityIdentifiers.swift
+//  Identifiers.swift
 //  TodoApp
 //
 //  Created by 0v0 on 2024/12/10.
 //
 
-struct AccessibilityIdentifiers {
+struct Identifiers {
+    static let taskListScreen = "Task List"
+    static let addTaskScreen = "New Task"
+    static let editTaskScreen = "Edit Task"
+
     static let addTaskButton = "square.and.pencil"
-    static let titleField = "Title"
+    static let titleLabel = "Title"
+
+    static let commentLabel = "Comments"
     static let commentField = "Comment"
-    static let urlField = "URL"
-    static let dueDatePicker = "DueDate"
-    static let timePicker = "Time"
-    static let createdDatePicker = "CreatedDate"
-    static let statusPicker = "Status, Not Started"
+
+    static let urlLabel = "URL"
+    static let dueDateLabel = "Due Date"
+    static let timeLabel = "Time"
+    static let createdDateLabel = "Created Date"
+    
+    static let statusLabel = "Status"
+
     static let cancelButton = "Cancel"
     static let saveButton = "Save"
     static let editButton = "Edit"
@@ -23,4 +32,9 @@ struct AccessibilityIdentifiers {
     static let emptyMessage = "Add a new task"
     static let deleteButton = "Delete"
     static let deleteButtonIcon = "minus.circle.fill"
+    
+    
 }
+
+
+

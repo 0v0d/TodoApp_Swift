@@ -8,8 +8,9 @@ import XCTest
 
 /// タスク削除に関するテスト
 final class TaskDeletionTests: XCTestCase {
-    var application: XCUIApplication!
-    var utils: UITestUtils!
+    private var application: XCUIApplication!
+    private var utils: UITestUtils!
+
     override func setUp() {
         super.setUp()
         application = setupUITest()
@@ -25,52 +26,86 @@ final class TaskDeletionTests: XCTestCase {
     /// タスクを削除する操作が正しく動作することを確認
     @MainActor
     func testDeleteSingleTask() throws {
-        TestHelper.setupTasksForTesting(app: application)
+        utils.setupTasksForTesting()
 
-        let taskList = application.collectionViews.element(boundBy: 0)
-        let editButton = application.buttons[AccessibilityIdentifiers.editButton]
+        let editButton = application.buttons[Identifiers.editButton]
         editButton.tap()
 
+        let taskList = application.collectionViews.element(boundBy: 0)
         let taskCell = taskList.cells.element(boundBy: 0)
-        let deleteButton = taskCell.images[AccessibilityIdentifiers.deleteButtonIcon]
+        utils.assertElementExists(taskCell, exists: true)
 
-        XCTAssertTrue(deleteButton.exists, "Delete button should exist")
-        deleteButton.tap()
+        let deleteIconButton = taskCell.images[Identifiers.deleteButtonIcon]
+        utils.assertElementExists(deleteIconButton, exists: true)
+        deleteIconButton.tap()
 
-        application.buttons[AccessibilityIdentifiers.deleteButton].tap()
-        XCTAssertFalse(taskCell.exists, "Task cell should be deleted")
+        tapDeleteButton()
+
+        utils.assertElementExists(taskCell, exists: false)
     }
 
     //// 左スワイプでタスクを削除する操作が正しく動作することを確認
     @MainActor
     func testSwipeDeleteSingleTask() throws {
-        TestHelper.setupTasksForTesting(app: application)
+        utils.setupTasksForTesting()
 
         let taskList = application.collectionViews.element(boundBy: 0)
         let taskCell = taskList.cells.element(boundBy: 0)
 
         taskCell.swipeLeft()
-        utils.assertButton(label: AccessibilityIdentifiers.deleteButton)
-        application.buttons[AccessibilityIdentifiers.deleteButton].tap()
+        tapDeleteButton()
 
-        XCTAssertFalse(taskCell.exists, "Task cell should be deleted")
+        utils.assertElementExists(taskCell, exists: false)
     }
 
     /// 複数のタスクを同時に削除できる
     @MainActor
     func testDeleteMultipleTasks() {
+        let tasks =  (0..<3).map { "Task \($0)" }
 
-    }
+        utils.setupTasksForTesting( tasks: tasks)
+        let taskList = application.collectionViews.element(boundBy: 0)
+        let editButton = application.buttons[Identifiers.editButton]
+        editButton.tap()
 
-    /// 削除後にリストから消える
-    @MainActor
-    func testTaskDisappearsFromListAfterDeletion() {
+        for _ in 0..<3 {
+            let taskCell = taskList.cells.element(boundBy: 0)
+            let deleteIconButton = taskCell.images[Identifiers.deleteButtonIcon]
+            utils.assertElementExists(deleteIconButton, exists: true)
+            deleteIconButton.tap()
 
+            tapDeleteButton()
+        }
+
+        XCTAssertFalse(taskList.cells.count > 0, "All tasks should be deleted")
+        utils.assertStaticText(identifier: Identifiers.emptyTitle, value: nil)
+        utils.assertStaticText(identifier: Identifiers.emptyMessage, value: nil)
     }
 
     /// 削除操作をキャンセルした場合の動作
     @MainActor
     func testCancelTaskDeletion() {
+        utils.setupTasksForTesting()
 
+        let taskList = application.collectionViews.element(boundBy: 0)
+        let editButton = application.buttons[Identifiers.editButton]
+        editButton.tap()
+
+        let taskCell = taskList.cells.element(boundBy: 0)
+        let deleteIconButton = taskCell.images[Identifiers.deleteButtonIcon]
+        deleteIconButton.tap()
+
+        application.buttons["Done"].tap()
+
+        utils.assertElementExists(taskCell, exists: true)
+    }
+
+}
+
+extension TaskDeletionTests {
+    private func tapDeleteButton() {
+        let deleteButton = application.buttons[Identifiers.deleteButton]
+        utils.assertElementExists(deleteButton, exists: true)
+        deleteButton.tap()
     }
 }
