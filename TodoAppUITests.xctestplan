@@ -1,0 +1,25 @@
+{
+  "configurations" : [
+    {
+      "id" : "4A8DCE37-9983-4FB0-AEE2-E9BFEF470AB6",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "testTimeoutsEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:TodoApp.xcodeproj",
+        "identifier" : "D0A886C12D00063800D0F75F",
+        "name" : "TodoAppUITests"
+      }
+    }
+  ],
+  "version" : 1
+}

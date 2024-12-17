@@ -13,6 +13,7 @@
 		D05765992CF454AD00B45398 /* TodoAppWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = D05765892CF454AB00B45398 /* TodoAppWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D0703C3F2CE3481800C47610 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = D0703C3E2CE3481800C47610 /* Localizable.xcstrings */; };
 		D09713FB2CDBD5D30014E7FA /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = D09713FA2CDBD5C90014E7FA /* .gitignore */; };
+		D0A4A1F42D11AB710030D45D /* TodoAppUITests.xctestplan in Resources */ = {isa = PBXBuildFile; fileRef = D0A4A1F32D11AB710030D45D /* TodoAppUITests.xctestplan */; };
 		D0A886DC2D00144C00D0F75F /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = D0703C3E2CE3481800C47610 /* Localizable.xcstrings */; };
 /* End PBXBuildFile section */
 
@@ -55,7 +56,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		D02414042CF42039005F41C8 /* TodoAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TodoAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D02414042CF42039005F41C8 /* TodoAppUnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TodoAppUnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D032E17B2CF5CE6600B47B5C /* TodoAppWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TodoAppWidgetExtension.entitlements; sourceTree = "<group>"; };
 		D032ECD92CCA84F000461F6C /* TodoApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TodoApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D05765892CF454AB00B45398 /* TodoAppWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TodoAppWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -63,6 +64,8 @@
 		D057658D2CF454AB00B45398 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		D0703C3E2CE3481800C47610 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		D09713FA2CDBD5C90014E7FA /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		D0A4A1F22D11AB560030D45D /* TodoAppUnitTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = TodoAppUnitTests.xctestplan; sourceTree = "<group>"; };
+		D0A4A1F32D11AB710030D45D /* TodoAppUITests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = TodoAppUITests.xctestplan; sourceTree = "<group>"; };
 		D0A886C22D00063800D0F75F /* TodoAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TodoAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -99,9 +102,9 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		D02414052CF42039005F41C8 /* TodoAppTests */ = {
+		D02414052CF42039005F41C8 /* TodoAppUnitTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = TodoAppTests;
+			path = TodoAppUnitTests;
 			sourceTree = "<group>";
 		};
 		D032ECDB2CCA84F000461F6C /* TodoApp */ = {
@@ -165,11 +168,13 @@
 		D032ECD02CCA84F000461F6C = {
 			isa = PBXGroup;
 			children = (
+				D0A4A1F32D11AB710030D45D /* TodoAppUITests.xctestplan */,
+				D0A4A1F22D11AB560030D45D /* TodoAppUnitTests.xctestplan */,
 				D032E17B2CF5CE6600B47B5C /* TodoAppWidgetExtension.entitlements */,
 				D0703C3E2CE3481800C47610 /* Localizable.xcstrings */,
 				D09713FA2CDBD5C90014E7FA /* .gitignore */,
 				D032ECDB2CCA84F000461F6C /* TodoApp */,
-				D02414052CF42039005F41C8 /* TodoAppTests */,
+				D02414052CF42039005F41C8 /* TodoAppUnitTests */,
 				D057658F2CF454AB00B45398 /* TodoAppWidget */,
 				D0A886C32D00063800D0F75F /* TodoAppUITests */,
 				D057658A2CF454AB00B45398 /* Frameworks */,
@@ -181,7 +186,7 @@
 			isa = PBXGroup;
 			children = (
 				D032ECD92CCA84F000461F6C /* TodoApp.app */,
-				D02414042CF42039005F41C8 /* TodoAppTests.xctest */,
+				D02414042CF42039005F41C8 /* TodoAppUnitTests.xctest */,
 				D05765892CF454AB00B45398 /* TodoAppWidgetExtension.appex */,
 				D0A886C22D00063800D0F75F /* TodoAppUITests.xctest */,
 			);
@@ -200,9 +205,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		D02414032CF42038005F41C8 /* TodoAppTests */ = {
+		D02414032CF42038005F41C8 /* TodoAppUnitTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D024140C2CF42039005F41C8 /* Build configuration list for PBXNativeTarget "TodoAppTests" */;
+			buildConfigurationList = D024140C2CF42039005F41C8 /* Build configuration list for PBXNativeTarget "TodoAppUnitTests" */;
 			buildPhases = (
 				D02414002CF42038005F41C8 /* Sources */,
 				D02414012CF42038005F41C8 /* Frameworks */,
@@ -214,13 +219,13 @@
 				D02414092CF42039005F41C8 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				D02414052CF42039005F41C8 /* TodoAppTests */,
+				D02414052CF42039005F41C8 /* TodoAppUnitTests */,
 			);
-			name = TodoAppTests;
+			name = TodoAppUnitTests;
 			packageProductDependencies = (
 			);
 			productName = TodoAppTests;
-			productReference = D02414042CF42039005F41C8 /* TodoAppTests.xctest */;
+			productReference = D02414042CF42039005F41C8 /* TodoAppUnitTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		D032ECD82CCA84F000461F6C /* TodoApp */ = {
@@ -334,7 +339,7 @@
 			projectRoot = "";
 			targets = (
 				D032ECD82CCA84F000461F6C /* TodoApp */,
-				D02414032CF42038005F41C8 /* TodoAppTests */,
+				D02414032CF42038005F41C8 /* TodoAppUnitTests */,
 				D05765882CF454AB00B45398 /* TodoAppWidgetExtension */,
 				D0A886C12D00063800D0F75F /* TodoAppUITests */,
 			);
@@ -355,6 +360,7 @@
 			files = (
 				D0703C3F2CE3481800C47610 /* Localizable.xcstrings in Resources */,
 				D09713FB2CDBD5D30014E7FA /* .gitignore in Resources */,
+				D0A4A1F42D11AB710030D45D /* TodoAppUITests.xctestplan in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -748,7 +754,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		D024140C2CF42039005F41C8 /* Build configuration list for PBXNativeTarget "TodoAppTests" */ = {
+		D024140C2CF42039005F41C8 /* Build configuration list for PBXNativeTarget "TodoAppUnitTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D024140A2CF42039005F41C8 /* Debug */,
