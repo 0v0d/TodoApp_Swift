@@ -24,23 +24,23 @@ final class TaskViewModelTests: XCTestCase {
         super.tearDown()
     }
 
-    func testAddTask_success() async {
-        let task = TestData.todo
+    func testAddTaskSuccess() async {
+        let task = TodoTestData.todo
 
         await viewModel.addTask(task)
 
         XCTAssertEqual(viewModel.tasks.count, 1)
-        XCTAssertEqual(viewModel.tasks.first?.title, TestData.todo.title)
+        XCTAssertEqual(viewModel.tasks.first?.title, TodoTestData.todo.title)
         XCTAssertNil(viewModel.errorMessage)
     }
 
-    func testAddTask_failure() async {
+    func testAddTaskFailure() async {
         repository.error = NSError(
             domain: "TestError",
             code: 1,
             userInfo: [NSLocalizedDescriptionKey: "AddTask Error"])
 
-        let task = TestData.todo
+        let task = TodoTestData.todo
 
         await viewModel.addTask(task)
 
@@ -48,33 +48,33 @@ final class TaskViewModelTests: XCTestCase {
         XCTAssertEqual(viewModel.errorMessage, "AddTask Error")
     }
 
-    func testLoadTasks_success() async {
-        repository.tasks = TestData.todos
+    func testLoadTasksSuccess() async {
+        repository.tasks = TodoTestData.todos
 
         await viewModel.loadTasks()
 
-        XCTAssertEqual(viewModel.tasks.count, TestData.todos.count)
-        XCTAssertEqual(viewModel.tasks[0].title, TestData.todos[0].title)
+        XCTAssertEqual(viewModel.tasks.count, TodoTestData.todos.count)
+        XCTAssertEqual(viewModel.tasks[0].title, TodoTestData.todos[0].title)
         XCTAssertNil(viewModel.errorMessage)
     }
 
-    func testMoveTask_success() async {
-        repository.tasks = TestData.todos
+    func testMoveTaskSuccess() async {
+        repository.tasks = TodoTestData.todos
 
         await viewModel.moveTask(from: IndexSet(integer: 0), end: 2)
 
-        XCTAssertEqual(viewModel.tasks[0], TestData.todos[1])
-        XCTAssertEqual(viewModel.tasks[2], TestData.todos[0] )
+        XCTAssertEqual(viewModel.tasks[0], TodoTestData.todos[1])
+        XCTAssertEqual(viewModel.tasks[2], TodoTestData.todos[0] )
         XCTAssertNil(viewModel.errorMessage)
     }
 
-    func testDeleteTask_success() async {
-        repository.tasks = TestData.todos
+    func testDeleteTaskSuccess() async {
+        repository.tasks = TodoTestData.todos
 
         await viewModel.deleteTask(repository.tasks[0])
 
-        XCTAssertEqual(viewModel.tasks.count, TestData.todos.count - 1)
-        XCTAssertEqual(viewModel.tasks.first, TestData.todos[1])
+        XCTAssertEqual(viewModel.tasks.count, TodoTestData.todos.count - 1)
+        XCTAssertEqual(viewModel.tasks.first, TodoTestData.todos[1])
         XCTAssertNil(viewModel.errorMessage)
     }
 }

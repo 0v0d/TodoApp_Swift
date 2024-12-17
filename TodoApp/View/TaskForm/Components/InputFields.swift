@@ -17,7 +17,6 @@ struct TitleInputField: View {
             isRequired: true,
             lineLimitRange: 1...3
         )
-        .padding(.top, 10)
     }
 }
 
@@ -64,8 +63,8 @@ struct InputField: View {
     var lineLimitRange: ClosedRange<Int>?
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            HStack(spacing: 0) {
+        VStack(alignment: .leading, spacing: 8) {
+            HStack {
                 Text(LocalizedStringKey(title))
                     .font(.headline)
                     .foregroundColor(.secondary)

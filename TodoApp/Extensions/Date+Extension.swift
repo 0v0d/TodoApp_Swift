@@ -15,7 +15,7 @@ extension Date {
                 .year(.defaultDigits)
                 .month(.defaultDigits)
                 .day(.defaultDigits)
-                .hour(.defaultDigits(amPM: .omitted))
+                .hour(.defaultDigits(amPM: .abbreviated))
                 .minute(.defaultDigits)
         )
     }

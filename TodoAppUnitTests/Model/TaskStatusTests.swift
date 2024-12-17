@@ -5,8 +5,8 @@
 //  Created by 0v0 on 2024/12/01.
 //
 import XCTest
-@testable import TodoApp
 import SwiftUICore
+@testable import TodoApp
 
 final class TaskStatusTests: XCTestCase {
     func testTaskStatusTitles() {

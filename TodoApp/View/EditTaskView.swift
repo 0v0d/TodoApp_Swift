@@ -49,5 +49,5 @@ struct EditTaskView: View {
 }
 
 #Preview {
-    EditTaskView(task: TestData.todo)
+    EditTaskView(task: TodoTestData.todo)
 }

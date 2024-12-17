@@ -31,7 +31,15 @@ struct HomeView: View {
             })
             // EditButton()バグ回避のため、navigationBarItemsを使う
         } detail: {
-            TaskDetailView(selectedTask: $selectedTask, tasks: viewModel.tasks)
+            if let task = selectedTask {
+                TaskDetailView(selectedTask: task)
+            } else {
+                EmptyStateView(
+                    title: "SelectTask",
+                    systemImageName: "sidebar.right",
+                    description: "TaskSelectionMessage"
+                )
+            }
         }
         .sheet(isPresented: $showingAddTask) {
             AddTaskView()
@@ -61,21 +69,6 @@ extension HomeView {
     func moveTask(from: IndexSet, end: Int) {
         Task {
             await viewModel.moveTask(from: from, end: end)
-        }
-    }
-}
-
-struct AddTaskButton: View {
-    @Binding var showingAddTask: Bool
-
-    var body: some View {
-        Button {
-            showingAddTask = true
-        } label: {
-            Image(systemName: "square.and.pencil")
-                .accessibilityLabel("NewTask")
-                .fontWeight(.bold)
-                .foregroundColor(.blue)
         }
     }
 }

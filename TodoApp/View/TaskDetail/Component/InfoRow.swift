@@ -19,9 +19,14 @@ struct InfoRow: View {
             if let url = URL(string: content),
                UIApplication.shared.canOpenURL(url) {
                 HStack {
-                    Link(content, destination: url)
+                    Text(content)
                         .font(.body)
                         .foregroundColor(.blue)
+                        .underline()
+                        .lineLimit(nil)
+                        .onTapGesture {
+                            UIApplication.shared.open(url)
+                        }
                 }
             } else {
                 Text(content)

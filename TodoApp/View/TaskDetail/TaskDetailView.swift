@@ -7,22 +7,27 @@
 import SwiftUI
 
 struct TaskDetailView: View {
-    @Binding var selectedTask: Todo?
-    let tasks: [Todo]
+    let selectedTask: Todo
+    @State private var showingEditTask = false
 
     var body: some View {
-        if let task = selectedTask, tasks.contains(task) {
-            TaskDetailViewContent(task: task)
-        } else {
-            EmptyStateView(
-                title: "SelectTask",
-                systemImageName: "sidebar.right",
-                description: "TaskSelectionMessage"
-            )
+        Form {
+            TaskInfoSection(task: selectedTask)
+        }
+        .toolbar {
+            ToolbarItem(placement: .primaryAction) {
+                Button("Edit") {
+                    showingEditTask = true
+                }
+                .foregroundColor(.blue)
+            }
+        }
+        .sheet(isPresented: $showingEditTask) {
+            EditTaskView(task: selectedTask)
         }
     }
 }
 
 #Preview {
-    TaskDetailViewContent(task: TestData.todo)
+    TaskDetailView(selectedTask: TodoTestData.todo)
 }

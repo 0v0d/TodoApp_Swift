@@ -9,15 +9,20 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
-		<key>TodoAppTests.xcscheme_^#shared#^_</key>
+		<key>TodoAppUITests.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>1</integer>
+			<integer>2</integer>
+		</dict>
+		<key>TodoAppUnitTests.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>3</integer>
 		</dict>
 		<key>TodoAppWidgetExtension.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>2</integer>
+			<integer>1</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
@@ -43,6 +48,11 @@
 			<true/>
 		</dict>
 		<key>D0A405232CF4182000B0E69C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D0A886C12D00063800D0F75F</key>
 		<dict>
 			<key>primary</key>
 			<true/>

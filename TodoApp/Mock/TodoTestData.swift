@@ -1,12 +1,12 @@
 //
-//  TestData.swift
+//  TodoTestData.swift
 //  TodoApp
 //
 //  Created by 0v0 on 2024/11/24.
 //
 import Foundation
 
-struct TestData {
+struct TodoTestData {
     static let todo = Todo(
         title: "test",
         comment: "TestComment",

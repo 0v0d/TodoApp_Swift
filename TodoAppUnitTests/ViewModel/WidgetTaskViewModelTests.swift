@@ -22,14 +22,14 @@ final class WidgetTaskViewModelTests: XCTestCase {
     }
 
     func testFetchActiveTaskWithActiveTasks() async throws {
-        repository.tasks = TestData.todos
+        repository.tasks = TodoTestData.todos
         let activeTask = try await viewModel.fetchActiveTask()
 
-        XCTAssertEqual(activeTask?.title, TestData.todos[3].title)
+        XCTAssertEqual(activeTask?.title, TodoTestData.todos[3].title)
     }
 
     func testFetchActiveTaskWithAllTasksCompleted() async throws {
-        repository.tasks = TestData.completeTodos
+        repository.tasks = TodoTestData.completeTodos
         let activeTask = try await viewModel.fetchActiveTask()
         XCTAssertNil(activeTask)
     }

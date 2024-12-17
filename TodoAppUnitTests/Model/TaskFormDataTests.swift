@@ -18,7 +18,7 @@ final class TaskFormDataTests: XCTestCase {
     }
 
     func testTaskFormDataInitializationFromTodo() {
-        let todo = TestData.todo
+        let todo = TodoTestData.todo
         let taskFormData = TaskFormData(from: todo)
         XCTAssertEqual(taskFormData.title, todo.title)
         XCTAssertEqual(taskFormData.comment, todo.comment)
