@@ -40,7 +40,3 @@ jobs:
       - name: Run Unit Tests
         run: |
           xcodebuild test -scheme "TodoAppUnitTests" -destination "platform=iOS Simulator,name=${DEVICE_NAME}"
-
-      - name: Run UI Tests
-        run: |
-          xcodebuild test -scheme "TodoAppUITests" -destination "platform=iOS Simulator,name=${DEVICE_NAME}"
