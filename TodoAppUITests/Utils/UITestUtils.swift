@@ -7,145 +7,67 @@
 import XCTest
 
 final class UITestUtils {
-    private let app: XCUIApplication
+    private let taskSetup: TaskSetupUtils
+    private let uiInteraction: UIInteractionUtils
+    private let assertions: AssertionsUtils
 
     init(app: XCUIApplication) {
-        self.app = app
+        taskSetup = TaskSetupUtils(app: app)
+        uiInteraction = UIInteractionUtils(app: app)
+        assertions = AssertionsUtils(app: app)
     }
-
+    
+    /// テスト用のタスクをセットアップする
     func setupTasksForTesting(tasks: [String] = ["test"]) {
-        tasks.forEach { task in
-            tapAddTaskButton()
-
-            enterTitle(task)
-            tapSaveButton()
-        }
+        taskSetup.setupTasksForTesting(tasks: tasks)
     }
-
+    
     func setupTasksAllInformation() {
-
-        tapAddTaskButton()
-        let title = "Task1"
-        let comment = "comment"
-        let url = "https://www.google.co.jp/"
-
-        enterTitle(title)
-
-        let commentField = app.textFields[Identifiers.commentField]
-        commentField.tap()
-        commentField.typeText(comment)
-
-        let urlField = app.textFields[Identifiers.urlLabel]
-        urlField.tap()
-        urlField.typeText(url)
-
-        let statusButtonTitle = Identifiers.statusLabel + ", "+MockTaskStatus.notStarted.title
-        let statusButton = app.buttons[statusButtonTitle]
-        statusButton.tap()
-
-        let inProgressButton = app.buttons[MockTaskStatus.inProgress.title]
-        inProgressButton.tap()
-
-        // 期限日を設定
-        pickWheels(boundBy: .month, value: "January")
-        pickWheels(boundBy: .day, value: "2")
-        pickWheels(boundBy: .year, value: "2040")
-        pickWheels(boundBy: .hour, value: "3")
-        pickWheels(boundBy: .minute, value: "31")
-        pickWheels(boundBy: .period, value: "PM")
-
-        tapSaveButton()
+        taskSetup.setupTasksAllInformation()
     }
-
-    func assertStaticText(identifier: String, value: String?) {
-        let labelElement = app.staticTexts[identifier]
-        XCTAssertTrue(labelElement.exists, "\(identifier) label should exist")
-
-        if let value = value {
-            let valueElement = app.staticTexts[value]
-            XCTAssertTrue(valueElement.exists, "\(identifier) value '\(value)' should exist")
-        }
-    }
-
-    func assertElementExists(_ element: XCUIElement, exists: Bool) {
-        if exists {
-            XCTAssertTrue(element.exists, "\(element.label) should exist")
-        } else {
-            XCTAssertFalse(element.exists, "\(element.label) should not exist")
-        }
-    }
-
-    func assertDate(label: String, withinSeconds: TimeInterval = 60) {
-        let labelElement = app.staticTexts[label]
-        XCTAssertTrue(labelElement.exists, "\(label) label should exist")
-
-        let now = Date()
-        let calendar = Calendar.current
-        let earliestDate = calendar.date(byAdding: .second, value: -Int(withinSeconds), to: now)!
-        let latestDate = calendar.date(byAdding: .second, value: Int(withinSeconds), to: now)!
-
-        let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-        dateFormatter.dateFormat = "M/d/yyyy, h:mm a"
-
-        let earliestString = dateFormatter.string(from: earliestDate)
-        let latestString = dateFormatter.string(from: latestDate)
-
-        let valueCell = app.cells.containing(.staticText, identifier: label).staticTexts.element(boundBy: 1)
-        let displayedDate = valueCell.label
-
-        XCTAssertTrue(
-            displayedDate >= earliestString && displayedDate <= latestString,
-            "\(label) value '\(displayedDate)' should be within the valid range (\(earliestString) - \(latestString))"
-        )
-    }
-
-    func verifySaveButton(saveButton: XCUIElement, expected: Bool) {
-        if expected {
-            XCTAssertTrue(saveButton.isEnabled, "Save button should be enabled")
-        } else {
-            XCTAssertFalse(saveButton.isEnabled, "Save button should be disabled")
-        }
-    }
-
-    func pickWheels(boundBy: DatePickerComponent, value: String) {
-        app.pickerWheels.element(boundBy: boundBy.rawValue).adjust(
-            toPickerWheelValue: value)
-    }
-
-    func tapTaskCell() {
-        let taskList = app.collectionViews.element(boundBy: 0)
-        assertElementExists(taskList, exists: true)
-
-        let taskCell = taskList.cells.element(boundBy: 0)
-        assertElementExists(taskCell, exists: true)
-        taskCell.tap()
-    }
-
-    func tapEditButton() {
-        let editButton = app.buttons[Identifiers.editButton]
-        assertElementExists(editButton, exists: true)
-        editButton.tap()
+    
+    func tapAddTaskButton() {
+        uiInteraction.tapAddTaskButton()
     }
 
     func tapSaveButton() {
-        let saveButton = app.buttons[Identifiers.saveButton]
-        verifySaveButton(saveButton: saveButton, expected: true)
-        saveButton.tap()
+      uiInteraction.tapSaveButton()
     }
 
-    func enterTitle(_ title: String) {
-        let titleField = app.textFields[Identifiers.titleLabel]
-        titleField.tap()
-        titleField.typeText(title)
+    func tapEditButton() {
+       uiInteraction.tapEditButton()
     }
 
-    func getTaskStatusName(_ taskStatus: String) -> String {
-        return Identifiers.statusLabel + ", " + taskStatus
+    func tapTaskCell() {
+     uiInteraction.tapTaskCell()
     }
 
-    func tapAddTaskButton() {
-        let addTaskButton = app.buttons[Identifiers.addTaskButton]
-        addTaskButton.tap()
+    func enterTextField(identifier: String, text: String) {
+        uiInteraction.enterTextField(identifier: identifier, text: text)
+    }
+   
+    func assertStaticText(identifier: String, value: String?) {
+        assertions.assertStaticText(identifier: identifier, value: value)
+        
+    }
+
+    func assertElementExists(_ element: XCUIElement, exists: Bool)  {
+        assertions.assertElementExists(element, exists: exists)
+    }
+    
+    func assertElementIsEnabled(_ element: XCUIElement, isEnabled: Bool) {
+        assertions.assertElementIsEnabled(element, isEnabled: isEnabled)
+    }
+
+    func assertDate(label: String, withinSeconds: TimeInterval = 60) {
+        assertions.assertDate(label: label, withinSeconds: withinSeconds)
+    }
+    
+    func pickDate(_ date: DateComponents) {
+        taskSetup.pickDate(date)
+    }
+    
+    func getPickerButtonName(identifier: String) -> String {
+        return uiInteraction.getPickerButtonName(identifier: identifier)
     }
 }
