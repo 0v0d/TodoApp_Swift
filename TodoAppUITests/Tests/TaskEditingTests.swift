@@ -104,10 +104,8 @@ final class TaskEditingTests: XCTestCase {
         )
         tapTaskEditButton()
 
-        
-       
         utils.tapStatusPicker(MockTaskStatus.inProgress)
-        
+
         let completedButton = application.buttons[MockTaskStatus.completed.title]
         completedButton.tap()
 
@@ -130,7 +128,7 @@ final class TaskEditingTests: XCTestCase {
         )
 
         tapTaskEditButton()
-        
+
         utils.pickDate(DateComponents(year: 2045, month: 12, day: 25, hour: 6, minute: 56))
         utils.tapSaveButton()
 
@@ -156,7 +154,7 @@ final class TaskEditingTests: XCTestCase {
         textField.typeText("")
 
         let saveButton = application.buttons[Identifiers.saveButton]
-        utils.assertElementIsEnabled(saveButton, isEnabled:false)
+        utils.assertElementIsEnabled(saveButton, isEnabled: false)
     }
 }
 

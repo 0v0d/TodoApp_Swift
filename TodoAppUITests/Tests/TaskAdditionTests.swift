@@ -92,7 +92,7 @@ final class TaskAdditionTests: XCTestCase {
         )
 
         let saveButton = application.buttons[Identifiers.saveButton]
-        utils.assertElementIsEnabled(saveButton, isEnabled:false)
+        utils.assertElementIsEnabled(saveButton, isEnabled: false)
     }
 
     /// タイトルが改行の場合、タスクを保存できないことを確認する
@@ -104,7 +104,7 @@ final class TaskAdditionTests: XCTestCase {
             text: "\n"
         )
         let saveButton = application.buttons[Identifiers.saveButton]
-        utils.assertElementIsEnabled(saveButton, isEnabled:false)
+        utils.assertElementIsEnabled(saveButton, isEnabled: false)
     }
 
     /// 過去の日付の期限設定した場合、タスクを保存できないことを確認する
@@ -118,7 +118,7 @@ final class TaskAdditionTests: XCTestCase {
 
         utils.pickDate(DateComponents(year: 2020, month: 1, day: 2))
         let saveButton = application.buttons[Identifiers.saveButton]
-        utils.assertElementIsEnabled(saveButton, isEnabled:false)
+        utils.assertElementIsEnabled(saveButton, isEnabled: false)
     }
 
     /// URLが無効の場合、タスクを保存できないことを確認する
@@ -134,9 +134,9 @@ final class TaskAdditionTests: XCTestCase {
             identifier: Identifiers.urlLabel,
             text: "invalid"
         )
-    
+
         let saveButton = application.buttons[Identifiers.saveButton]
-        utils.assertElementIsEnabled(saveButton, isEnabled:false)
+        utils.assertElementIsEnabled(saveButton, isEnabled: false)
     }
 
     /// 長いタイトルでタスクが作成できることを確認する
@@ -149,7 +149,7 @@ final class TaskAdditionTests: XCTestCase {
             text: longTitle
         )
         utils.tapSaveButton()
-      
+
         utils.tapTaskCell()
 
         utils.assertStaticText(identifier: "Title", value: longTitle)

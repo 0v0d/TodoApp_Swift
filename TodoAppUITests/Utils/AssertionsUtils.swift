@@ -13,13 +13,23 @@ final class AssertionsUtils {
         self.app = app
     }
 
-    func assertStaticText(identifier: String, value: String?, timeout: TimeInterval = 2) {
+    func assertStaticText(
+        identifier: String,
+        value: String?,
+        timeout: TimeInterval = 2
+    ) {
         let labelElement = app.staticTexts[identifier]
-        XCTAssertTrue(labelElement.waitForExistence(timeout: timeout), "\(identifier) label should exist")
+        XCTAssertTrue(
+            labelElement.waitForExistence(timeout: timeout),
+            "\(identifier) label should exist"
+        )
 
         if let value = value {
             let valueElement = app.staticTexts[value]
-            XCTAssertTrue(valueElement.waitForExistence(timeout: timeout), "\(identifier) value '\(value)' should exist")
+            XCTAssertTrue(
+                valueElement.waitForExistence(timeout: timeout),
+                "\(identifier) value '\(value)' should exist"
+            )
         }
     }
 
@@ -27,13 +37,13 @@ final class AssertionsUtils {
         let actualExists = element.waitForExistence(timeout: timeout)
         XCTAssertEqual(actualExists, exists, "\(element.label) existence should be \(exists)")
     }
-    
+
     func assertElementIsEnabled(_ element: XCUIElement, isEnabled: Bool) {
-        XCTAssertEqual(element.isEnabled, isEnabled,"\(element.label) existence should be \(isEnabled)")
+        XCTAssertEqual(element.isEnabled, isEnabled, "\(element.label) existence should be \(isEnabled)")
     }
 
     func assertDate(label: String, withinSeconds: TimeInterval = 60) {
-        assertStaticText(identifier : label, value: nil)
+        assertStaticText(identifier: label, value: nil)
 
         let now = Date()
         let calendar = Calendar.current

@@ -34,7 +34,7 @@ extension NavigationAndUITests {
         )
 
         utils.assertStaticText(identifier: Identifiers.statusLabel, value: nil)
-        
+
         utils.tapStatusPicker(.notStarted)
 
         XCTAssertEqual(application.pickers.count, 2, "Picker should exist")
