@@ -67,7 +67,7 @@ final class UITestUtils {
         taskSetup.pickDate(date)
     }
     
-    func getPickerButtonName(identifier: String) -> String {
-        return uiInteraction.getPickerButtonName(identifier: identifier)
+    func tapStatusPicker(_ currentStatus: MockTaskStatus){
+        uiInteraction.tapStatusPicker(currentStatus: currentStatus)
     }
 }

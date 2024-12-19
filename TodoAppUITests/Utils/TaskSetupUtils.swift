@@ -30,48 +30,69 @@ final class TaskSetupUtils {
             comment: "comment",
             url: "https://www.google.co.jp/",
             status: MockTaskStatus.inProgress,
-            dueDate: DateComponents(year: 2040, month: 1, day: 2, hour: 15, minute: 31)
+            
+            dueDate: DateComponents(year: 2040, month:1 , day: 2, hour: 15, minute: 31)
         )
         app.buttons[Identifiers.saveButton].tap()
     }
     
     private func enterTaskDetails(title: String, comment: String, url: String, status: MockTaskStatus, dueDate: DateComponents) {
-        app.textFields[Identifiers.titleLabel].tap()
-        app.textFields[Identifiers.titleLabel].typeText(title)
+        enterText(field: Identifiers.titleLabel, text: title)
+        enterText(field: Identifiers.commentField, text: comment)
+        enterText(field: Identifiers.urlLabel, text: url)
         
-        app.textFields[Identifiers.commentField].tap()
-        app.textFields[Identifiers.commentField].typeText(comment)
-        
-        app.textFields[Identifiers.urlLabel].tap()
-        app.textFields[Identifiers.urlLabel].typeText(url)
-        
-        let statusButton = app.buttons[Identifiers.statusLabel + ", " + MockTaskStatus.notStarted.title]
-        statusButton.tap()
-        app.buttons[status.title].tap()
-        
+        selectStatus(selectStatus: status)
         pickDate(dueDate)
     }
     
+    // テキストフィールドにテキストを入力する共通処理
+    private func enterText(field: String, text: String) {
+        let textField = app.textFields[field]
+        textField.tap()
+        textField.typeText(text)
+    }
+    
     func pickDate(_ dateComponents: DateComponents) {
-        if let month = dateComponents.month {
-            app.pickerWheels.element(boundBy: DatePickerComponent.month.rawValue).adjust(toPickerWheelValue: "\(month)")
+        let monthNames = ["January", "February", "March", "April", "May", "June",
+                          "July", "August", "September", "October", "November", "December"]
+        
+        // 対応する値を計算するクロージャ
+        let pickerValues: [DatePickerComponent: String?] = [
+            .month: dateComponents.month.flatMap { month in
+                // 1-12の範囲チェック
+                (1...12).contains(month) ? monthNames[month - 1] : nil
+            },
+            .day: dateComponents.day.map { "\($0)" },
+            .year: dateComponents.year.map { "\($0)" },
+            .hour: dateComponents.hour.map {
+                let hour12 = $0 > 12 ? $0 - 12 : $0
+                return "\($0 == 0 ? 12 : hour12)"
+            },
+            .ampm: dateComponents.hour.map { $0 >= 12 ? "PM" : "AM" },
+            .minute: dateComponents.minute.map { "\($0)" }
+        ]
+        
+        // Picker Wheel を調整
+        pickerValues.forEach { component, value in
+            if let value = value {
+                app.pickerWheels.element(boundBy: component.rawValue).adjust(toPickerWheelValue: value)
+            }
         }
-        if let day = dateComponents.day {
-            app.pickerWheels.element(boundBy: DatePickerComponent.day.rawValue).adjust(toPickerWheelValue: "\(day)")
-        }
-        if let year = dateComponents.year {
-            app.pickerWheels.element(boundBy: DatePickerComponent.year.rawValue).adjust(toPickerWheelValue: "\(year)")
-        }
-        if let hour = dateComponents.hour {
-            app.pickerWheels.element(boundBy: DatePickerComponent.hour.rawValue).adjust(toPickerWheelValue: "\(hour)")
-        }
-        if let minute = dateComponents.minute {
-            app.pickerWheels.element(boundBy: DatePickerComponent.minute.rawValue).adjust(toPickerWheelValue: "\(minute)")
-        }
-        if let hour = dateComponents.hour, hour >= 12 {
-            app.pickerWheels.element(boundBy: DatePickerComponent.period.rawValue).adjust(toPickerWheelValue: "PM")
-        } else {
-            app.pickerWheels.element(boundBy: DatePickerComponent.period.rawValue).adjust(toPickerWheelValue: "AM")
-        }
+    }
+    
+    // PickerWheel の調整を共通化
+    private func adjustPickerWheel(component: DatePickerComponent, value: String) {
+        app.pickerWheels.element(boundBy: component.rawValue).adjust(toPickerWheelValue: value)
+    }
+    
+    // ステータスを選択する処理
+    private func selectStatus(selectStatus: MockTaskStatus) {
+        let statusButton = app.buttons[Identifiers.statusLabel + ", " + MockTaskStatus.notStarted.title]
+        XCTAssertTrue(statusButton.exists)
+        statusButton.tap()
+        
+        let selectStatusButton = app.buttons[selectStatus.title]
+        print(selectStatus.title)
+        selectStatusButton.tap()
     }
 }
