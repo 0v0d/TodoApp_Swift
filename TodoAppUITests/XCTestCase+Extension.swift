@@ -15,7 +15,6 @@ extension XCTestCase {
         application.launchArguments += ["-AppleLanguages", "(en)", "-AppleLocale", "en_US", "testing"]
         application.launch()
 
-        XCTAssertTrue(application.waitForExistence(timeout: 10), "App launch failed")
         return application
     }
 

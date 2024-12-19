@@ -28,7 +28,10 @@ final class TaskAdditionTests: XCTestCase {
         utils.tapAddTaskButton()
 
         let title = "Task1"
-        utils.enterTitle(title)
+        utils.enterTextField(
+            identifier: Identifiers.titleLabel,
+            text: title
+        )
         utils.tapSaveButton()
 
         utils.tapTaskCell()
@@ -83,48 +86,57 @@ final class TaskAdditionTests: XCTestCase {
     @MainActor
     func testCannotSaveTaskWithEmptyTitle() {
         utils.tapAddTaskButton()
-        utils.enterTitle("")
+        utils.enterTextField(
+            identifier: Identifiers.titleLabel,
+            text: ""
+        )
 
         let saveButton = application.buttons[Identifiers.saveButton]
-        utils.verifySaveButton(saveButton: saveButton, expected: false)
+        utils.assertElementIsEnabled(saveButton, isEnabled: false)
     }
 
     /// タイトルが改行の場合、タスクを保存できないことを確認する
     @MainActor
     func testCannotSaveTaskWithNewlinesTitle() {
         utils.tapAddTaskButton()
-        utils.enterTitle("\n")
-
+        utils.enterTextField(
+            identifier: Identifiers.titleLabel,
+            text: "\n"
+        )
         let saveButton = application.buttons[Identifiers.saveButton]
-        utils.verifySaveButton(saveButton: saveButton, expected: false)
+        utils.assertElementIsEnabled(saveButton, isEnabled: false)
     }
 
     /// 過去の日付の期限設定した場合、タスクを保存できないことを確認する
     @MainActor
     func testCannotSavePastDueDates() {
         utils.tapAddTaskButton()
-        utils.enterTitle("Task1")
+        utils.enterTextField(
+            identifier: Identifiers.titleLabel,
+            text: "Task1"
+        )
 
-        utils.pickWheels(boundBy: .month, value: "January")
-        utils.pickWheels(boundBy: .day, value: "1")
-        utils.pickWheels(boundBy: .year, value: "2020")
-
+        utils.pickDate(DateComponents(year: 2020, month: 1, day: 2))
         let saveButton = application.buttons[Identifiers.saveButton]
-        utils.verifySaveButton(saveButton: saveButton, expected: false)
+        utils.assertElementIsEnabled(saveButton, isEnabled: false)
     }
 
     /// URLが無効の場合、タスクを保存できないことを確認する
     @MainActor
     func testCannotSaveInvalidURL() {
         utils.tapAddTaskButton()
-        utils.enterTitle("Task1")
+        utils.enterTextField(
+            identifier: Identifiers.titleLabel,
+            text: "Task1"
+        )
 
-        let urlField = application.textFields[Identifiers.urlLabel]
-        urlField.tap()
-        urlField.typeText("invalid")
+        utils.enterTextField(
+            identifier: Identifiers.urlLabel,
+            text: "invalid"
+        )
 
         let saveButton = application.buttons[Identifiers.saveButton]
-        utils.verifySaveButton(saveButton: saveButton, expected: false)
+        utils.assertElementIsEnabled(saveButton, isEnabled: false)
     }
 
     /// 長いタイトルでタスクが作成できることを確認する
@@ -132,7 +144,10 @@ final class TaskAdditionTests: XCTestCase {
     func testCanAddTaskWithMaximumLengthTitle() {
         utils.tapAddTaskButton()
         let longTitle = String(repeating: "1", count: 128)
-        utils.enterTitle(longTitle)
+        utils.enterTextField(
+            identifier: Identifiers.titleLabel,
+            text: longTitle
+        )
         utils.tapSaveButton()
 
         utils.tapTaskCell()

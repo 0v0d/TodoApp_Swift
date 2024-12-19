@@ -22,6 +22,7 @@ final class TaskEditingTests: XCTestCase {
 
     override func tearDown() {
         teardownUITest(application)
+        utils = nil
         application = nil
         super.tearDown()
     }
@@ -103,9 +104,7 @@ final class TaskEditingTests: XCTestCase {
         )
         tapTaskEditButton()
 
-        let statusButtonTitle = utils.getTaskStatusName(MockTaskStatus.inProgress.title)
-        let statusButton = application.buttons[statusButtonTitle]
-        statusButton.tap()
+        utils.tapStatusPicker(MockTaskStatus.inProgress)
 
         let completedButton = application.buttons[MockTaskStatus.completed.title]
         completedButton.tap()
@@ -130,13 +129,7 @@ final class TaskEditingTests: XCTestCase {
 
         tapTaskEditButton()
 
-        utils.pickWheels(boundBy: .month, value: "December")
-        utils.pickWheels(boundBy: .day, value: "25")
-        utils.pickWheels(boundBy: .year, value: "2045")
-        utils.pickWheels(boundBy: .hour, value: "6")
-        utils.pickWheels(boundBy: .minute, value: "56")
-        utils.pickWheels(boundBy: .period, value: "AM")
-
+        utils.pickDate(DateComponents(year: 2045, month: 12, day: 25, hour: 6, minute: 56))
         utils.tapSaveButton()
 
         utils.tapTaskCell()
@@ -148,7 +141,7 @@ final class TaskEditingTests: XCTestCase {
         utils.assertDate(label: Identifiers.createdDateLabel)
     }
 
-    /// 空白のみのタイトルに編集しようとした場合の動作
+    /// 空白のみのタイトルに編集しようとした場合、保存ボタンが無効になる
     @MainActor
     func testCannotEditTaskWithEmptyTitle() {
         tapTaskEditButton()
@@ -161,7 +154,7 @@ final class TaskEditingTests: XCTestCase {
         textField.typeText("")
 
         let saveButton = application.buttons[Identifiers.saveButton]
-        utils.verifySaveButton(saveButton: saveButton, expected: false)
+        utils.assertElementIsEnabled(saveButton, isEnabled: false)
     }
 }
 

@@ -34,8 +34,8 @@ extension NavigationAndUITests {
         )
 
         utils.assertStaticText(identifier: Identifiers.statusLabel, value: nil)
-        let statusButton = application.buttons[utils.getTaskStatusName(MockTaskStatus.notStarted.title)]
-        utils.assertElementExists(statusButton, exists: true)
+
+        utils.tapStatusPicker(.notStarted)
 
         XCTAssertEqual(application.pickers.count, 2, "Picker should exist")
 

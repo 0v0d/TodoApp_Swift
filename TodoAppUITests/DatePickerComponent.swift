@@ -11,5 +11,5 @@ enum DatePickerComponent: Int {
     case year
     case hour
     case minute
-    case period // AM/PM
+    case ampm
 }
