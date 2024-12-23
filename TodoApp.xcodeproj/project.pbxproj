@@ -13,7 +13,6 @@
 		D05765992CF454AD00B45398 /* TodoAppWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = D05765892CF454AB00B45398 /* TodoAppWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D0703C3F2CE3481800C47610 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = D0703C3E2CE3481800C47610 /* Localizable.xcstrings */; };
 		D09713FB2CDBD5D30014E7FA /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = D09713FA2CDBD5C90014E7FA /* .gitignore */; };
-		D0A4A1F42D11AB710030D45D /* TodoAppUITests.xctestplan in Resources */ = {isa = PBXBuildFile; fileRef = D0A4A1F32D11AB710030D45D /* TodoAppUITests.xctestplan */; };
 		D0A886DC2D00144C00D0F75F /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = D0703C3E2CE3481800C47610 /* Localizable.xcstrings */; };
 /* End PBXBuildFile section */
 
@@ -64,8 +63,6 @@
 		D057658D2CF454AB00B45398 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		D0703C3E2CE3481800C47610 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		D09713FA2CDBD5C90014E7FA /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
-		D0A4A1F22D11AB560030D45D /* TodoAppUnitTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = TodoAppUnitTests.xctestplan; sourceTree = "<group>"; };
-		D0A4A1F32D11AB710030D45D /* TodoAppUITests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = TodoAppUITests.xctestplan; sourceTree = "<group>"; };
 		D0A886C22D00063800D0F75F /* TodoAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TodoAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -79,6 +76,7 @@
 				Model/TaskStatus.swift,
 				Model/Todo.swift,
 				Repository/TaskRepository.swift,
+				Repository/TaskRepositoryImpl.swift,
 				View/Component/TaskStatusText.swift,
 				"ViewModel/ TaskViewModel.swift",
 				ViewModel/WidgetTaskViewModel.swift,
@@ -176,8 +174,6 @@
 		D032ECD02CCA84F000461F6C = {
 			isa = PBXGroup;
 			children = (
-				D0A4A1F32D11AB710030D45D /* TodoAppUITests.xctestplan */,
-				D0A4A1F22D11AB560030D45D /* TodoAppUnitTests.xctestplan */,
 				D032E17B2CF5CE6600B47B5C /* TodoAppWidgetExtension.entitlements */,
 				D0703C3E2CE3481800C47610 /* Localizable.xcstrings */,
 				D09713FA2CDBD5C90014E7FA /* .gitignore */,
@@ -368,7 +364,6 @@
 			files = (
 				D0703C3F2CE3481800C47610 /* Localizable.xcstrings in Resources */,
 				D09713FB2CDBD5D30014E7FA /* .gitignore in Resources */,
-				D0A4A1F42D11AB710030D45D /* TodoAppUITests.xctestplan in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

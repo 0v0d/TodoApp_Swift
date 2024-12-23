@@ -7,8 +7,13 @@
 import SwiftUICore
 
 enum TaskStatus: Int, CaseIterable, Codable {
+    /// 未着手
     case notStarted
+
+    /// 進行中
     case inProgress
+
+    /// 完了
     case completed
 
     // 表示用の文字列を取得するためのプロパティ
@@ -20,6 +25,7 @@ enum TaskStatus: Int, CaseIterable, Codable {
         }
     }
 
+    // 色を取得するためのプロパティ
     var color: Color {
         switch self {
         case .notStarted:
