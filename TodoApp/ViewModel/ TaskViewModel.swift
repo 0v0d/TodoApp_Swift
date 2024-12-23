@@ -90,7 +90,7 @@ final class TaskViewModel: ObservableObject {
     @MainActor
     func deleteTask(_ task: Todo) async {
         do {
-            // サーバーからすべてのタスクを取得
+            // すべてのタスクを取得
             let allTasks = try await repository.fetchTasks()
             // 削除対象のタスクのインデックスを取得
             if let index = allTasks.firstIndex(of: task) {
