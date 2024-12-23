@@ -10,22 +10,22 @@ import Foundation
 final class TaskViewModel: ObservableObject {
     /// タスクデータのリポジトリ
     private let repository: TaskRepository
-    
+
     /// タスクのリストを公開プロパティとして保持
     @Published var tasks: [Todo] = []
-    
+
     /// エラーアラートを表示するかどうかを保持するプロパティ
     @Published var showingErrorAlert = false
-    
+
     /// エラーメッセージを保持するプロパティ
     @Published var errorMessage: String?
-    
+
     /// 初期化メソッド
     /// - Parameter repository: タスクのデータを管理するリポジトリ
     init(repository: TaskRepository) {
         self.repository = repository
     }
-    
+
     /// タスクを追加する非同期メソッド
     ///
     /// - Parameter task: 追加するタスク
@@ -41,7 +41,7 @@ final class TaskViewModel: ObservableObject {
             handle(error: error)
         }
     }
-    
+
     /// タスクを更新する非同期メソッド
     ///
     /// - Parameter task: 更新するタスク
@@ -57,7 +57,7 @@ final class TaskViewModel: ObservableObject {
             handle(error: error)
         }
     }
-    
+
     /// タスクを取得し、リストを更新する非同期メソッド
     @MainActor
     func loadTasks() async {
@@ -69,7 +69,7 @@ final class TaskViewModel: ObservableObject {
             handle(error: error)
         }
     }
-    
+
     /// タスクの並び順を変更する非同期メソッド
     ///
     /// - Parameters:
@@ -89,7 +89,7 @@ final class TaskViewModel: ObservableObject {
             handle(error: error)
         }
     }
-    
+
     /// タスクを削除する非同期メソッド
     ///
     /// - Parameter task: 削除するタスク
@@ -112,7 +112,7 @@ final class TaskViewModel: ObservableObject {
             handle(error: error)
         }
     }
-    
+
     /// エラーを処理してエラーメッセージを設定
     ///
     /// - Parameter error: 発生したエラー
