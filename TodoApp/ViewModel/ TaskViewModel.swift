@@ -6,75 +6,118 @@
 //
 import Foundation
 
+/// タスクを管理するビューモデル
 final class TaskViewModel: ObservableObject {
+    /// タスクデータのリポジトリ
     private let repository: TaskRepository
+    
+    /// タスクのリストを公開プロパティとして保持
     @Published var tasks: [Todo] = []
+    
+    /// エラーアラートを表示するかどうかを保持するプロパティ
+    @Published var showingErrorAlert = false
+    
+    /// エラーメッセージを保持するプロパティ
     @Published var errorMessage: String?
-
+    
+    /// 初期化メソッド
+    /// - Parameter repository: タスクのデータを管理するリポジトリ
     init(repository: TaskRepository) {
         self.repository = repository
     }
-
+    
+    /// タスクを追加する非同期メソッド
+    ///
+    /// - Parameter task: 追加するタスク
     @MainActor
     func addTask(_ task: Todo) async {
         do {
+            // リポジトリを通じてタスクを追加
             try await repository.addTask(task)
-            await loadTasks()  // 重複を避ける
+            // タスクのリストを再読み込み
+            await loadTasks()  // データ更新の冗長性を回避
         } catch {
+            // エラーを処理
             handle(error: error)
         }
     }
-
+    
+    /// タスクを更新する非同期メソッド
+    ///
+    /// - Parameter task: 更新するタスク
     @MainActor
     func updateTask(_ task: Todo) async {
         do {
+            // リポジトリを通じてタスクを更新
             try await repository.updateTask(task)
-            await loadTasks()  // 重複を避ける
+            // タスクのリストを再読み込み
+            await loadTasks()
         } catch {
+            // エラーを処理
             handle(error: error)
         }
     }
-
+    
+    /// タスクを取得し、リストを更新する非同期メソッド
     @MainActor
     func loadTasks() async {
         do {
+            // リポジトリからタスクのリストを取得
             tasks = try await repository.fetchTasks()
         } catch {
+            // エラーを処理
             handle(error: error)
         }
     }
-
+    
+    /// タスクの並び順を変更する非同期メソッド
+    ///
+    /// - Parameters:
+    ///   - source: 元の位置
+    ///   - destination: 移動先の位置
     @MainActor
     func moveTask(from source: IndexSet, end destination: Int) async {
         do {
-            // IndexSetから最初の要素を取得
+            // IndexSetから最初のインデックスを取得
             guard let sourceIndex = source.first else { return }
+            // リポジトリで順序を更新
             try await repository.updateOrder(from: sourceIndex, end: destination)
+            // タスクのリストを再読み込み
             await loadTasks()
         } catch {
-            print("Error moving task: \(error)")
-        }
-    }
-
-    @MainActor
-    func deleteTask(_ task: Todo) async {
-        do {
-            // すべてのタスクを取得し、削除対象のタスクのインデックスを探す
-            let allTasks = try await repository.fetchTasks()
-            if let index = allTasks.firstIndex(of: task) {
-                // 見つかったインデックスを IndexSet に変換
-                let taskIndex = IndexSet(integer: index)
-                // インデックスを渡して削除処理を実行
-                try await repository.deleteTask(taskIndex: taskIndex)
-                // 更新処理
-                await loadTasks()
-            }
-        } catch {
+            // エラーをログに記録
             handle(error: error)
         }
     }
-
+    
+    /// タスクを削除する非同期メソッド
+    ///
+    /// - Parameter task: 削除するタスク
+    @MainActor
+    func deleteTask(_ task: Todo) async {
+        do {
+            // サーバーからすべてのタスクを取得
+            let allTasks = try await repository.fetchTasks()
+            // 削除対象のタスクのインデックスを取得
+            if let index = allTasks.firstIndex(of: task) {
+                // インデックスを IndexSet に変換
+                let taskIndex = IndexSet(integer: index)
+                // リポジトリで削除処理を実行
+                try await repository.deleteTask(taskIndex: taskIndex)
+                // タスクのリストを再読み込み
+                await loadTasks()
+            }
+        } catch {
+            // エラーを処理
+            handle(error: error)
+        }
+    }
+    
+    /// エラーを処理してエラーメッセージを設定
+    ///
+    /// - Parameter error: 発生したエラー
     private func handle(error: Error) {
-        errorMessage = error.localizedDescription
+        self.showingErrorAlert = true
+        self.errorMessage = error.localizedDescription
     }
 }
