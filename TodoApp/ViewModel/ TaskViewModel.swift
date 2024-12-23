@@ -14,12 +14,6 @@ final class TaskViewModel: ObservableObject {
     /// タスクのリストを公開プロパティとして保持
     @Published var tasks: [Todo] = []
 
-    /// エラーアラートを表示するかどうかを保持するプロパティ
-    @Published var showingErrorAlert = false
-
-    /// エラーメッセージを保持するプロパティ
-    @Published var errorMessage: String?
-
     /// 初期化メソッド
     /// - Parameter repository: タスクのデータを管理するリポジトリ
     init(repository: TaskRepository) {
@@ -116,8 +110,8 @@ final class TaskViewModel: ObservableObject {
     /// エラーを処理してエラーメッセージを設定
     ///
     /// - Parameter error: 発生したエラー
+    /// - Note: エラーが頻繁に発生する場合は、UI側に表示するように変更
     private func handle(error: Error) {
-        self.showingErrorAlert = true
-        self.errorMessage = error.localizedDescription
+        print("Error: \(error)")
     }
 }
