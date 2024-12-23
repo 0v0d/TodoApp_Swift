@@ -7,16 +7,39 @@
 import Foundation
 import SwiftData
 
+/// タスクを表すモデルクラス
 @Model
 final class Todo {
+    /// タスクのタイトル
     var title: String
+
+    /// タスクの詳細コメント
     var comment: String
+
+    /// 関連するURL
     var url: String
+
+    /// タスクの作成日時
     var timestamp: Date
+
+    /// タスクの締切日（オプション）
     var dueDate: Date?
+
+    /// タスクの現在の状態（例: 完了、進行中、保留など）
     var status: TaskStatus
+
+    /// タスクの順序（並べ替え用）
     var order: Int
 
+    /// 初期化メソッド
+    /// - Parameters:
+    ///   - title: タスクのタイトル
+    ///   - comment: タスクに関連するコメント
+    ///   - url: タスクに関連するURL
+    ///   - timestamp: タスクの作成日時
+    ///   - dueDate: タスクの締切日（任意）
+    ///   - status: タスクの状態（例: 完了、進行中、保留など）
+    ///   - order: タスクの順序（並べ替え用）
     init(
         title: String,
         comment: String,
@@ -35,7 +58,13 @@ final class Todo {
         self.order = order
     }
 
-    // タスクを更新するメソッド
+    /// タスクを更新するメソッド
+    /// - Parameters:
+    ///   - title: 新しいタイトル
+    ///   - comment: 新しいコメント
+    ///   - url: 新しいURL
+    ///   - dueDate: 新しい締切日（任意）
+    ///   - status: 新しいタスクの状態（例: 完了、進行中、保留など）
     func update(
         title: String,
         comment: String,

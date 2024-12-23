@@ -6,7 +6,9 @@
 //
 import SwiftUI
 
+/// タスクの状態を選択するセクション
 struct TaskStatusPickerSection: View {
+    /// タスクの状態を選択するための変数
     @Binding var status: Int
 
     var body: some View {
@@ -15,14 +17,16 @@ struct TaskStatusPickerSection: View {
                 .font(.headline)
                 .foregroundColor(.secondary)
 
+            // タスクの状態を選択するためのPickerを表示
             Picker("Status", selection: $status) {
+                // TaskStatusの全てのケースを取得し、それぞれのタイトルを表示
                 ForEach(TaskStatus.allCases, id: \.self) { status in
                     Text(LocalizedStringKey(status.title))
                         .tag(status.rawValue)
                 }
             }
-            .pickerStyle(.menu)
-            .frame(maxWidth: .infinity, alignment: .leading)
+            .pickerStyle(.menu) // メニュースタイルで表示
+            .frame(maxWidth: .infinity, alignment: .leading) // 幅いっぱいで左寄せで表示
         }
     }
 }

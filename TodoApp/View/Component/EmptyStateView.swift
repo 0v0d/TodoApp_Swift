@@ -6,19 +6,30 @@
 //
 import SwiftUI
 
+/// リストや詳細画面が空の状態を表示するビュー
 struct EmptyStateView: View {
+    /// タイトル
     let title: String
-    let systemImageName: String
+
+    /// アイコン
+    let iconName: String
+
+    /// 説明文
     let description: String
 
     var body: some View {
         VStack {
-            Image(systemName: systemImageName)
+            // アイコンを表示
+            Image(systemName: iconName)
                 .font(.largeTitle)
                 .foregroundColor(.gray)
+
+            // タイトルを表示（ローカライズ対応）
             Text(LocalizedStringKey(title))
                 .font(.title)
-                .padding(.top, 5)
+                .padding(.top, 5) // 上部に余白を設定
+
+            // 説明を表示（ローカライズ対応）
             Text(LocalizedStringKey(description))
                 .font(.subheadline)
                 .foregroundColor(.secondary)

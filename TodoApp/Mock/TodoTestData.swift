@@ -7,6 +7,7 @@
 import Foundation
 
 struct TodoTestData {
+    /// テスト用のタスクデータ
     static let todo = Todo(
         title: "test",
         comment: "TestComment",
@@ -17,7 +18,7 @@ struct TodoTestData {
         order: 0
     )
 
-    // 複数のテストデータ
+    /// テスト用のタスク配列データ
     static let todos: [Todo] = [
         Todo(
             title: "Task 1",
@@ -84,6 +85,7 @@ struct TodoTestData {
         )
     ]
 
+    /// テスト用の完了済みタスク配列データ
     static let completeTodos: [Todo] = [
         Todo(
             title: "Task 1",

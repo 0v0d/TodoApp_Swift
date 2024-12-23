@@ -5,12 +5,14 @@
 //  Created by 0v0 on 2024/11/5.
 //
 
+/// DIを管理するクラス
 final class DIContainer {
+    /// DIContainerのシングルトンインスタンス
     static let shared = DIContainer()
 
     private init() {}
 
-    // 必要な時にインスタンス化
+    // TaskRepositoryを生成
     private lazy var repository: TaskRepository = {
         do {
             return try TaskRepositoryIMPL()
@@ -20,10 +22,16 @@ final class DIContainer {
         }
     }()
 
+    /// TaskViewModelを生成
+    ///
+    /// - Returns: TaskViewModel
     func makeTaskViewModel() -> TaskViewModel {
         TaskViewModel(repository: repository)
     }
 
+    /// TaskDetailViewModelを生成
+    ///
+    /// - Returns: TaskDetailViewModel
     func makeWidgetViewModel() -> WidgetTaskViewModel {
         WidgetTaskViewModel(repository: repository)
     }
