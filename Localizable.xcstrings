@@ -223,23 +223,6 @@
         }
       }
     },
-    "Error" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Error"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "エラー"
-          }
-        }
-      }
-    },
     "InProgress" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -337,23 +320,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "未着手"
-          }
-        }
-      }
-    },
-    "OK" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "OK"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "OK"
           }
         }
       }
@@ -518,23 +484,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "タイトル"
-          }
-        }
-      }
-    },
-    "UnknownError" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "An unexpected error occurred"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "予期せぬエラーが発生しました"
           }
         }
       }

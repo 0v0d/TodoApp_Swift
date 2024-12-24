@@ -6,7 +6,21 @@
 //
 import WidgetKit
 
+/// ウィジェットのデータを提供し、更新を管理するプロバイダー
+///
+/// 主な責務：
+/// - アクティブなタスクの取得
+/// - ウィジェットの更新スケジュール管理
+/// - プレースホルダーとスナップショットの提供
+///
+/// - Note: 15分ごとに自動更新されます
 struct TodoProvider: @preconcurrency TimelineProvider {
+    
+    /// タイムラインを取得し、次回の更新スケジュールを設定
+    ///
+    /// - Parameters:
+    ///   - context: 現在のウィジェットのコンテキスト
+    ///   - completion: タイムライン更新後に呼ばれるコールバック
     func getTimeline(in context: Context, completion: @escaping @Sendable (Timeline<TodoEntry>) -> Void) {
         Task {
             do {
@@ -29,14 +43,18 @@ struct TodoProvider: @preconcurrency TimelineProvider {
         }
     }
 
+    /// プレースホルダー表示用のエントリーを提供
     @MainActor
     func placeholder(in context: Context) -> TodoEntry {
         TodoEntry(date: Date(), task: TodoTestData.todos[0])
     }
 
+    /// 現在の状態のスナップショットを提供
     @MainActor
-    func getSnapshot(in context: Context,
-                     completion: @escaping (TodoEntry) -> Void) {
+    func getSnapshot(
+        in context: Context,
+        completion: @escaping (TodoEntry) -> Void
+    ) {
         Task {
             do {
                 let viewModel = DIContainer.shared.makeWidgetViewModel()
