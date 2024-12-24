@@ -7,11 +7,22 @@
 import SwiftUI
 import WidgetKit
 
+/// ウィジェットのタイムライン更新時に使用されるエントリー
+///
+/// - Properties:
+///   - date: タイムラインの更新日時
+///   - task: 表示するタスク。nilの場合は空の状態を表示
 struct TodoEntry: TimelineEntry {
     let date: Date
     let task: Todo?
 }
 
+/// Todoアプリケーションのウィジェット
+///
+/// このウィジェットは以下の機能を提供します：
+/// - アクティブなタスクの表示
+/// - 異なるウィジェットサイズ（Small、Medium、Large、ExtraLarge）のサポート
+/// - 15分ごとの自動更新
 struct TodoAppWidget: Widget {
     let kind = "TodoAppWidget"
 
@@ -31,6 +42,13 @@ struct TodoAppWidget: Widget {
     }
 }
 
+/// ウィジェットのサイズに応じて適切なビューを表示する
+///
+/// ウィジェットファミリー別の表示内容：
+/// - systemSmall: タイトルとステータスのみ
+/// - systemMedium: 基本情報と期限
+/// - systemLarge: 詳細情報を含む
+/// - systemExtraLarge: 全ての情報を表示
 struct TodoAppWidgetEntryView: View {
     @Environment(\.widgetFamily) var family: WidgetFamily
     let task: Todo

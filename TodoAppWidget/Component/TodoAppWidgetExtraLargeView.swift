@@ -6,6 +6,14 @@
 //
 import SwiftUI
 
+/// 最大サイズのウィジェットビュー
+///
+/// このビューは以下の情報をグリッドレイアウトで表示します：
+/// - タイトルとステータス
+/// - 期限と作成日時
+/// - コメントとURL
+///
+/// - Note: 情報が存在しない場合は「なし」と表示されます
 struct TodoAppWidgetExtraLargeView: View {
     let task: Todo
 
@@ -13,22 +21,22 @@ struct TodoAppWidgetExtraLargeView: View {
         VStack(alignment: .leading, spacing: 24) {
             // タイトルとステータス
             HStack(alignment: .center, spacing: 16) {
-                InfoWidgetRow(title: "Title", content: task.title, icon: "doc.text")
+                InfoWidgetRow(title: "Title", content: task.title, iconName: "doc.text")
                     .padding(.trailing, 16)
-                StatusInfoWidgetRow(status: task.status, icon: "checkmark.circle.fill")
+                StatusInfoWidgetRow(status: task.status, iconName: "checkmark.circle.fill")
             }
             Divider()
-            // 期限と作成日時
+            // 期日と作成日時
             HStack(alignment: .center, spacing: 16) {
                 InfoWidgetRow(
                     title: "DueDate",
                     content: task.dueDate?.formattedDateTime() ?? String(localized: "None"),
-                    icon: "calendar.badge.clock"
+                    iconName: "calendar.badge.clock"
                 )
                 InfoWidgetRow(
                     title: "CreatedDate",
                     content: task.timestamp.formattedDateTime(),
-                    icon: "calendar"
+                    iconName: "calendar"
                 )
             }
             Divider()
@@ -37,12 +45,12 @@ struct TodoAppWidgetExtraLargeView: View {
                 InfoWidgetRow(
                     title: "Comment",
                     content: task.comment.isEmpty ? String(localized: "None") : task.comment,
-                    icon: "text.bubble"
+                    iconName: "text.bubble"
                 )
                 InfoWidgetRow(
                     title: "URL",
                     content: task.url.isEmpty ? String(localized: "None") : task.url,
-                    icon: "link"
+                    iconName: "link"
                 )
             }
             Divider()

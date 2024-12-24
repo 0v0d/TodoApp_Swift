@@ -6,28 +6,37 @@
 //
 import SwiftUI
 
+/// 大サイズウィジェット用のタスク表示ビュー
+///
+/// このビューは以下の情報を縦に配置して表示します：
+/// - タスクのタイトル
+/// - タスクのステータス
+/// - 期限
+/// - 作成日時
+///
+/// - Parameter task: 表示するタスク情報
 struct TodoAppWidgetLargeView: View {
     let task: Todo
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            InfoWidgetRow(title: "Title", content: task.title, icon: "doc.text")
+            InfoWidgetRow(title: "Title", content: task.title, iconName: "doc.text")
             Divider()
 
-            StatusInfoWidgetRow(status: task.status, icon: "checkmark.circle.fill")
+            StatusInfoWidgetRow(status: task.status, iconName: "checkmark.circle.fill")
             Divider()
 
             InfoWidgetRow(
                 title: "DueDate",
                 content: task.dueDate?.formattedDateTime() ?? String(localized: "None"),
-                icon: "calendar.badge.clock"
+                iconName: "calendar.badge.clock"
             )
             Divider()
 
             InfoWidgetRow(
                 title: "CreatedDate",
                 content: task.timestamp.formattedDateTime(),
-                icon: "calendar"
+                iconName: "calendar"
             )
         }
         .padding()
