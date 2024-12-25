@@ -8,13 +8,13 @@ import SwiftUI
 
 /// 大サイズウィジェット用のタスク表示ビュー
 ///
-/// このビューは以下の情報を縦に配置して表示します：
 /// - タスクのタイトル
 /// - タスクのステータス
 /// - 期限
 /// - 作成日時
 ///
-/// - Parameter task: 表示するタスク情報
+/// - Parameters:
+/// - `task`: 表示するタスク情報 (`Todo` 型)
 struct TodoAppWidgetLargeView: View {
     let task: Todo
 

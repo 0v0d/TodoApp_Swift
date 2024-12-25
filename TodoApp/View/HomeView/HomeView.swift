@@ -8,17 +8,26 @@ import SwiftUI
 import SwiftData
 
 /// アプリのメイン画面（ホーム画面）
+///
+/// - Parameters:
+/// - `viewModel`: タスクビューモデル（`TaskViewModel` 型）
+/// - `selectedTask`: 選択されたタスク（`Todo?` 型）
+/// - `showingAddTask`: タスク追加画面を表示するかどうか（`Bool` 型）
+/// - `columnVisibility`: ナビゲーション分割ビューの列の表示状態（`NavigationSplitViewVisibility` 型）
+///
+/// - Note:
+///  -  このビューは、タスクリストと詳細ビューを表示するメイン画面です
+///  - SplitViewを使用して、左側にタスクリスト、右側に詳細ビューを表示します
+///  - タスクリストからタスクを選択すると、詳細ビューに選択されたタスクの詳細が表示されます
+///  - タスク追加画面を表示するためのボタンも含まれています
 struct HomeView: View {
-    /// タスクデータを管理するViewModel
+
     @EnvironmentObject var viewModel: TaskViewModel
 
-    /// 現在選択されているタスク
     @State private var selectedTask: Todo?
 
-    /// タスク追加画面を表示するためのフラグ
     @State private var showingAddTask = false
 
-    /// ナビゲーションの列の表示状態
     @State private var columnVisibility =
         NavigationSplitViewVisibility.doubleColumn
 

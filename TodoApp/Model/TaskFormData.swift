@@ -6,7 +6,6 @@
 //
 import Foundation
 
-/// Todoのデータをフォームで扱うための構造体
 struct TaskFormData {
     /// タイトル（フォームのタイトルフィールド）
     var title: String = ""

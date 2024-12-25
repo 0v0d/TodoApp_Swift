@@ -7,7 +7,6 @@
 import Foundation
 import SwiftData
 
-/// タスクを表すモデルクラス
 @Model
 final class Todo {
     /// タスクのタイトル
@@ -32,14 +31,6 @@ final class Todo {
     var order: Int
 
     /// 初期化メソッド
-    /// - Parameters:
-    ///   - title: タスクのタイトル
-    ///   - comment: タスクに関連するコメント
-    ///   - url: タスクに関連するURL
-    ///   - timestamp: タスクの作成日時
-    ///   - dueDate: タスクの締切日（任意）
-    ///   - status: タスクの状態（例: 完了、進行中、保留など）
-    ///   - order: タスクの順序（並べ替え用）
     init(
         title: String,
         comment: String,
@@ -59,6 +50,7 @@ final class Todo {
     }
 
     /// タスクを更新するメソッド
+    ///
     /// - Parameters:
     ///   - title: 新しいタイトル
     ///   - comment: 新しいコメント

@@ -6,12 +6,21 @@
 //
 import SwiftUI
 
+/// Todoアプリのエントリーポイント
+///
+/// - Note:
+/// - エントリーポイントとして、`HomeView` を表示します
+/// - `TaskViewModel` はDIコンテナから取得します
+/// - `TaskViewModel` は `TaskRepository` を依存性として持ちます
 @main
 struct TodoApp: App {
-    let viewModel: TaskViewModel
+
+    private let viewModel: TaskViewModel
+
     init() {
         viewModel = DIContainer.shared.makeTaskViewModel()
     }
+
     var body: some Scene {
         WindowGroup {
             HomeView()
