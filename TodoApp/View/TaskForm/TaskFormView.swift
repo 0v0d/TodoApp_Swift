@@ -6,26 +6,33 @@
 //
 import SwiftUI
 
-/// タスクのフォームを表示するビュー
+/// タスクの情報を入力するためのフォームビュー
+///
+/// - Parameters:
+/// - `dismiss`: ビューを閉じるためのEnvironment変数
+/// - `formData`: タスク情報を管理するバインディング変数 (`TaskFormData` 型)
+/// - `topBarTitle`: ナビゲーションバーのタイトル (`String` 型)
+/// - `action`: 保存アクション (`Void` を返すクロージャ)
+///
+/// - Note:
+///  - フォームの保存時には、`action` で指定されたクロージャが実行されます
+///  - 保存時にエラーがある場合は、保存アクションは実行されません
+///    - エラー条件:
+///     - タイトルが空や改行またはスペースのみ
+///     - 期限が無効
+///     - URLが無効
 struct TaskFormView: View {
-    // このビューを閉じるために使用されるEnvironment変数
+
     @Environment(\.dismiss) private var dismiss
 
-    // フォームデータを親ビューと共有するバインディングプロパティ
     @Binding var formData: TaskFormData
 
-    // 上部のナビゲーションバーに表示されるタイトル
     var topBarTitle: String
 
-    /// フォームの保存時に実行されるクロージャ
     var action: (() -> Void)
 
     /// 入力エラーチェック用の計算プロパティ
     private var isError: Bool {
-        // エラー条件:
-        // - タイトルが空や改行またはスペースのみ
-        // - 期限が無効
-        // - URLが無効
         formData.title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
             || !DateValidator().isDueDateValid(formData.dueDate)
             || (!formData.url.isEmpty && !URLValidator().isValid(formData.url))

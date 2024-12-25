@@ -7,20 +7,49 @@
 import SwiftUI
 
 /// タスクの入力フォームを表示するビュー
+///
+/// - Parameters:
+/// - `formData`: タスクの入力データ（`TaskFormData` 型）
 struct TaskFormContent: View {
-    /// タスクの入力フォームデータ
+
     @Binding var formData: TaskFormData
 
     var body: some View {
         VStack(spacing: 10) {
             // タイトル入力セクション
-            TitleInputField(title: $formData.title)
+            InputField(
+                title: "Title",
+                placeholder: "EnterTitle",
+                text: $formData.title,
+                isRequired: true,
+                lineLimitRange: 1...3
+            )
 
             // コメント入力セクション
-            CommentInputField(comment: $formData.comment)
+            InputField(
+                title: "Comment",
+                placeholder: "EnterComment",
+                text: $formData.comment,
+                isRequired: false,
+                lineLimitRange: 3...6
+            )
+            .padding(.top, 10) // 上部の余白を追加
 
             // URL入力セクション
-            URLInputField(url: $formData.url)
+            VStack(spacing: 4) {
+                InputField(
+                    title: "URL",
+                    placeholder: "EnterURL",
+                    text: $formData.url,
+                    isRequired: false,
+                    lineLimitRange: 1...3
+                )
+
+                // URLが入力されており、バリデーションに失敗した場合、エラーメッセージを表示
+                if !formData.url.isEmpty && !URLValidator().isValid(formData.url) {
+                    ErrorLabel(message: "invalidURLMessage")
+                }
+            }
 
             // ステータス選択セクション
             TaskStatusPickerSection(status: $formData.status)

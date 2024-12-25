@@ -6,12 +6,19 @@
 //
 import SwiftUI
 
-/// 情報を表示する行（タイトルと内容）を提供するビュー
+/// タスク情報を表示する行（タイトルと内容）を提供するビュー
+///
+/// - Parameters:
+/// - `title`: 行のタイトル
+/// - `content`: 表示する内容（URLまたはテキスト）
+///
+/// - Note:
+///  - 表示内容がURLの場合、リンクとして表示し、クリックで開くことができます
+///  - URLでない場合は、テキストとして表示し、コピー機能を提供します
 struct InfoRow: View {
-    /// 行のタイトル
+
     let title: String
 
-    /// 表示する内容（URLまたはテキスト）/
     let content: String
 
     var body: some View {

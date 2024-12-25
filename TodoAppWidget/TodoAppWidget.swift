@@ -9,9 +9,9 @@ import WidgetKit
 
 /// ウィジェットのタイムライン更新時に使用されるエントリー
 ///
-/// - Properties:
-///   - date: タイムラインの更新日時
-///   - task: 表示するタスク。nilの場合は空の状態を表示
+/// - Parameters:
+///   - date: タイムラインの更新日時 ( `Date` 型)
+///   - task: 表示するタスク。nilの場合は空の状態を表示 (`Todo` 型)
 struct TodoEntry: TimelineEntry {
     let date: Date
     let task: Todo?
@@ -19,7 +19,10 @@ struct TodoEntry: TimelineEntry {
 
 /// Todoアプリケーションのウィジェット
 ///
-/// このウィジェットは以下の機能を提供します：
+/// - Parameters:
+///  - kind: ウィジェットの種類 ( `String` 型)
+///
+/// - Note:
 /// - アクティブなタスクの表示
 /// - 異なるウィジェットサイズ（Small、Medium、Large、ExtraLarge）のサポート
 /// - 15分ごとの自動更新
@@ -44,7 +47,11 @@ struct TodoAppWidget: Widget {
 
 /// ウィジェットのサイズに応じて適切なビューを表示する
 ///
-/// ウィジェットファミリー別の表示内容：
+/// - Parameters:
+/// - `family`: ウィジェットのサイズ (`WidgetFamily`型)
+/// - `task` : 表示するタスク (`Todo`型)
+///
+/// - Note:
 /// - systemSmall: タイトルとステータスのみ
 /// - systemMedium: 基本情報と期限
 /// - systemLarge: 詳細情報を含む

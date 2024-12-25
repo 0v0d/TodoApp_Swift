@@ -6,20 +6,24 @@
 //
 import SwiftUI
 
+/// ユーザーがテキストを入力するためのフィールド
+///
+/// - Parameters:
+/// - `title`: 入力フィールドのタイトル  (`String` 型)
+/// - `placeholder`: プレースホルダーとして表示するテキスト (`String` 型)
+/// - `text`: 入力値を保持するバインディングプロパティ (`Binding<String>` 型)
+/// - `isRequired`: 入力フィールドが必須かどうかを示すフラグ (デフォルトはfalse) (`Bool` 型)
+/// - `lineLimitRange`: 入力可能な行数の範囲を指定するオプション (nilの場合は1行固定) (`ClosedRange<Int>?` 型)
 struct InputField: View {
-    /// 入力フィールドのタイトル
+
     let title: String
 
-    /// プレースホルダーとして表示するテキスト
     let placeholder: String
 
-    /// 入力値を保持するバインディングプロパティ
     @Binding var text: String
 
-    /// 入力フィールドが必須かどうかを示すフラグ (デフォルトはfalse)
     var isRequired: Bool = false
 
-    /// 入力可能な行数の範囲を指定するオプション (nilの場合は1行固定)
     var lineLimitRange: ClosedRange<Int>?
 
     var body: some View {

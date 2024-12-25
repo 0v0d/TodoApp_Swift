@@ -6,6 +6,10 @@
 //
 import Foundation
 
+/// テスト用のTodoデータを提供する構造体
+///
+/// `Todo`オブジェクトをテストする際に使用する個別のタスクデータや
+/// 複数のタスクを含む配列データのサンプルを提供します
 struct TodoTestData {
     /// テスト用のタスクデータ
     static let todo = Todo(

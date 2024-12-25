@@ -8,13 +8,14 @@ import SwiftUI
 
 /// 最大サイズのウィジェットビュー
 ///
-/// このビューは以下の情報をグリッドレイアウトで表示します：
 /// - タイトルとステータス
 /// - 期限と作成日時
 /// - コメントとURL
 ///
-/// - Note: 情報が存在しない場合は「なし」と表示されます
+/// - Parameters:
+/// - `task`: 表示するタスク情報 (`Todo` 型)
 struct TodoAppWidgetExtraLargeView: View {
+
     let task: Todo
 
     var body: some View {
@@ -26,6 +27,7 @@ struct TodoAppWidgetExtraLargeView: View {
                 StatusInfoWidgetRow(status: task.status, iconName: "checkmark.circle.fill")
             }
             Divider()
+
             // 期日と作成日時
             HStack(alignment: .center, spacing: 16) {
                 InfoWidgetRow(
@@ -40,6 +42,7 @@ struct TodoAppWidgetExtraLargeView: View {
                 )
             }
             Divider()
+
             // コメントとURL
             HStack(alignment: .center, spacing: 16) {
                 InfoWidgetRow(
@@ -54,6 +57,7 @@ struct TodoAppWidgetExtraLargeView: View {
                 )
             }
             Divider()
+
         }.padding()
     }
 }

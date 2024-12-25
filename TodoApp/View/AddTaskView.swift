@@ -6,38 +6,29 @@
 //
 import SwiftUI
 
-/// タスク追加画面
+/// タスクの新規追加を行うための画面
+///
+/// - Parameters:
+/// - `viewModel`: タスクを管理するビューモデルをEnvironmentObjectとして利用（`TaskViewModel`型）
+/// - `formData`: フォームデータ（`TaskFormData`型）
+/// - `isUpdating`: 更新中の状態を示すフラグ（`Bool`型）
 struct AddTaskView: View {
-    /// タスクを管理するビューモデルをEnvironmentObjectとして利用
     @EnvironmentObject var viewModel: TaskViewModel
 
-    /// フォームデータを保持する状態変数
     @State private var formData = TaskFormData()
-
-    /// 更新中の状態を示すフラグ
-    @State private var isUpdating = false
 
     var body: some View {
         // タスクフォームビューを利用してタスク追加画面を構築
         TaskFormView(
             formData: $formData, // フォームの入力データをバインド
             topBarTitle: "NewTask", // 上部のナビゲーションバーに表示されるタイトル
-            action: addItem // 保存時のアクションを設定
+            action: addTask // 保存時のアクションを設定
         )
-        .overlay {
-            // 更新中の状態を表示するオーバーレイ
-            if isUpdating {
-                ProgressView("Updating") // 更新中のスピナーとテキスト
-            }
-        }
     }
 
     /// フォームの内容を元にタスクを追加する処理
-    private func addItem() {
+    private func addTask() {
         Task {
-            // 更新フラグを有効化
-            isUpdating = true
-
             // フォームデータからタスクを生成
             let task = Todo(
                 title: formData.title, // タスクのタイトル
@@ -51,9 +42,6 @@ struct AddTaskView: View {
 
             // ビューモデルを通じてタスクを非同期で追加
             await viewModel.addTask(task)
-
-            // 更新フラグを無効化
-            isUpdating = false
         }
     }
 }

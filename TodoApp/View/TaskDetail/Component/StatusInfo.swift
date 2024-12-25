@@ -6,9 +6,15 @@
 //
 import SwiftUI
 
+/// タスクのステータスを表示するビュー
+///
+/// - Parameters:
+/// - `status`: タスクのステータス（`TaskStatus` 型）
+///
+/// - Note:
+///  - このビューは、`TaskStatus` に基づいてタスクのステータスをテキストとして表示します
 struct StatusInfo: View {
-    /// タスクのステータス（`TaskStatus` 型）
-    /// `TaskStatus` に応じて表示されるテキストや色を設定します。
+
     let status: TaskStatus
 
     var body: some View {

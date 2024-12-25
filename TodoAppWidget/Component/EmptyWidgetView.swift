@@ -12,7 +12,8 @@ import SwiftUI
 /// - トレイアイコン
 /// - "タスクがありません"というメッセージ
 ///
-/// - Note: このビューは自動的にローカライズされたテキストを使用します
+/// - Note:
+///  - このビューは自動的にローカライズされたテキストを使用します
 struct EmptyWidgetView: View {
     var body: some View {
         VStack(spacing: 8) {

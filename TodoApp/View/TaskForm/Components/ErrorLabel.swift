@@ -6,9 +6,14 @@
 //
 import SwiftUI
 
-/// エラーメッセージを表示するビュー
+/// エラーメッセージを表示するためのビュー
+///
+/// - Parameters:
+/// - `message`: エラーメッセージ（`LocalizedStringKey` 型）
+///
+/// - Note:
+///  - エラーメッセージは赤色で表示されます
 struct ErrorLabel: View {
-    /// エラーメッセージ (ローカライズ対応)
     let message: LocalizedStringKey
 
     var body: some View {

@@ -6,12 +6,19 @@
 //
 import Foundation
 
-/// タスクを管理するビューモデル
+/// タスクのデータを管理するためのビューモデル
+///
+///  - `tasks`: タスクのリストを公開プロパティ (`[Todo]` 型)
+///
+/// - Note:
+///  - タスクの追加、更新、削除、並び替えを行うためのメソッドを提供します
+///  - タスクのリストを更新するために、リポジトリからデータを取得します
+///  - エラーが発生した場合は、エラーログを出力します
+///  - インスタンスはDIContainerで生成されます
 final class TaskViewModel: ObservableObject {
-    /// タスクデータのリポジトリ
+
     private let repository: TaskRepository
 
-    /// タスクのリストを公開プロパティとして保持
     @Published var tasks: [Todo] = []
 
     /// 初期化メソッド

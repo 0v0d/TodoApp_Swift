@@ -8,14 +8,13 @@ import WidgetKit
 
 /// ウィジェットのデータを提供し、更新を管理するプロバイダー
 ///
-/// 主な責務：
 /// - アクティブなタスクの取得
 /// - ウィジェットの更新スケジュール管理
 /// - プレースホルダーとスナップショットの提供
 ///
 /// - Note: 15分ごとに自動更新されます
 struct TodoProvider: @preconcurrency TimelineProvider {
-    
+
     /// タイムラインを取得し、次回の更新スケジュールを設定
     ///
     /// - Parameters:
@@ -44,12 +43,19 @@ struct TodoProvider: @preconcurrency TimelineProvider {
     }
 
     /// プレースホルダー表示用のエントリーを提供
+    ///
+    /// - Parameter context: 現在のウィジェットのコンテキスト
+    /// - Returns: プレースホルダー表示用のエントリー
     @MainActor
     func placeholder(in context: Context) -> TodoEntry {
         TodoEntry(date: Date(), task: TodoTestData.todos[0])
     }
 
     /// 現在の状態のスナップショットを提供
+    ///
+    /// - Parameters:
+    ///  - context: 現在のウィジェットのコンテキスト
+    ///  - completion: スナップショット取得後に呼ばれるコールバック
     @MainActor
     func getSnapshot(
         in context: Context,

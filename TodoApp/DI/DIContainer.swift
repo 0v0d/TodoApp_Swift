@@ -5,14 +5,24 @@
 //  Created by 0v0 on 2024/11/5.
 //
 
-/// DIを管理するクラス
+/// アプリ全体で使用するシングルトンパターンの DI コンテナ
+///
+/// リポジトリや ViewModel のインスタンスを生成・管理し、依存関係を注入します
+///
+/// - `DIContainer.shared` からアクセス可能なシングルトン
+/// - `TaskRepository` を 1 つのインスタンスとして共有
 final class DIContainer {
-    /// DIContainerのシングルトンインスタンス
+    /// シングルトンインスタンス
     static let shared = DIContainer()
 
+    /// プライベートイニシャライザ
+    /// - シングルトンを保証するため、外部からのインスタンス生成を防ぐため
     private init() {}
 
-    // TaskRepositoryを生成
+    /// TaskRepository のインスタンスを管理
+    ///
+    /// `TaskRepositoryIMPL` を生成し、リポジトリとして使用します
+    /// - Note: エラーが発生した場合、`fatalError` でアプリを終了します
     private lazy var repository: TaskRepository = {
         do {
             return try TaskRepositoryIMPL()
@@ -22,16 +32,18 @@ final class DIContainer {
         }
     }()
 
-    /// TaskViewModelを生成
+    /// TaskViewModel を生成
     ///
-    /// - Returns: TaskViewModel
+    /// `TaskRepository` を使用して `TaskViewModel` のインスタンスを作成します
+    /// - Returns: `TaskViewModel` のインスタンス
     func makeTaskViewModel() -> TaskViewModel {
         TaskViewModel(repository: repository)
     }
 
-    /// TaskDetailViewModelを生成
+    /// TaskDetailViewModel を生成
     ///
-    /// - Returns: TaskDetailViewModel
+    /// `TaskRepository` を使用して `WidgetTaskViewModel` のインスタンスを作成します
+    /// - Returns: `WidgetTaskViewModel` のインスタンス
     func makeWidgetViewModel() -> WidgetTaskViewModel {
         WidgetTaskViewModel(repository: repository)
     }

@@ -7,24 +7,33 @@
 import SwiftData
 import Foundation
 
-/// タスク管理リポジトリの実装クラス
+/// タスク管理リポジトリの具体的な実装クラス
+///
+/// タスクデータの取得、追加、更新、削除、並び替えといった操作を提供します
+/// データは内部で`ModelContainer`を使用して管理されます
+///
+/// - Note:
+///  - テスト環境では、データをメモリ上にのみ保存します
+///  - 実行時のコマンドライン引数に`"testing"`を含めることで動作を切り替えます
 final class TaskRepositoryIMPL: TaskRepository {
+
     /// モデルデータのコンテナ
+    ///
+    /// タスクの保存や管理を行うためのデータコンテナ
     private let modelContainer: ModelContainer
 
-    /// 初期化メソッド
+    /// クラスのインスタンスを初期化する
+    ///
+    /// `Todo`モデルのスキーマを設定し、データ保存先を構成します
+    ///
+    /// - Throws: コンテナの初期化に失敗した場合にエラーをスローします
     init() throws {
-        // Todoモデルのスキーマを定義
         let schema = Schema([Todo.self])
-
-        // データをメモリにのみ保存するかのフラグ
         #if DEBUG
         let inMemory = CommandLine.arguments.contains("testing")
         #else
         let inMemory = false
         #endif
-
-        // モデルコンテナの初期化
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: inMemory)
         do {
             modelContainer = try ModelContainer(for: schema, configurations: [modelConfiguration])
@@ -35,85 +44,92 @@ final class TaskRepositoryIMPL: TaskRepository {
 
     /// 全タスクを取得する
     ///
-    /// - Returns: 全タスク「Todo」の配列
+    /// データベース内のすべてのタスクを、順序に基づいてソートして取得します
+    ///
+    /// - Returns: 全タスク（`Todo`オブジェクト）の配列
+    /// - Throws: データ取得に失敗した場合にエラーをスローします
     @MainActor
     func fetchTasks() async throws -> [Todo] {
-        let descriptor = FetchDescriptor<Todo>(sortBy: [SortDescriptor(\.order)]) // 順序でソート
+        let descriptor = FetchDescriptor<Todo>(sortBy: [SortDescriptor(\.order)])
         return try modelContainer.mainContext.fetch(descriptor)
     }
 
     /// 新しいタスクを追加する
     ///
-    /// - Parameter task: 追加するタスク
-    /// - Throws: タスクの追加に失敗した場合
+    /// 指定されたタスクをデータコンテナに挿入して保存します
+    ///
+    /// - Parameter task: 追加するタスク（`Todo`オブジェクト）
+    /// - Throws: タスクの追加または保存に失敗した場合にエラーをスローします
     @MainActor
     func addTask(_ task: Todo) async throws {
-        modelContainer.mainContext.insert(task) // 新規タスクをコンテキストに挿入
-        try modelContainer.mainContext.save()   // コンテキストを保存
+        modelContainer.mainContext.insert(task)
+        try modelContainer.mainContext.save()
     }
 
     /// 既存のタスクを更新する
     ///
-    /// - Parameter task: 更新するタスク
-    /// - Throws: タスクの更新に失敗した場合
+    /// 変更されたタスクを保存します
+    ///
+    /// - Parameter task: 更新対象のタスク（`Todo`オブジェクト）
+    /// - Throws: タスクの保存に失敗した場合にエラーをスローします
     @MainActor
     func updateTask(_ task: Todo) async throws {
-        try modelContainer.mainContext.save()   // 更新を保存
+        try modelContainer.mainContext.save()
     }
 
     /// 指定したインデックスのタスクを削除する
     ///
-    ///  - Parameter taskIndex: 削除するタスクのインデックス
-    ///  - Throws: タスクの削除に失敗した場合
+    /// タスク配列のインデックスを指定して、対応するタスクを削除します
+    ///
+    /// - Parameter taskIndex: 削除対象タスクのインデックスセット
+    /// - Throws: タスクの削除または保存に失敗した場合にエラーをスローします
     @MainActor
     func deleteTask(taskIndex: IndexSet) async throws {
-        let allTasks = try await fetchTasks() // 全タスクを取得
+        let allTasks = try await fetchTasks()
         for index in taskIndex {
-            guard allTasks.indices.contains(index) else { continue } // インデックスが範囲外の場合はスキップ
-            let taskToDelete = allTasks[index] // 削除対象のタスク
+            guard allTasks.indices.contains(index) else { continue }
+            let taskToDelete = allTasks[index]
             modelContainer.mainContext.delete(taskToDelete)
         }
-        try modelContainer.mainContext.save() // コンテキストを保存
+        try modelContainer.mainContext.save()
     }
 
     /// タスクの順序を更新する
     ///
+    /// 指定したインデックス間でタスクを移動し、順序を更新します
+    ///
     /// - Parameters:
-    ///  - from: 移動元のインデックス
-    ///  - end: 移動先のインデックス
-    ///  - Throws: タスクの順序の更新に失敗した場合
+    ///   - from: 移動元のインデックス
+    ///   - end: 移動先のインデックス
+    /// - Throws: タスクの並び替えまたは保存に失敗した場合にエラーをスローします
     @MainActor
     func updateOrder(from: Int, end: Int) async throws {
-        var allTasks = try await fetchTasks() // 全タスクを取得
+        var allTasks = try await fetchTasks()
         guard allTasks.indices.contains(from) && end <= allTasks.count else { return }
 
-        // 移動するタスクを取得
         let movedTask = allTasks[from]
-
-        // 移動元からタスクを削除
         allTasks.remove(at: from)
-
-        // 移動先にタスクを挿入（下方向への移動の場合は位置を調整）
         let adjustedDestination = end > from ? end - 1 : end
         allTasks.insert(movedTask, at: adjustedDestination)
 
-        // すべてのタスクの順序を更新
         for (index, task) in allTasks.enumerated() {
             task.order = index
         }
-        try modelContainer.mainContext.save() // コンテキストを保存
+        try modelContainer.mainContext.save()
     }
 
     /// 全タスクを削除する
     ///
-    /// - Throws: タスクの削除に失敗した場合
-    /// - Note: テスト用
+    /// データベース内のすべてのタスクを削除します
+    ///
+    /// - Throws: タスクの削除または保存に失敗した場合にエラーをスローします
+    /// - Note: このメソッドは主にテスト目的で使用されます
     @MainActor
     func deleteAllTasks() async throws {
-        let allTasks = try await fetchTasks() // 全タスクを取得
+        let allTasks = try await fetchTasks()
         for task in allTasks {
             modelContainer.mainContext.delete(task)
         }
-        try modelContainer.mainContext.save() // コンテキストを保存
+        try modelContainer.mainContext.save()
     }
 }
