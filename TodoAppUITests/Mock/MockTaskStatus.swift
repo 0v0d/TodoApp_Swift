@@ -5,6 +5,7 @@
 //  Created by 0v0 on 2024/12/17.
 //
 
+/// タスクのステータスを表す列挙型のモック
 enum MockTaskStatus {
     case notStarted
     case inProgress

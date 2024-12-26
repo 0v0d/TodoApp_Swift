@@ -6,24 +6,36 @@
 //
 import XCTest
 
-/// ナビゲーションとUI操作に関するテスト
+/// アプリケーションのナビゲーションとUI操作に関するUIテストケース
+///
+/// - Note:
+///  - このクラスでは、タスクリスト画面やタスク追加画面、編集画面間のナビゲーションが正しく動作するかを検証します
+///  - 画面遷移が滑らかに行われるかをメトリクスを用いて測定します
 final class NavigationAndUITests: XCTestCase {
+
     var application: XCUIApplication!
+
     var utils: UITestUtils!
 
+    /// テスト実行前のセットアップ処理
+    ///
+    /// アプリケーションの起動や、テストで使用するユーティリティクラスの初期化を行います
     override func setUp() {
         super.setUp()
         application = setupUITest()
-        utils =  UITestUtils(app: application)
+        utils = UITestUtils(app: application)
     }
 
+    /// テスト実行後のクリーンアップ処理
+    ///
+    /// アプリケーションの終了や、関連リソースの解放を行います
     override func tearDown() {
         teardownUITest(application)
         application = nil
         super.tearDown()
     }
 
-    /// 空ビューからタスクを追加することでタスクリストが表示される
+    /// 空のビューからタスクを追加することでタスクリストが正しく表示されるかを検証するテスト
     @MainActor
     func testAddTaskToDisplayTaskList() {
         let navigationBar = application.navigationBars[Identifiers.taskListScreen]
@@ -46,7 +58,7 @@ final class NavigationAndUITests: XCTestCase {
         utils.tapTaskCell()
     }
 
-    /// タスクリスト画面と追加画面間の遷移
+    /// タスクリスト画面とタスク追加画面間の遷移を検証するテスト
     @MainActor
     func testNavigateBetweenTaskListAndAddScreen() {
         utils.setupTasksForTesting()
@@ -58,7 +70,7 @@ final class NavigationAndUITests: XCTestCase {
         verifyTaskFormView()
     }
 
-    /// 詳細画面と編集画面間の遷移
+    /// タスクの詳細画面と編集画面間の遷移を検証するテスト
     @MainActor
     func testNavigateBetweenDetailAndEditScreen() {
         let editButton = application.buttons[Identifiers.editButton]
@@ -83,7 +95,7 @@ final class NavigationAndUITests: XCTestCase {
         verifyTaskFormView()
     }
 
-    /// 画面間のナビゲーションが滑らかであることを確認
+    /// タスク詳細画面へのナビゲーションが滑らかであることを確認するテスト
     @MainActor
     func testSmoothNavigationTaskDetailScreens() {
         // メトリクスの設定
@@ -105,7 +117,7 @@ final class NavigationAndUITests: XCTestCase {
         }
     }
 
-    /// タスク追加画面のナビゲーションが滑らかであることを確認
+    /// タスク追加画面へのナビゲーションが滑らかであることを確認するテスト
     @MainActor
     func testSmoothNavigationAddTaskScreen() {
         // メトリクスの設定

@@ -8,10 +8,7 @@ import SwiftUI
 
 /// タスクの新規追加を行うための画面
 ///
-/// - Parameters:
-/// - `viewModel`: タスクを管理するビューモデルをEnvironmentObjectとして利用（`TaskViewModel`型）
-/// - `formData`: フォームデータ（`TaskFormData`型）
-/// - `isUpdating`: 更新中の状態を示すフラグ（`Bool`型）
+/// - Parameter viewModel: タスクを管理するビューモデルをEnvironmentObjectとして利用（`TaskViewModel`型）
 struct AddTaskView: View {
     @EnvironmentObject var viewModel: TaskViewModel
 

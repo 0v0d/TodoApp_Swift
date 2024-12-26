@@ -8,8 +8,7 @@ import SwiftUI
 
 /// エラーメッセージを表示するためのビュー
 ///
-/// - Parameters:
-/// - `message`: エラーメッセージ（`LocalizedStringKey` 型）
+/// - Parameter message: エラーメッセージ（`LocalizedStringKey` 型）
 ///
 /// - Note:
 ///  - エラーメッセージは赤色で表示されます

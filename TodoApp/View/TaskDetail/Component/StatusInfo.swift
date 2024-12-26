@@ -8,8 +8,7 @@ import SwiftUI
 
 /// タスクのステータスを表示するビュー
 ///
-/// - Parameters:
-/// - `status`: タスクのステータス（`TaskStatus` 型）
+/// - Parameter status: タスクのステータス（`TaskStatus` 型）
 ///
 /// - Note:
 ///  - このビューは、`TaskStatus` に基づいてタスクのステータスをテキストとして表示します

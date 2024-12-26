@@ -19,8 +19,7 @@ struct TodoEntry: TimelineEntry {
 
 /// Todoアプリケーションのウィジェット
 ///
-/// - Parameters:
-///  - kind: ウィジェットの種類 ( `String` 型)
+/// - Parameter  kind: ウィジェットの種類 ( `String` 型)
 ///
 /// - Note:
 /// - アクティブなタスクの表示
@@ -48,8 +47,8 @@ struct TodoAppWidget: Widget {
 /// ウィジェットのサイズに応じて適切なビューを表示する
 ///
 /// - Parameters:
-/// - `family`: ウィジェットのサイズ (`WidgetFamily`型)
-/// - `task` : 表示するタスク (`Todo`型)
+///  - family: ウィジェットのサイズ (`WidgetFamily`型)
+///  - task : 表示するタスク (`Todo`型)
 ///
 /// - Note:
 /// - systemSmall: タイトルとステータスのみ

@@ -5,6 +5,7 @@
 //  Created by 0v0 on 2024/12/10.
 //
 
+/// 画面やコンポーネントの識別子を定義する構造体
 struct Identifiers {
     static let taskListScreen = "Task List"
     static let addTaskScreen = "New Task"
@@ -32,5 +33,4 @@ struct Identifiers {
     static let emptyMessage = "Add a new task"
     static let deleteButton = "Delete"
     static let deleteButtonIcon = "minus.circle.fill"
-
 }

@@ -8,8 +8,7 @@ import SwiftUI
 
 /// タスクの状態を選択するためのPickerを表示
 ///
-/// - Parameters:
-/// - `status`: タスクの状態（`Int` 型）
+/// - Parameter status: タスクの状態（`Int` 型）
 struct TaskStatusPickerSection: View {
 
     @Binding var status: Int

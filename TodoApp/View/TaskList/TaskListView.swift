@@ -8,20 +8,22 @@ import SwiftUI
 import SwiftData
 
 /// タスクリストを表示するビュー
+///
+/// - Parameters:
+///  - tasks: 表示するタスクのリスト (`[Todo]` 型)
+///  - deleteTask: タスク削除時に呼び出されるクロージャ (`IndexSet` 型)
+///  - moveTask: タスク移動時に呼び出されるクロージャ (`IndexSet`, `Int` 型)
+///  - selectedTask: 選択されたタスクを管理するバインディングプロパティ (`Todo?` 型)
 struct TaskListView: View {
-    /// 編集モードを管理するEnvironment変数
+
     @Environment(\.editMode) private var editMode
 
-    /// タスクのリストを受け取るプロパティ
     let tasks: [Todo]
 
-    /// タスク削除時に呼び出されるクロージャ
     let deleteTask: (IndexSet) -> Void
 
-    /// タスク移動時に呼び出されるクロージャ
     let moveTask: (IndexSet, Int) -> Void
 
-    /// 選択されたタスクを管理するバインディングプロパティ
     @Binding var selectedTask: Todo?
 
     var body: some View {

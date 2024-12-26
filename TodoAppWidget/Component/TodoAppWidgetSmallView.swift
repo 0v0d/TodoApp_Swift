@@ -11,9 +11,9 @@ import SwiftUI
 /// - タスクのタイトル
 /// - タスクのステータス（完了、進行中、未着手）をアイコンと色で表現
 ///
-/// - Parameters:
-/// - `task`: 表示するタスク情報 (`Todo` 型)
+/// - Parameter task: 表示するタスク情報 (`Todo` 型)
 struct TodoAppWidgetSmallView: View {
+
     let task: Todo
 
     var body: some View {

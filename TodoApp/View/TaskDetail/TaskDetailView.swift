@@ -8,7 +8,6 @@ import SwiftUI
 
 /// 選択されたタスクの詳細情報を表示するビュー
 ///
-///
 /// - Parameters:
 ///   - selectedTask: 選択されたタスク（`Todo` 型）
 ///   - showingEditTask: 編集画面表示フラグ（`Bool`）

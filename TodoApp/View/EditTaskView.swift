@@ -9,9 +9,8 @@ import SwiftUI
 /// 編集対象のタスクを編集するための画面
 ///
 /// - Parameters:
-/// - `viewModel`: タスクを管理するビューモデルをEnvironmentObjectとして利用（`TaskViewModel`型）
-/// - `task`: 編集対象のタスク（`Todo`型）
-/// - `formData`: フォームのデータを保持する状態変数（`TaskFormData`型）
+///  - viewModel: タスクを管理するビューモデルをEnvironmentObjectとして利用（`TaskViewModel`型）
+///  - task: 編集対象のタスク（`Todo`型）
 struct EditTaskView: View {
 
     @EnvironmentObject var viewModel: TaskViewModel

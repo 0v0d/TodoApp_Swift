@@ -7,6 +7,7 @@
 import Foundation
 
 extension Date {
+
     /// 現在の日付と時刻を "年/月/日 時:分 AM/PM" の形式でフォーマットした文字列を返します
     ///
     /// - Returns: フォーマットされた日付と時刻

@@ -13,6 +13,7 @@ import SwiftUI
 /// - TodoAppWidget: タスク表示用のメインウィジェット
 @main
 struct TodoAppWidgetBundle: WidgetBundle {
+
     var body: some Widget {
         TodoAppWidget()
     }

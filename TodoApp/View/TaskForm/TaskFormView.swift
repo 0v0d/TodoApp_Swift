@@ -9,10 +9,10 @@ import SwiftUI
 /// タスクの情報を入力するためのフォームビュー
 ///
 /// - Parameters:
-/// - `dismiss`: ビューを閉じるためのEnvironment変数
-/// - `formData`: タスク情報を管理するバインディング変数 (`TaskFormData` 型)
-/// - `topBarTitle`: ナビゲーションバーのタイトル (`String` 型)
-/// - `action`: 保存アクション (`Void` を返すクロージャ)
+///  - dismiss: ビューを閉じるためのEnvironment変数
+///  - formData: タスク情報を管理するバインディング変数 (`TaskFormData` 型)
+///  - topBarTitle: ナビゲーションバーのタイトル (`String` 型)
+///  - action: 保存アクション (`Void` を返すクロージャ)
 ///
 /// - Note:
 ///  - フォームの保存時には、`action` で指定されたクロージャが実行されます
