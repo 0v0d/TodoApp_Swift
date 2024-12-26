@@ -11,10 +11,10 @@ import SwiftUI
 /// このビューは、`TaskStatus` に基づいてタスクのステータスをテキストとして表示します
 ///
 /// - Parameters:
-/// - `status`: タスクのステータス（`TaskStatus` 型）
-///  - `title`: ステータスのタイトル（`String` 型）
-///  - `color`: ステータスの色（`Color` 型）
-/// - `fontSize`: フォントサイズ（`Font` 型）
+///  - status: タスクのステータス（`TaskStatus` 型）
+///    - `title`: ステータスのタイトル（`String` 型）
+///    - `color`: ステータスの色（`Color` 型）
+///  - fontSize: フォントサイズ（`Font` 型）
 struct TaskStatusText: View {
 
     let status: TaskStatus

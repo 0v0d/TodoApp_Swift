@@ -19,13 +19,17 @@ final class TaskRepositoryIMPL: TaskRepository {
 
     /// モデルデータのコンテナ
     ///
-    /// タスクの保存や管理を行うためのデータコンテナ
+    /// - Note: タスクの保存や管理を行うためのデータコンテナ
     private let modelContainer: ModelContainer
 
     /// クラスのインスタンスを初期化する
     ///
     /// `Todo`モデルのスキーマを設定し、データ保存先を構成します
     ///
+    /// - Note:
+    /// - 実行時のコマンドライン引数に`"testing"`を含めることで動作を切り替えます
+    /// - テスト環境では、データをメモリ上にのみ保存します
+    /// - そのため、テスト時にはデータが永続化されず、テスト終了後にデータが破棄されます
     /// - Throws: コンテナの初期化に失敗した場合にエラーをスローします
     init() throws {
         let schema = Schema([Todo.self])
@@ -44,9 +48,10 @@ final class TaskRepositoryIMPL: TaskRepository {
 
     /// 全タスクを取得する
     ///
-    /// データベース内のすべてのタスクを、順序に基づいてソートして取得します
+    /// - Note:データベース内のすべてのタスクを、順序に基づいてソートして取得します
     ///
     /// - Returns: 全タスク（`Todo`オブジェクト）の配列
+    ///
     /// - Throws: データ取得に失敗した場合にエラーをスローします
     @MainActor
     func fetchTasks() async throws -> [Todo] {
@@ -56,9 +61,8 @@ final class TaskRepositoryIMPL: TaskRepository {
 
     /// 新しいタスクを追加する
     ///
-    /// 指定されたタスクをデータコンテナに挿入して保存します
-    ///
     /// - Parameter task: 追加するタスク（`Todo`オブジェクト）
+    ///
     /// - Throws: タスクの追加または保存に失敗した場合にエラーをスローします
     @MainActor
     func addTask(_ task: Todo) async throws {
@@ -67,8 +71,6 @@ final class TaskRepositoryIMPL: TaskRepository {
     }
 
     /// 既存のタスクを更新する
-    ///
-    /// 変更されたタスクを保存します
     ///
     /// - Parameter task: 更新対象のタスク（`Todo`オブジェクト）
     /// - Throws: タスクの保存に失敗した場合にエラーをスローします
@@ -79,9 +81,10 @@ final class TaskRepositoryIMPL: TaskRepository {
 
     /// 指定したインデックスのタスクを削除する
     ///
-    /// タスク配列のインデックスを指定して、対応するタスクを削除します
+    /// - Note: タスク配列のインデックスを指定して、対応するタスクを削除します
     ///
     /// - Parameter taskIndex: 削除対象タスクのインデックスセット
+    ///
     /// - Throws: タスクの削除または保存に失敗した場合にエラーをスローします
     @MainActor
     func deleteTask(taskIndex: IndexSet) async throws {
@@ -96,11 +99,12 @@ final class TaskRepositoryIMPL: TaskRepository {
 
     /// タスクの順序を更新する
     ///
-    /// 指定したインデックス間でタスクを移動し、順序を更新します
+    /// - Note: 指定したインデックス間でタスクを移動し、順序を更新します
     ///
     /// - Parameters:
     ///   - from: 移動元のインデックス
     ///   - end: 移動先のインデックス
+    ///
     /// - Throws: タスクの並び替えまたは保存に失敗した場合にエラーをスローします
     @MainActor
     func updateOrder(from: Int, end: Int) async throws {
@@ -118,12 +122,11 @@ final class TaskRepositoryIMPL: TaskRepository {
         try modelContainer.mainContext.save()
     }
 
-    /// 全タスクを削除する
+    ///  データベース内のすべてのタスクを削除します
     ///
-    /// データベース内のすべてのタスクを削除します
+    /// - Note: このメソッドは主にテスト目的で使用されます
     ///
     /// - Throws: タスクの削除または保存に失敗した場合にエラーをスローします
-    /// - Note: このメソッドは主にテスト目的で使用されます
     @MainActor
     func deleteAllTasks() async throws {
         let allTasks = try await fetchTasks()

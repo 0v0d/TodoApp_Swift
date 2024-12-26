@@ -11,7 +11,8 @@ import SwiftUI
 /// このビューは、タスクリスト画面のナビゲーションバーに表示するボタンを提供します
 ///
 /// - Parameters:
-/// - `isEmpty`: タスクリストが空かどうかを判定するフラグ (`Bool`型)
+///  - isEmpty: タスクリストが空かどうかを判定するフラグ (`Bool`型)
+///  - showingAddTask: タスク追加画面を表示するためのバインディング変数 (`Bool`型)
 ///
 /// - Note:
 ///  - タスクがない時は、タスク追加ボタンのみを表示します
@@ -20,7 +21,6 @@ struct NavigationButtons: View {
 
     let isEmpty: Bool
 
-    /// タスク追加画面表示用のフラグ
     @Binding var showingAddTask: Bool
 
     var body: some View {

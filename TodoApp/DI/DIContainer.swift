@@ -12,7 +12,6 @@
 /// - `DIContainer.shared` からアクセス可能なシングルトン
 /// - `TaskRepository` を 1 つのインスタンスとして共有
 final class DIContainer {
-    /// シングルトンインスタンス
     static let shared = DIContainer()
 
     /// プライベートイニシャライザ

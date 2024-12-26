@@ -8,8 +8,7 @@ import SwiftUI
 
 /// タスクの入力フォームを表示するビュー
 ///
-/// - Parameters:
-/// - `formData`: タスクの入力データ（`TaskFormData` 型）
+/// - Parameter formData: タスクの入力データ（`TaskFormData` 型）
 struct TaskFormContent: View {
 
     @Binding var formData: TaskFormData

@@ -8,6 +8,14 @@
 import XCTest
 
 extension XCTestCase {
+    /// UIテストのセットアップ処理
+    ///
+    /// - Returns: テスト対象のアプリケーション
+    ///
+    /// - Note:
+    ///  - `launchArguments`で言語設定を英語に統一します
+    ///  - `testing`の有無で`TaskRepository`のテストモードを切り替えます
+    ///  - テスト時にはデータが永続化されず、テスト終了後にデータが破棄されます
     func setupUITest() -> XCUIApplication {
         continueAfterFailure = false
 
@@ -18,6 +26,11 @@ extension XCTestCase {
         return application
     }
 
+    /// UIテストのクリーンアップ処理
+    ///
+    /// - Parameter application: テスト対象のアプリケーション
+    ///
+    /// - Note: アプリケーションを終了します
     func teardownUITest(_ application: XCUIApplication) {
         application.terminate()
     }

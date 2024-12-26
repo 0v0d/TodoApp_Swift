@@ -11,9 +11,9 @@ import SwiftUI
 /// このビューは、コンテンツが存在しない場合に 空の状態を示すために使用されます
 ///
 /// - Parameters:
-/// - `title`: 空の状態のタイトル(ローカライズ対応)　(`String`型)
-/// - `iconName`: 空の状態を示すアイコン名　(`String`型)
-/// - `description`: 空の状態の説明　(`String`型)
+///  - title: 空の状態のタイトル(ローカライズ対応)　(`String`型)
+///  - iconName: 空の状態を示すアイコン名　(`String`型)
+///  - description: 空の状態の説明　(`String`型)
 struct EmptyStateView: View {
 
     let title: String

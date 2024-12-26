@@ -13,9 +13,9 @@ import SwiftUI
 /// - 期限
 /// - 作成日時
 ///
-/// - Parameters:
-/// - `task`: 表示するタスク情報 (`Todo` 型)
+/// - Parameter task: 表示するタスク情報 (`Todo` 型)
 struct TodoAppWidgetLargeView: View {
+
     let task: Todo
 
     var body: some View {

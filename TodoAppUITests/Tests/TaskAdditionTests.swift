@@ -6,16 +6,25 @@
 //
 import XCTest
 
+/// タスク追加画面のテストケース
 final class TaskAdditionTests: XCTestCase {
+
     private var application: XCUIApplication!
+
     private var utils: UITestUtils!
 
+    /// テスト実行前のセットアップ処理
+    ///
+    /// アプリケーションの起動や、テストで使用するユーティリティクラスの初期化を行います
     override func setUp() {
         super.setUp()
         application = setupUITest()
         utils = UITestUtils(app: application)
     }
 
+    /// テスト実行後のクリーンアップ処理
+    ///
+    /// アプリケーションの終了や、関連リソースの解放を行います
     override func tearDown() {
         teardownUITest(application)
         application = nil

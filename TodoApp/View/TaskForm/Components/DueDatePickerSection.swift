@@ -9,8 +9,8 @@ import SwiftUI
 /// 期限日を選択するためのDatePickerを表示
 ///
 /// - Parameters:
-/// -  `dueDate`: 期限日を管理するバインディング (`Date?` 型)
-/// - `dateValidator`: 日付および時間のバリデーションを行うユーティリティ (`DateValidator` 型)
+///  -  dueDate: 期限日を管理するバインディング (`Date?` 型)
+///  - dateValidator: 日付および時間のバリデーションを行うユーティリティ (`DateValidator` 型)
 ///
 /// - Note:
 ///  - 期限日は、日付と時間の両方を選択できます

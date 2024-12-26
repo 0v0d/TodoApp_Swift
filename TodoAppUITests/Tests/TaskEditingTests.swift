@@ -8,9 +8,14 @@ import XCTest
 
 // タスク編集に関するテスト
 final class TaskEditingTests: XCTestCase {
+
     private var application: XCUIApplication!
+
     private var utils: UITestUtils!
 
+    /// テスト実行前のセットアップ処理
+    ///
+    /// アプリケーションの起動や、テストで使用するユーティリティクラスの初期化を行います
     override func setUp() {
         super.setUp()
         application = setupUITest()
@@ -20,6 +25,9 @@ final class TaskEditingTests: XCTestCase {
         utils.tapTaskCell()
     }
 
+    /// テスト実行後のクリーンアップ処理
+    ///
+    /// アプリケーションの終了や、関連リソースの解放を行います
     override func tearDown() {
         teardownUITest(application)
         utils = nil
@@ -160,11 +168,17 @@ final class TaskEditingTests: XCTestCase {
 
 extension TaskEditingTests {
 
+    /// タスク編集画面に遷移する
     private func tapTaskEditButton() {
         utils.tapTaskCell()
         utils.tapEditButton()
     }
 
+    /// タスクのテキストフィールドを編集する
+    ///
+    /// - Parameters:
+    ///  - identifier: テキストフィールドの識別子 (`String`型)
+    ///  - text: 編集するテキスト (`String`型)
     private func editTaskTextField(identifier: String, _ text: String) {
         let textField = application.textFields[identifier]
         textField.tap()

@@ -7,15 +7,23 @@
 import XCTest
 
 final class TaskReorderingTests: XCTestCase {
+
     private var application: XCUIApplication!
+
     private var utils: UITestUtils!
 
+    /// テスト実行前のセットアップ処理
+    ///
+    /// アプリケーションの起動や、テストで使用するユーティリティクラスの初期化を行います
     override func setUp() {
         super.setUp()
         application = setupUITest()
         utils = UITestUtils(app: application)
     }
 
+    /// テスト実行後のクリーンアップ処理
+    ///
+    /// アプリケーションの終了や、関連リソースの解放を行います
     override func tearDown() {
         teardownUITest(application)
         application = nil
@@ -50,6 +58,10 @@ final class TaskReorderingTests: XCTestCase {
 }
 
 extension TaskReorderingTests {
+    /// タスクのタイトルが一致するかを検証
+    /// - Parameters:
+    ///  - firstTaskTitle: 比較対象のタスクタイトル
+    ///  - expectedTaskTitle: 期待するタスクタイトル
     private func assertEqualsTaskTitle(_ firstTaskTitle: String, _ expectedTaskTitle: String) {
         XCTAssertEqual(firstTaskTitle, expectedTaskTitle, "Task Title should be equal")
     }

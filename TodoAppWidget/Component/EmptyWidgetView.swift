@@ -15,6 +15,7 @@ import SwiftUI
 /// - Note:
 ///  - このビューは自動的にローカライズされたテキストを使用します
 struct EmptyWidgetView: View {
+
     var body: some View {
         VStack(spacing: 8) {
             /// トレイのアイコン

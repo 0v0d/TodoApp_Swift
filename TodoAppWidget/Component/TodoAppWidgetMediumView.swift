@@ -11,9 +11,9 @@ import SwiftUI
 /// - タイトルとステータスを上部に横並びで表示
 /// - 期限を下部に表示
 ///
-/// - Parameters:
-/// - `task`: 表示するタスク情報 (`Todo` 型)
+/// - Parameter task: 表示するタスク情報 (`Todo` 型)
 struct TodoAppWidgetMediumView: View {
+
     let task: Todo
 
     var body: some View {

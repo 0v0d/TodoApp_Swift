@@ -10,10 +10,10 @@ import SwiftData
 /// アプリのメイン画面（ホーム画面）
 ///
 /// - Parameters:
-/// - `viewModel`: タスクビューモデル（`TaskViewModel` 型）
-/// - `selectedTask`: 選択されたタスク（`Todo?` 型）
-/// - `showingAddTask`: タスク追加画面を表示するかどうか（`Bool` 型）
-/// - `columnVisibility`: ナビゲーション分割ビューの列の表示状態（`NavigationSplitViewVisibility` 型）
+///  - viewModel: タスクビューモデル（`TaskViewModel` 型）
+///  - selectedTask: 選択されたタスク（`Todo?` 型）
+///  - showingAddTask: タスク追加画面を表示するかどうか（`Bool` 型）
+///  - columnVisibility: ナビゲーション分割ビューの列の表示状態（`NavigationSplitViewVisibility` 型）
 ///
 /// - Note:
 ///  -  このビューは、タスクリストと詳細ビューを表示するメイン画面です
