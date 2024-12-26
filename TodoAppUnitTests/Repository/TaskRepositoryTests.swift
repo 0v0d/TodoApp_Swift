@@ -9,8 +9,8 @@ import XCTest
 
 /// `TaskRepositoryIMPL` の動作を検証するテストクラス
 ///
-/// このクラスでは、`TaskRepositoryIMPL` の主要な機能（タスクの追加、取得、削除、更新、順序変更）を検証します。
-/// テストデータを使用してリポジトリの動作が期待通りであることを確認します。
+/// このクラスでは、`TaskRepositoryIMPL` の主要な機能（タスクの追加、取得、削除、更新、順序変更）を検証します
+/// テストデータを使用してリポジトリの動作が期待通りであることを確認します
 final class TaskRepositoryTests: XCTestCase {
 
     /// テスト対象のタスクリポジトリのインスタンス
@@ -18,7 +18,7 @@ final class TaskRepositoryTests: XCTestCase {
 
     /// 各テストのセットアップ処理
     ///
-    /// タスクリポジトリを初期化し、すべてのタスクを削除してクリーンな状態を確保します。
+    /// タスクリポジトリを初期化し、すべてのタスクを削除してクリーンな状態を確保します
     override func setUp() async throws {
         taskRepository = try TaskRepositoryIMPL()
         try await taskRepository.deleteAllTasks()
@@ -26,7 +26,7 @@ final class TaskRepositoryTests: XCTestCase {
 
     /// 各テストの後処理
     ///
-    /// すべてのタスクを削除し、リポジトリインスタンスを破棄します。
+    /// すべてのタスクを削除し、リポジトリインスタンスを破棄します
     override func tearDown() async throws {
         try await taskRepository.deleteAllTasks()
         taskRepository = nil
@@ -43,7 +43,7 @@ final class TaskRepositoryTests: XCTestCase {
 
     /// タスクの追加が成功することを検証
     ///
-    /// - 期待結果: タスクがリポジトリに正しく追加され、取得結果に反映される。
+    /// - 期待結果: タスクがリポジトリに正しく追加され、取得結果に反映される
     func testAddTask() async throws {
         try await taskRepository.addTask(TodoTestData.todo)
         let tasks = try await taskRepository.fetchTasks()
@@ -53,7 +53,7 @@ final class TaskRepositoryTests: XCTestCase {
 
     /// 複数のタスクを追加して正常に取得できることを検証
     ///
-    /// - 期待結果: 追加したすべてのタスクが取得され、順序も保持されている。
+    /// - 期待結果: 追加したすべてのタスクが取得され、順序も保持されている
     func testFetchTasks() async throws {
         try await addTasks(TodoTestData.todos)
         let tasks = try await taskRepository.fetchTasks()
@@ -63,7 +63,7 @@ final class TaskRepositoryTests: XCTestCase {
 
     /// タスクの削除が成功することを検証
     ///
-    /// - 期待結果: 指定したタスクが削除され、残りのタスクが正しい順序で保持される。
+    /// - 期待結果: 指定したタスクが削除され、残りのタスクが正しい順序で保持される
     func testDeleteTask() async throws {
         try await addTasks(TodoTestData.todos)
         let tasks = try await taskRepository.fetchTasks()
@@ -80,7 +80,7 @@ final class TaskRepositoryTests: XCTestCase {
 
     /// タスクの更新が成功することを検証
     ///
-    /// - 期待結果: 指定したタスクの内容が正しく更新される。
+    /// - 期待結果: 指定したタスクの内容が正しく更新される
     func testUpdateTask() async throws {
         let task = TodoTestData.todo
         try await addTasks([task])
@@ -96,7 +96,7 @@ final class TaskRepositoryTests: XCTestCase {
 
     /// タスク順序の更新がエッジケースでも正しく機能することを検証
     ///
-    /// - 期待結果: 最後のタスクが最初に移動し、順序が期待通りに更新される。
+    /// - 期待結果: 最後のタスクが最初に移動し、順序が期待通りに更新される
     func testUpdateOrderEdgeCase() async throws {
         try await addTasks(TodoTestData.todos)
 
