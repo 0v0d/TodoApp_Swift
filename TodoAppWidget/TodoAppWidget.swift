@@ -11,10 +11,10 @@ import WidgetKit
 ///
 /// - Parameters:
 ///   - date: タイムラインの更新日時 ( `Date` 型)
-///   - task: 表示するタスク。nilの場合は空の状態を表示 (`Todo` 型)
+///   - todo: 表示するTodo。nilの場合は空の状態を表示 (`Todo` 型)
 struct TodoEntry: TimelineEntry {
     let date: Date
-    let task: Todo?
+    let todo: Todo?
 }
 
 /// Todoアプリケーションのウィジェット
@@ -22,7 +22,7 @@ struct TodoEntry: TimelineEntry {
 /// - Parameter  kind: ウィジェットの種類 ( `String` 型)
 ///
 /// - Note:
-/// - アクティブなタスクの表示
+/// - アクティブなTodoの表示
 /// - 異なるウィジェットサイズ（Small、Medium、Large、ExtraLarge）のサポート
 /// - 15分ごとの自動更新
 struct TodoAppWidget: Widget {
@@ -34,8 +34,8 @@ struct TodoAppWidget: Widget {
             provider: TodoProvider()
         ) { entry in
             VStack(alignment: .leading, spacing: 10) {
-                if let task = entry.task {
-                    TodoAppWidgetEntryView(task: task)
+                if let todo = entry.todo {
+                    TodoAppWidgetEntryView(todo: todo)
                 } else {
                     EmptyWidgetView()
                 }
@@ -48,7 +48,7 @@ struct TodoAppWidget: Widget {
 ///
 /// - Parameters:
 ///  - family: ウィジェットのサイズ (`WidgetFamily`型)
-///  - task : 表示するタスク (`Todo`型)
+///  - todo : 表示するTodo (`Todo`型)
 ///
 /// - Note:
 /// - systemSmall: タイトルとステータスのみ
@@ -57,18 +57,18 @@ struct TodoAppWidget: Widget {
 /// - systemExtraLarge: 全ての情報を表示
 struct TodoAppWidgetEntryView: View {
     @Environment(\.widgetFamily) var family: WidgetFamily
-    let task: Todo
+    let todo: Todo
 
     var body: some View {
         switch family {
         case .systemSmall:
-            TodoAppWidgetSmallView(task: task)
+            TodoAppWidgetSmallView(todo: todo)
         case .systemMedium:
-            TodoAppWidgetMediumView(task: task)
+            TodoAppWidgetMediumView(todo: todo)
         case .systemLarge:
-            TodoAppWidgetLargeView(task: task)
+            TodoAppWidgetLargeView(todo: todo)
         case .systemExtraLarge:
-            TodoAppWidgetExtraLargeView(task: task)
+            TodoAppWidgetExtraLargeView(todo: todo)
         default:
             EmptyWidgetView()
         }
@@ -78,31 +78,31 @@ struct TodoAppWidgetEntryView: View {
 #Preview(as: .systemSmall) {
     TodoAppWidget()
 } timeline: {
-    TodoEntry(date: .now, task: TodoTestData.todos[0])
-    TodoEntry(date: .now, task: TodoTestData.todos[1])
-    TodoEntry(date: .now, task: nil)
+    TodoEntry(date: .now, todo: TodoTestData.todos[0])
+    TodoEntry(date: .now, todo: TodoTestData.todos[1])
+    TodoEntry(date: .now, todo: nil)
 }
 
 #Preview(as: .systemMedium) {
     TodoAppWidget()
 } timeline: {
-    TodoEntry(date: .now, task: TodoTestData.todos[0])
-    TodoEntry(date: .now, task: TodoTestData.todos[1])
-    TodoEntry(date: .now, task: nil)
+    TodoEntry(date: .now, todo: TodoTestData.todos[0])
+    TodoEntry(date: .now, todo: TodoTestData.todos[1])
+    TodoEntry(date: .now, todo: nil)
 }
 
 #Preview(as: .systemLarge) {
     TodoAppWidget()
 } timeline: {
-    TodoEntry(date: .now, task: TodoTestData.todos[0])
-    TodoEntry(date: .now, task: TodoTestData.todos[1])
-    TodoEntry(date: .now, task: nil)
+    TodoEntry(date: .now, todo: TodoTestData.todos[0])
+    TodoEntry(date: .now, todo: TodoTestData.todos[1])
+    TodoEntry(date: .now, todo: nil)
 }
 
 #Preview(as: .systemExtraLarge) {
     TodoAppWidget()
 } timeline: {
-    TodoEntry(date: .now, task: TodoTestData.todos[0])
-    TodoEntry(date: .now, task: TodoTestData.todos[1])
-    TodoEntry(date: .now, task: nil)
+    TodoEntry(date: .now, todo: TodoTestData.todos[0])
+    TodoEntry(date: .now, todo: TodoTestData.todos[1])
+    TodoEntry(date: .now, todo: nil)
 }

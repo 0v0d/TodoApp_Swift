@@ -10,7 +10,7 @@ import SwiftUI
 
 /// Todoアプリケーションのウィジェットバンドル
 ///
-/// - TodoAppWidget: タスク表示用のメインウィジェット
+/// - TodoAppWidget: Todo表示用のメインウィジェット
 @main
 struct TodoAppWidgetBundle: WidgetBundle {
 

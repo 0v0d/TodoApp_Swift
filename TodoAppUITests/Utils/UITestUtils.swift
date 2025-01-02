@@ -8,10 +8,10 @@ import XCTest
 
 /// UIテストを支援するユーティリティクラス
 ///
-/// `UITestUtils` は、タスクのセットアップ、UI要素の操作、およびアサーションを行うためのヘルパーメソッドを提供します。
+/// `UITestUtils` は、Todoのセットアップ、UI要素の操作、およびアサーションを行うためのヘルパーメソッドを提供します。
 /// このクラスは、`NavigationAndUITests`やその他のUIテストクラスで利用されます。
 final class UITestUtils {
-    private let taskSetup: TaskSetupUtils
+    private let todoSetup: TodoSetupUtils
     private let uiInteraction: UIInteractionUtils
     private let assertions: AssertionsUtils
 
@@ -19,26 +19,26 @@ final class UITestUtils {
     ///
     /// - Parameter app: テスト対象のアプリケーションインスタンス (`XCUIApplication`型)
     init(app: XCUIApplication) {
-        taskSetup = TaskSetupUtils(app: app)
+        todoSetup = TodoSetupUtils(app: app)
         uiInteraction = UIInteractionUtils(app: app)
         assertions = AssertionsUtils(app: app)
     }
 
-    /// テスト用のタスクをセットアップします
+    /// テスト用のTodoをセットアップします
     ///
-    /// - Parameter tasks: 設定するタスク名の配列（デフォルトは ["test"]） (`[String]`型)
-    func setupTasksForTesting(tasks: [String] = ["test"]) {
-        taskSetup.setupTasksForTesting(tasks: tasks)
+    /// - Parameter todos: 設定するTodo名の配列（デフォルトは ["test"]） (`[String]`型)
+    func setupTodosForTesting(todos: [String] = ["test"]) {
+        todoSetup.setupTodosForTesting(todos: todos)
     }
 
-    /// 情報を全て含むタスクをセットアップします
-    func setupTasksAllInformation() {
-        taskSetup.setupTasksAllInformation()
+    /// 情報を全て含むTodoをセットアップします
+    func setupTodosAllInformation() {
+        todoSetup.setupTodosAllInformation()
     }
 
-    /// タスク追加ボタンをタップします
-    func tapAddTaskButton() {
-        uiInteraction.tapAddTaskButton()
+    /// Todo追加ボタンをタップします
+    func tapAddTodoButton() {
+        uiInteraction.tapAddTodoButton()
     }
 
     /// "Save" ボタンをタップします
@@ -51,9 +51,9 @@ final class UITestUtils {
         uiInteraction.tapEditButton()
     }
 
-    /// タスクセルをタップします
-    func tapTaskCell() {
-        uiInteraction.tapTaskCell()
+    /// Todoセルをタップします
+    func tapTodoCell() {
+        uiInteraction.tapTodoCell()
     }
 
     /// 特定のテキストフィールドにテキストを入力します
@@ -105,13 +105,13 @@ final class UITestUtils {
     ///
     /// - Parameter date : 日付 (`DateComponents`型)
     func pickDate(_ date: DateComponents) {
-        taskSetup.pickDate(date)
+        todoSetup.pickDate(date)
     }
 
     /// ステータスピッカーをタップします
     ///
-    /// - Parameter currentStatus : 現在のステータス (`MockTaskStatus`型)
-    func tapStatusPicker(_ currentStatus: MockTaskStatus) {
+    /// - Parameter currentStatus : 現在のステータス (`MockTodoStatus`型)
+    func tapStatusPicker(_ currentStatus: MockTodoStatus) {
         uiInteraction.tapStatusPicker(currentStatus: currentStatus)
     }
 }
