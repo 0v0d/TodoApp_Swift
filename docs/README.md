@@ -98,5 +98,4 @@ TodoApp/
   - 例: `WidgetTaskViewModel.swift`
 
 ## 🎬 **デモ動画**
-アプリの動作を以下の動画で確認できます。
 <img src="app.gif" width="320" alt="アプリのデモ動画">
