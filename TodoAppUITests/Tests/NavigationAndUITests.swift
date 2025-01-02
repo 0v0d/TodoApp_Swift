@@ -9,7 +9,7 @@ import XCTest
 /// アプリケーションのナビゲーションとUI操作に関するUIテストケース
 ///
 /// - Note:
-///  - このクラスでは、タスクリスト画面やタスク追加画面、編集画面間のナビゲーションが正しく動作するかを検証します
+///  - このクラスでは、Todoリスト画面やTodo追加画面、編集画面間のナビゲーションが正しく動作するかを検証します
 ///  - 画面遷移が滑らかに行われるかをメトリクスを用いて測定します
 final class NavigationAndUITests: XCTestCase {
 
@@ -35,17 +35,17 @@ final class NavigationAndUITests: XCTestCase {
         super.tearDown()
     }
 
-    /// 空のビューからタスクを追加することでタスクリストが正しく表示されるかを検証するテスト
+    /// 空のビューからTodoを追加することでTodoリストが正しく表示されるかを検証するテスト
     @MainActor
-    func testAddTaskToDisplayTaskList() {
-        let navigationBar = application.navigationBars[Identifiers.taskListScreen]
+    func testAddTodoToDisplayTodoList() {
+        let navigationBar = application.navigationBars[Identifiers.todoListScreen]
         utils.assertElementExists(navigationBar, exists: true)
 
         let editButton = application.buttons[Identifiers.editButton]
         utils.assertElementExists(editButton, exists: false)
 
-        let addTaskButton = application.buttons[Identifiers.addTaskButton]
-        utils.assertElementExists(addTaskButton, exists: true)
+        let addTodoButton = application.buttons[Identifiers.addTodoButton]
+        utils.assertElementExists(addTodoButton, exists: true)
 
         let emptyIcon = application.images[Identifiers.emptyIcon]
         utils.assertElementExists(emptyIcon, exists: true)
@@ -53,62 +53,62 @@ final class NavigationAndUITests: XCTestCase {
         utils.assertStaticText(identifier: Identifiers.emptyTitle, value: nil)
         utils.assertStaticText(identifier: Identifiers.emptyMessage, value: nil)
 
-        utils.setupTasksForTesting()
+        utils.setupTodosForTesting()
 
-        utils.tapTaskCell()
+        utils.tapTodoCell()
     }
 
-    /// タスクリスト画面とタスク追加画面間の遷移を検証するテスト
+    /// Todoリスト画面とTodo追加画面間の遷移を検証するテスト
     @MainActor
-    func testNavigateBetweenTaskListAndAddScreen() {
-        utils.setupTasksForTesting()
-        utils.tapAddTaskButton()
+    func testNavigateBetweenTodoListAndAddScreen() {
+        utils.setupTodosForTesting()
+        utils.tapAddTodoButton()
 
-        let navgationBar = application.navigationBars[Identifiers.addTaskScreen]
+        let navgationBar = application.navigationBars[Identifiers.addTodoScreen]
         utils.assertElementExists(navgationBar, exists: true)
 
-        verifyTaskFormView()
+        verifyTodoFormView()
     }
 
-    /// タスクの詳細画面と編集画面間の遷移を検証するテスト
+    /// Todoの詳細画面と編集画面間の遷移を検証するテスト
     @MainActor
     func testNavigateBetweenDetailAndEditScreen() {
         let editButton = application.buttons[Identifiers.editButton]
         utils.assertElementExists(editButton, exists: false)
 
-        utils.setupTasksForTesting()
+        utils.setupTodosForTesting()
 
         utils.assertElementExists(editButton, exists: true)
 
-        utils.tapTaskCell()
+        utils.tapTodoCell()
 
-        // タスクの詳細を確認
+        // Todoの詳細を確認
         utils.assertStaticText(identifier: Identifiers.titleLabel, value: "test")
 
         // 編集画面に遷移
         application.buttons[Identifiers.editButton].tap()
 
         // 編集画面の要素を確認
-        let navitionBar = application.navigationBars[Identifiers.editTaskScreen]
+        let navitionBar = application.navigationBars[Identifiers.editTodoScreen]
         utils.assertElementExists(navitionBar, exists: true)
 
-        verifyTaskFormView()
+        verifyTodoFormView()
     }
 
-    /// タスク詳細画面へのナビゲーションが滑らかであることを確認するテスト
+    /// Todo詳細画面へのナビゲーションが滑らかであることを確認するテスト
     @MainActor
-    func testSmoothNavigationTaskDetailScreens() {
+    func testSmoothNavigationTodoDetailScreens() {
         // メトリクスの設定
         let navigationMetric = XCTOSSignpostMetric.navigationTransitionMetric
 
-        // 各実行で新しいタスクを作成し、一貫性のあるテストを実施
-        utils.setupTasksForTesting()
+        // 各実行で新しいTodoを作成し、一貫性のあるテストを実施
+        utils.setupTodosForTesting()
 
         measure(metrics: [navigationMetric]) {
             // 複数の遷移を連続して実行
             for _ in 0..<6 {
 
-                utils.tapTaskCell()
+                utils.tapTodoCell()
 
                 // 戻るボタンで一覧画面に戻る
                 let backButton = application.navigationBars.buttons.element(boundBy: 0)
@@ -117,16 +117,16 @@ final class NavigationAndUITests: XCTestCase {
         }
     }
 
-    /// タスク追加画面へのナビゲーションが滑らかであることを確認するテスト
+    /// Todo追加画面へのナビゲーションが滑らかであることを確認するテスト
     @MainActor
-    func testSmoothNavigationAddTaskScreen() {
+    func testSmoothNavigationAddTodoScreen() {
         // メトリクスの設定
         let navigationMetric = XCTOSSignpostMetric.navigationTransitionMetric
         measure(metrics: [navigationMetric]) {
 
-            let addTaskButton = application.buttons[Identifiers.addTaskButton]
-            utils.assertElementExists(addTaskButton, exists: true)
-            addTaskButton.tap()
+            let addTodoButton = application.buttons[Identifiers.addTodoButton]
+            utils.assertElementExists(addTodoButton, exists: true)
+            addTodoButton.tap()
 
             let titleField = application.textFields[Identifiers.titleLabel]
             utils.assertElementExists(titleField, exists: true)

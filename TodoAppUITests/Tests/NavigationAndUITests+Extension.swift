@@ -7,12 +7,12 @@
 import XCTest
 
 extension NavigationAndUITests {
-    /// タスクフォームビューの各要素が正しく表示され、機能するかを検証します
+    /// Todoフォームビューの各要素が正しく表示され、機能するかを検証します
     ///
     /// - Note:
-    /// - このメソッドでは、タスク追加/編集フォームに含まれる全ての主要なUI要素が正しく存在し、
+    /// - このメソッドでは、Todo追加/編集フォームに含まれる全ての主要なUI要素が正しく存在し、
     /// - それぞれが期待通りに動作することを確認します。
-    func verifyTaskFormView() {
+    func verifyTodoFormView() {
         // "Save" ボタンが存在するか確認
         let saveButton = application.buttons[Identifiers.saveButton]
         utils.assertElementExists(saveButton, exists: true)

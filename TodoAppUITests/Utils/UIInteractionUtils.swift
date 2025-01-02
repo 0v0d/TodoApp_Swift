@@ -19,9 +19,9 @@ final class UIInteractionUtils {
         self.app = app
     }
 
-    /// タスク追加ボタンをタップします
-    func tapAddTaskButton() {
-        app.buttons[Identifiers.addTaskButton].tap()
+    /// Todo追加ボタンをタップします
+    func tapAddTodoButton() {
+        app.buttons[Identifiers.addTodoButton].tap()
     }
 
     /// "Save" ボタンをタップします
@@ -39,15 +39,15 @@ final class UIInteractionUtils {
         editButton.tap()
     }
 
-    /// タスクセルをタップします
+    /// Todoセルをタップします
     ///
     /// 最初のセルを選択し、タップ操作を実行します。
-    func tapTaskCell() {
-        let taskList = app.collectionViews.element(boundBy: 0)
-        XCTAssertTrue(taskList.exists, "Task list should exist")
-        let taskCell = taskList.cells.element(boundBy: 0)
-        XCTAssertTrue(taskCell.exists, "Task cell should exist")
-        taskCell.tap()
+    func tapTodoCell() {
+        let todoList = app.collectionViews.element(boundBy: 0)
+        XCTAssertTrue(todoList.exists, "Todo list should exist")
+        let todoCell = todoList.cells.element(boundBy: 0)
+        XCTAssertTrue(todoCell.exists, "Todo cell should exist")
+        todoCell.tap()
     }
 
     /// テキストフィールドに入力します
@@ -64,7 +64,7 @@ final class UIInteractionUtils {
     /// ステータスピッカーをタップします
     ///
     /// - Parameter currentStatus: 現在のステータス
-    func tapStatusPicker(currentStatus: MockTaskStatus) {
+    func tapStatusPicker(currentStatus: MockTodoStatus) {
         let statusButton = app.buttons[Identifiers.statusLabel + ", " + currentStatus.title]
         XCTAssertTrue(statusButton.exists)
         statusButton.tap()
