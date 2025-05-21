@@ -45,7 +45,7 @@ struct DueDatePickerRow: View {
 
         // 日付または時間を選択するDatePicker
         DatePicker(
-            pickerTitle, // モーダルのタイトル
+            "", // DatePickerのタイトルが必要ないため、空白にする
             selection: Binding(
                 get: { dueDate ?? Date() }, // nilの場合は現在日時をデフォルトに設定
                 set: { newDate in dueDate = newDate } // 選択した値をdueDateに反映
