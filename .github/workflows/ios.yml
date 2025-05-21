@@ -2,7 +2,7 @@ name: iOS workflow
 
 on:
   workflow_call:
-    
+
 jobs:
   build:
     name: Build and Test default scheme using any available iPhone simulator
@@ -19,24 +19,31 @@ jobs:
           echo "Setting Xcode version to $XCODE_VERSION"
           sudo xcode-select -s "/Applications/Xcode_$XCODE_VERSION.app"
           xcodebuild -version
-        
+
       - name: Show Xcode version
         run: xcodebuild -version
-        
+
       - name: List available schemes
         run: xcodebuild -list
-        
+
       - name: Set Simulator Device
         id: set_device
         run: |
-          device=$(xcrun xctrace list devices 2>&1 | grep -oE 'iPhone.*?[^\(]+' | head -1 | awk '{$1=$1;print}' | sed -e "s/ Simulator$//")
-          if [ -z "$device" ]; then
-            echo "Error: No available iOS Simulator found!"
+          # 利用可能な iPhone シミュレータの UDID を最初の一つだけ取得
+          udid=$(
+            xcrun simctl list devices available \
+              | grep -m1 -E 'iPhone[^)]*\) \((Shutdown|Booted)\)' \
+              | grep -oE '[0-9A-F-]{36}'
+          )
+          if [ -z "$udid" ]; then
+            echo "Error: No available iOS Simulator UDID found!"
             exit 1
           fi
-          echo "DEVICE_NAME=$device" >> $GITHUB_ENV
-          echo "Using device: $device"
+          echo "SIMULATOR_UDID=$udid" >> $GITHUB_ENV
+          echo "Using simulator UDID: $udid"
 
       - name: Run Unit Tests
         run: |
-          xcodebuild test -scheme "TodoAppUnitTests" -destination "platform=iOS Simulator,name=${DEVICE_NAME}"
+          xcodebuild test \
+            -scheme "TodoAppUnitTests" \
+            -destination "id=${SIMULATOR_UDID}"
