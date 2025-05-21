@@ -29,14 +29,14 @@ jobs:
       - name: Set Simulator Device
         id: set_device
         run: |
-          # 利用可能な iPhone シミュレータの UDID を最初の一つだけ取得
+          # すべてのシミュレータから最初に見つかった iPhone デバイスの行を取得し、[UDID] 部分だけを抜き出す
           udid=$(
-            xcrun simctl list devices available \
-              | grep -m1 -E 'iPhone[^)]*\) \((Shutdown|Booted)\)' \
-              | grep -oE '[0-9A-F-]{36}'
+            xcrun simctl list devices \
+              | grep -m1 -E 'iPhone.*\((Shutdown|Booted)\)' \
+              | awk -F'[][]' '{ print $2 }'
           )
           if [ -z "$udid" ]; then
-            echo "Error: No available iOS Simulator UDID found!"
+            echo "Error: No available iPhone simulator found!" >&2
             exit 1
           fi
           echo "SIMULATOR_UDID=$udid" >> $GITHUB_ENV
